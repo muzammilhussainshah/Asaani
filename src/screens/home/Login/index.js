@@ -20,8 +20,20 @@ class Login extends React.Component {
     render() {
         const { fields, loading } = this.state
         return (
-            <View style={{flex:1,backgroundColor:"red"}}>
-           
+            <View style={{ flex: 1, backgroundColor: "#fff", justifyContent: "center", alignItems: "center" }}>
+                <Image
+                    style={{ width: "50%", height: "40%",  }}
+                    resizeMode="contain"
+                    source={require('../../../assets/logocopy.png')}
+                />
+                <View style={{}}>
+                    <ActivityIndicator size="large" color="#0C4F7A" />
+                </View>
+                <View style={{marginTop:"5%"}}>
+                    <Text style={{ color: "#0C4F7A", fontWeight: "bold" }}>
+                        Online service to everyone
+                    </Text>
+                </View>
             </View>
         );
     }
