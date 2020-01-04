@@ -6,6 +6,9 @@ import StackNavigation from './src/navigation/StackNavigation'
 
 
 export default class App extends Component {
+  componentWillMount() {
+    console.disableYellowBox = true
+  }
   render() {
     return (
       <Provider store={store}>
