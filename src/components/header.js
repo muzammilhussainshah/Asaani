@@ -6,7 +6,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Drawer from 'react-native-drawer'
 import Icon from 'react-native-vector-icons/Entypo';
-import Header from '../../components/header';
 
 // GoogleSignin.configure({
 //     webClientId: '433343540518-e710u0d5bef1sp5r0oloavaniqnumcm4.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
@@ -14,7 +13,7 @@ import Header from '../../components/header';
 
 let { height, width } = Dimensions.get('window');
 
-class home extends React.Component {
+class Header extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -27,14 +26,18 @@ class home extends React.Component {
     render() {
         const { fields, loading } = this.state
         return (
-            <View style={{ flex: 1, backgroundColor: "red", }}>
 
-              <Header/>
-                <View style={{ flex: 9, backgroundColor: "yellow" }}>
-                   
-                        <Text>aaaaaaaa</Text >
+                <View style={{ flex: 1, backgroundColor: "orange", flexDirection: "row" }}>
+                    <View style={{ flex: 1.5, backgroundColor: "red", justifyContent: "center", alignItems: "center" }}>
+                    <Icon name="menu" size={40} color="#900" />
+                    </View>
+                    <View style={{ flex: 8.5, backgroundColor: "green", justifyContent: "center", alignItems: "center" }}>
+                        <Text style={{ color: "#0C4F7A", fontWeight: "bold" }}>
+                            Online service to everyone
+                    </Text>
+                    </View>
                 </View>
-            </View>
+            
         );
     }
 }
@@ -97,4 +100,4 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(home);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
