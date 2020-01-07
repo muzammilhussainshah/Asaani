@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import { View, StyleSheet, ScrollView, Text, Image, BackHandler, Dimensions, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text, Image, BackHandler, Dimensions, ActivityIndicator } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
 import { bindActionCreators } from 'redux';
 // import { signInWithGoogle,  } from '../../../store/action/action'
@@ -25,19 +25,20 @@ class Header extends React.Component {
     }
     render() {
         const { fields, loading } = this.state
+        const { func } = this.props
         return (
+            <View style={{
+                flex: 1, justifyContent: "flex-start", flexDirection: "row",
+                alignItems: "center", backgroundColor: "#0C4F7A"
+            }}>
+                <TouchableOpacity
+                    onPress={() => { func() }}
+                    style={{ justifyContent: "center", marginHorizontal: "3%" }}>
+                    <Icon name="menu" size={30} style={{ color: "#F5CD54" }} />
+                </TouchableOpacity>
+                <Text style={{ marginLeft: "5%", fontWeight: "bold", color: "white" }}>Home</Text>
+            </View>
 
-                <View style={{ flex: 1, backgroundColor: "orange", flexDirection: "row" }}>
-                    <View style={{ flex: 1.5, backgroundColor: "red", justifyContent: "center", alignItems: "center" }}>
-                    <Icon name="menu" size={40} color="#900" />
-                    </View>
-                    <View style={{ flex: 8.5, backgroundColor: "green", justifyContent: "center", alignItems: "center" }}>
-                        <Text style={{ color: "#0C4F7A", fontWeight: "bold" }}>
-                            Online service to everyone
-                    </Text>
-                    </View>
-                </View>
-            
         );
     }
 }

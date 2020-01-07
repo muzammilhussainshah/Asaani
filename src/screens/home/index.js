@@ -40,11 +40,7 @@ class home extends React.Component {
                 {(this.state.drawer === true) && (
                     <TouchableOpacity
                         activeOpacity={1}
-                        onPress={() => {
-                            this.setState({
-                                drawer: false
-                            })
-                        }}
+                        onPress={() => {this.setState({drawer: false})}}
                         style={{ position: "absolute", height: screenHeight, width: "20%", right: 0, zIndex: 1 }}>
                     </TouchableOpacity>
                 )}
@@ -59,17 +55,7 @@ class home extends React.Component {
                 )}
                 {/* draewaer  */}
                 {/* header */}
-                <View style={{
-                    flex: 1, justifyContent: "flex-start", flexDirection: "row",
-                    alignItems: "center", backgroundColor: "#0C4F7A"
-                }}>
-                    <TouchableOpacity
-                        onPress={() => { this.setState({ drawer: true }) }}
-                        style={{ justifyContent: "center", marginHorizontal: "3%" }}>
-                        <Icon name="menu" size={30} style={{ color: "#F5CD54" }} />
-                    </TouchableOpacity>
-                    <Text style={{ marginLeft: "5%", fontWeight: "bold", color: "white" }}>UMichMart</Text>
-                </View>
+               <Header func={()=>this.setState({drawer: true })}/>
                 {/* header */}
                 {/* body */}
                 <View style={{ flex: 9, backgroundColor: "yellow" }}>
