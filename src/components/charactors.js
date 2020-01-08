@@ -53,7 +53,7 @@ export class Charactors extends Component {
                         resizeMode="contain"
                         style={{ width: "100%", height: "98%",
                     }}
-                        source={require("../assets/charactor.jpg")}
+                        source={require("../assets/1.png")}
                     />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.contentContainer}
@@ -62,7 +62,7 @@ export class Charactors extends Component {
                     <Image
                         resizeMode="contain"
                         style={{ width: "100%", height: "98%" }}
-                        source={require("../assets/charactor.jpg")}
+                        source={require("../assets/1.png")}
                     />
                 </TouchableOpacity>
             </Carousel>

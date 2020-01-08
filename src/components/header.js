@@ -21,24 +21,22 @@ class Header extends React.Component {
     };
     componentWillUnmount() {
         // BackHandler.removeEventListener('hardwareBackPress', BackHandler.exitApp());
-
     }
     render() {
         const { fields, loading } = this.state
-        const { func } = this.props
+        const { func,heading } = this.props
         return (
             <View style={{
-                flex: 1, justifyContent: "flex-start", flexDirection: "row",
-                alignItems: "center", backgroundColor: "#0C4F7A"
+                height:50, justifyContent: "flex-start", flexDirection: "row",
+                alignItems: "center", borderBottomColor: "#0C4F7A",borderBottomWidth:0.5,
             }}>
                 <TouchableOpacity
                     onPress={() => { func() }}
                     style={{ justifyContent: "center", marginHorizontal: "3%" }}>
-                    <Icon name="menu" size={30} style={{ color: "#F5CD54" }} />
+                    <Icon name="menu" size={30} style={{ color: "#fff" }} />
                 </TouchableOpacity>
-                <Text style={{ marginLeft: "5%", fontWeight: "bold", color: "white" }}>Home</Text>
+                <Text style={{ marginLeft: "5%", fontWeight: "bold", color: "#fff" }}>{heading}</Text>
             </View>
-
         );
     }
 }
