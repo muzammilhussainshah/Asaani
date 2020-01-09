@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Drawer from '../../components/drawer'
 import Icon from 'react-native-vector-icons/Entypo';
+import SlideDownCatogery from '../../components/SlideDownCatogery';
 import Header from '../../components/header';
 import Charactors from '../../components/charactors';
 let { height, width } = Dimensions.get('window');
@@ -13,7 +14,9 @@ class home extends React.Component {
         this.state = {
             drawer: false,
             slideStyle: "slideInLeft",
-            screenHeight: ""
+            screenHeight: "",
+            catogery: false,
+
         }
     };
     componentWillMount() {
@@ -40,6 +43,11 @@ class home extends React.Component {
 
                 style={{ width: '100%', height: '100%' }}>
                 <View style={{ flex: 1, }}>
+                    {/* slidedown catogery  */}
+                    {/* {(this.state.catogery === true) && (
+                        <SlideDownCatogery/>
+                    )} */}
+                    {/* slidedown catogery  */}
                     {/* //drawer close view// */}
                     {(this.state.drawer === true) && (
                         <TouchableOpacity
@@ -59,7 +67,7 @@ class home extends React.Component {
                     )}
                     {/* draewaer  */}
                     {/* header */}
-                    <Header func={() => this.setState({ drawer: true })} heading="Home"/>
+                    <Header func={() => this.setState({ drawer: true })} heading="Home" />
                     {/* header */}
                     {/* body */}
                     <View style={{ flex: 9, }}>
@@ -67,20 +75,22 @@ class home extends React.Component {
                             <Charactors />
                         </View>
                         <View style={{ flex: 2, justifyContent: "center", alignItems: "center" }}>
-                            <TouchableOpacity style={{
-                                shadowColor: "#000",
-                                shadowOffset: {
-                                    width: 0,
-                                    height: 1,
-                                },
-                                shadowOpacity: 0.22,
-                                shadowRadius: 2.22,
-                                borderRadius: 5,
-                                elevation: 3,
-                                backgroundColor: "#fff", justifyContent: "center",
-                                alignItems: "center", width: "80%", height: 40,
-                                flexDirection: "row",
-                            }}>
+                            <TouchableOpacity
+                                onPress={() => this.setState({ catogery: true })}
+                                style={{
+                                    shadowColor: "#000",
+                                    shadowOffset: {
+                                        width: 0,
+                                        height: 1,
+                                    },
+                                    shadowOpacity: 0.22,
+                                    shadowRadius: 2.22,
+                                    borderRadius: 5,
+                                    elevation: 3,
+                                    backgroundColor: "#fff", justifyContent: "center",
+                                    alignItems: "center", width: "80%", height: 40,
+                                    flexDirection: "row",
+                                }}>
                                 <Image
                                     resizeMode="contain"
                                     style={{ width: 30, height: 30, flex: 1 }}

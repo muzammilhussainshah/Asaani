@@ -15,7 +15,7 @@ class checkout extends React.Component {
         this.state = {
             drawer: false,
             slideStyle: "slideInLeft",
-            screenHeight: ""
+            screenHeight: "",
         }
     };
     componentWillMount() {
@@ -43,7 +43,7 @@ class checkout extends React.Component {
                 style={{ width: '100%', height: '100%' }}>
 
                 <View style={{ flex: 1, }}>
-
+                   
                     {/* //drawer close view// */}
                     {(this.state.drawer === true) && (
                         <TouchableOpacity
@@ -66,7 +66,7 @@ class checkout extends React.Component {
                     <Header func={() => this.setState({ drawer: true })} heading="Checkout" />
                     {/* header */}
                     {/* body */}
-                    <View style={{ flex: 1,  }}>
+                    <View style={{ flex: 1, }}>
                         <ScrollView>
                             <View style={{ alignItems: "center" }}>
                                 <AntDesign name="shoppingcart" size={60} style={{ color: "#fff" }} />
