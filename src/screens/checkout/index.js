@@ -80,8 +80,27 @@ class checkout extends React.Component {
                                 <Text style={{ flex: 3, fontSize: 16, color: "#fff", fontWeight: "bold" }}>250 Rs </Text>
                             </View>
                             <View style={{ alignItems: "center", marginTop: 15 }}>
-                                <View
+                            <View
                                     style={{ width: "90%", borderColor: "white", borderWidth: 0.3, borderRadius: 5, paddingHorizontal: 15 }}
+                                >
+                                    <TextInput
+                                        // placeholderTextColor='#fff'
+                                        // value={this.state[value[1]]}
+                                        placeholder={"Name"}
+                                        keyboardAppearance='default'
+                                        autoCapitalize='none' returnKeyType='next'
+                                        style={{}} autoCorrect={false}
+                                    // onChangeText={companyName => {
+                                    //     this.setState({ [value[1]]: companyName }, () => {
+                                    //         console.log("con", this.state.companyName, this.state.email, this.state.password, this.state.cnfpassword)
+                                    //     })
+                                    // }}
+                                    />
+                                </View>
+
+
+                                <View
+                                    style={{ marginTop: 10, width: "90%", borderColor: "white", borderWidth: 0.3, borderRadius: 5, paddingHorizontal: 15 }}
                                 >
                                     <TextInput
                                         // placeholderTextColor='#fff'

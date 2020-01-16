@@ -53,7 +53,7 @@ class home extends React.Component {
                         <TouchableOpacity
                             activeOpacity={1}
                             onPress={() => { this.setState({ drawer: false }) }}
-                            style={{ position: "absolute", height: screenHeight, width: "20%", right: 0, zIndex: 1 }}>
+                            style={{ position: "absolute", height: screenHeight, width: "30%", right: 0, zIndex: 1 }}>
                         </TouchableOpacity>
                     )}
                     {/* //drawer close view// */}

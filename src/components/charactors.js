@@ -26,23 +26,23 @@ export class Charactors extends Component {
                 delay={2000}
                 style={this.state.size}
                 autoplay={false}
-                pageInfo
+                // pageInfo
                 isLooped={false}
-                // leftArrowText={'⇦'}
-                // leftArrowStyle={{
-                //     fontSize: 50, margin: 20, color: '#ead2ba',
-                //     textShadowOffset: { width: 2, height: 2 },
-                //     textShadowRadius: 1,
-                //     textShadowColor: '#000',
-                // }}
-                // rightArrowText={'⇨'}
-                // rightArrowStyle={{
-                //     fontSize: 50, margin: 20, color: '#ead2ba',
-                //     textShadowOffset: { width: 2, height: 2 },
-                //     textShadowRadius: 1,
-                //     textShadowColor: '#000',
-                // }}
-                // arrows
+                leftArrowText={'⇦'}
+                leftArrowStyle={{
+                    fontSize: 50, margin: 20, color: '#F5CD54',
+                    textShadowOffset: { width: 2, height: 2 },
+                    textShadowRadius: 1,
+                    textShadowColor: '#000',
+                }}
+                rightArrowText={'⇨'}
+                rightArrowStyle={{
+                    fontSize: 50, margin: 20, color: '#F5CD54',
+                    textShadowOffset: { width: 2, height: 2 },
+                    textShadowRadius: 1,
+                    textShadowColor: '#000',
+                }}
+                arrows
                 onAnimateNextPage={(p) => (p)}
             >
                 <TouchableOpacity style={styles.contentContainer}

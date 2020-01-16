@@ -8,6 +8,9 @@ import {
 import SplashScreen from '../screens/SplashScreen';
 import home from '../screens/home';
 import checkout from '../screens/checkout';
+import about from '../screens/about';
+import faqs from '../screens/faqs';
+import contactUs from '../screens/contactUs';
 // import SignUp from '../screens/home/SignUp';
 
 
@@ -16,6 +19,9 @@ const StackNavigator = createStackNavigator({
     SplashScreen: { screen: SplashScreen },
     home: { screen: home },
     checkout: { screen: checkout },
+    about: { screen: about },
+    faqs: { screen: faqs },
+    contactUs: { screen: contactUs },
     // Home: { screen: Home },
     // SignUp: { screen: SignUp },
 }, {
