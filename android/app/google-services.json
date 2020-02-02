@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "409719703832",
+    "firebase_url": "https://asaani-app.firebaseio.com",
+    "project_id": "asaani-app",
+    "storage_bucket": "asaani-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:409719703832:android:661b5b403669ebf406766d",
+        "android_client_info": {
+          "package_name": "com.asaani"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "409719703832-rbljjl0c9siftj1v9d6en51f1jr9alsv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWoqDS4eRRe72wEIivTdEOhM6j48guGxw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "409719703832-rbljjl0c9siftj1v9d6en51f1jr9alsv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
