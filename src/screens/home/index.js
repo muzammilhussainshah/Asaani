@@ -91,15 +91,24 @@ class home extends React.Component {
                                     alignItems: "center", width: "80%", height: 40,
                                     flexDirection: "row",
                                 }}>
-                                <Image
+                                {/* <Image
                                     resizeMode="contain"
-                                    style={{ width: 30, height: 30, flex: 1 }}
+                                    style={{ width: 30, height: 30, }}
                                     source={require('../../assets/charactor.jpg')}
                                 />
-                                <Text style={{ color: "#0C4F7A", fontWeight: "bold", flex: 2 }}>AC mechanic</Text>
-                                <Text style={{ color: "#0C4F7A", fontWeight: "bold", flex: 2 }}>250 Rs</Text>
-                                <Icon name="chevron-small-down" size={30} style={{ color: "#515659" }} />
-
+                                <Text style={{ color: "#0C4F7A", fontWeight: "bold",  }}>AC mechanic</Text> */}
+                                {/* <Text style={{ color: "#0C4F7A", fontWeight: "bold", flex: 2 }}>250 Rs</Text> */}
+                                {/* <Icon name="chevron-small-down" size={30} style={{ color: "#515659" }} /> */}
+                                <View style={{backgroundColor:"red",width:"10%"}}>
+                                    <Image
+                                    resizeMode="contain"
+                                    style={{ width: 30, height: 30, }}
+                                    source={require('../../assets/charactor.jpg')}
+                                />
+                                </View>
+                                <View style={{backgroundColor:"yellow",width:"90%",}}>
+                                    <Text style={{ color: "#0C4F7A", fontWeight: "bold",textAlign:"center"  }}>Ac repairing man</Text>
+                                </View>
                             </TouchableOpacity>
                             <TouchableOpacity
                                 onPress={() => this.props.navigation.navigate("checkout")}
@@ -114,11 +123,10 @@ class home extends React.Component {
                                     shadowRadius: 2.22,
                                     borderRadius: 5,
                                     elevation: 3,
-                                    backgroundColor: "#F5CD54", justifyContent: "center",
-                                    alignItems: "center", width: "80%", height: 40
+                                    backgroundColor: "#F5CD54", width: "80%", height: 40,justifyContent:"center"
                                 }}
                             >
-                                <Text style={{ color: "white", fontWeight: "bold" }}>Book now</Text>
+                                <Text style={{ color: "white", fontWeight: "bold",textAlign:"center" }}>Book now</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

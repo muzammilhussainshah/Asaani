@@ -53,7 +53,7 @@ export class Charactors extends Component {
                         resizeMode="contain"
                         style={{ width: "100%", height: "98%",
                     }}
-                        source={require("../assets/1.png")}
+                        source={require("../assets/AcTechnician.png")}
                     />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.contentContainer}
@@ -62,7 +62,52 @@ export class Charactors extends Component {
                     <Image
                         resizeMode="contain"
                         style={{ width: "100%", height: "98%" }}
-                        source={require("../assets/1.png")}
+                        source={require("../assets/Carpenter.png")}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.contentContainer}
+                    activeOpacity={0.5}
+                >
+                    <Image
+                        resizeMode="contain"
+                        style={{ width: "100%", height: "98%" }}
+                        source={require("../assets/Electrician.png")}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.contentContainer}
+                    activeOpacity={0.5}
+                >
+                    <Image
+                        resizeMode="contain"
+                        style={{ width: "100%", height: "98%" }}
+                        source={require("../assets/Fumigation.png")}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.contentContainer}
+                    activeOpacity={0.5}
+                >
+                    <Image
+                        resizeMode="contain"
+                        style={{ width: "100%", height: "98%" }}
+                        source={require("../assets/Laundry.png")}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.contentContainer}
+                    activeOpacity={0.5}
+                >
+                    <Image
+                        resizeMode="contain"
+                        style={{ width: "100%", height: "98%" }}
+                        source={require("../assets/Painter.png")}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.contentContainer}
+                    activeOpacity={0.5}
+                >
+                    <Image
+                        resizeMode="contain"
+                        style={{ width: "100%", height: "98%" }}
+                        source={require("../assets/Plumber.png")}
                     />
                 </TouchableOpacity>
             </Carousel>

@@ -71,11 +71,11 @@ class About extends React.Component {
                     <Header func={() => this.setState({ drawer: true })} heading="About" />
                     {/* header */}
                     {/* body */}
-                    <View style={{ flex: 9, padding: 8 }}>
+                    <View style={{ flex: 9, padding: 8, }}>
                         <ScrollView>
                             <View >
                                 <Image
-                                    style={{ width: "100%", height: 200 }}
+                                    style={{ width: "100%", height: 200,}}
                                     // style={{height:200}}
                                     // resizeMode="contain"
                                     source={require('../../assets/about1.jpg')} />

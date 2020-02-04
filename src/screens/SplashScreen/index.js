@@ -34,9 +34,9 @@ class SplashScreen extends React.Component {
                 <View style={{}}>
                     <ActivityIndicator size="large" color="#0C4F7A" />
                 </View>
-                <View style={{marginTop:"5%"}}>
-                    <Text style={{ color: "#0C4F7A", fontWeight: "bold" }}>
-                        Online service to everyone
+                <View style={{marginTop:"5%",width:"100%",}}>
+                    <Text style={{ color: "#0C4F7A",textAlign:"center", fontWeight: "bold",width:"100%" }}>
+                        {'Online service to everyone'}
                     </Text>
                 </View>
             </View>
