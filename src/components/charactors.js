@@ -49,7 +49,7 @@ export class Charactors extends Component {
                 onPageBeingChanged={(p) => func(p)}
             >
                 <TouchableOpacity style={styles.contentContainer}
-                    onPress={() => alert("work")}
+                    // onPress={() => alert("work")}
                     activeOpacity={0.5}
                 >
                     <Image

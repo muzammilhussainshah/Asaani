@@ -14,75 +14,55 @@ const charactorBtn = [
     <Image resizeMode="contain" style={{ width: "100%", }} source={require("../../assets/c5.png")} />,
     <Image resizeMode="contain" style={{ width: "100%", }} source={require("../../assets/c6.png")} />,
 ]
-// const profession=[
-//     {
-//         ServiceChild:["Inverter","Non-Inverter"],
-//         ServiceGrandChild:["Maintenance","Installation"],
-//         DataOfServices:[{icon:"",price:"",title:""},"Installation"],
-//     }, 
-// ]
-// const profession = [
-//     {
-//         Inverter: [
-//             {
-
-//                 Maintenance: [
-//                     {
-//                         price: "12000", title: "AC Compressor Change"
-//                     },
-//                     {
-//                         price: "1000", title: "AC Countinuous Trip"
-//                     },
-
-//                 ],
-//                 Installation: {
-//                     icon: "", price: "", title: ""
-//                 }
-//             },
-//             // {
-//             //     Installation: {
-//             //         icon: "", price: "", title: ""
-//             //     }
-//             // }
-//         ],
-
-//         "Non-Inverter": [
-//             {
-
-//                 Maintenance: {
-//                     icon: "", price: "", title: ""
-//                 },
-//                 Installation: {
-//                     icon: "", price: "", title: ""
-//                 }
-//             },
-//         ]
-//     },
-// ]
-
-
 const profession = [
     // ac technitian
     {
         Invertor: {
-            Installation: [
-                { title: "AC Compressor Change", price: "250" },
-                { title: "AC Countinuous Trip", price: "20" },
-            ],
             Maintenance: [
-                { title: "AC Compressor Change", price: "250" },
-                { title: "AC Countinuous Trip", price: "20" },
+                { title: "AC Compressor Change", price: "12000" },
+                { title: "AC Countinuous Trip", price: "1000" },
+                { title: "AC Icing", price: "1000" },
+                { title: "AC water leak", price: "1000" },
+                { title: "Gas Filling 1 Ton", price: "4800" },
+                { title: "Gas Filling 2 Ton", price: "7200" },
+                { title: "General Service", price: "1000" },
+                { title: "Diagnostic Visit", price: "400" },
+                { title: "Inverter Capacitor change", price: "800" },
+                { title: "Inverter Repair Fan", price: "3500" },
+                { title: "Inverter Repair circuit", price: "8000" },
+                { title: "Inverter valve replacement", price: "1800" },
+                { title: "Master Service", price: "1750" },
+                { title: "Gas Filling 1.5 Ton", price: "5200" },
+
             ],
+            Installation: [
+                { title: "Installation", price: "2700" },
+                { title: "AC Dismantle", price: "1000" },
+                { title: "Installation (Higher than the 2nd floor)", price: "3200" },
+            ],
+          
         },
         "Non-Invertor": {
-            Installation: [
-                { title: "AC Compressor Change", price: "250" },
-                { title: "AC Countinuous Trip", price: "20" },
-            ],
             Maintenance: [
-                { title: "AC Compressor Change", price: "250" },
-                { title: "AC Countinuous Trip", price: "20" },
+                { title: "AC Circuit Repair (Regular AC)", price: "3000" },
+                { title: "AC Circuit Replace (Regular AC)", price: "3000" },
+                { title: "AC Compressor Change", price: "12000" },
+                { title: "AC Countinuous Trip", price: "1000" },
+                { title: "AC Icing", price: "1000" },
+                { title: "AC water leak", price: "1000" },
+                { title: "Gas Filling 1 Ton", price: "2800" },
+                { title: "Gas Filling 2 Ton", price: "4200" },
+                { title: "General Service", price: "1000" },
+                { title: "Diagnostic Visit", price: "400" },
+                { title: "Master Service", price: "1750" },
+                { title: "Gas Filling 1.5 Ton", price: "3200" },
             ],
+            Installation: [
+                { title: "Installation", price: "2000" },
+                { title: "AC Dismantle", price: "1000" },
+                { title: "Installation (Higher than the 2nd floor)", price: "2500" },
+            ],
+         
         }
     },
     // Carpenter
@@ -90,12 +70,44 @@ const profession = [
         route:"AvailService",
         Bed:
             [
-                { title: "carpenter", price: "300" },
-                { title: "AC Countinuous Trip", price: "900" },
+                { title: "Bed Dismantle", price: "500" },
+                { title: "Bed Repair", price: "600" },
             ],
         Cabinet: [
-            { title: "carpenter", price: "500" },
-            { title: "AC Countinuous Trip", price: "600" },
+            { title: "Cabinet Handle replacement", price: "150" },
+            { title: "Cabinet hinge repair", price: "400" },
+        ],
+        Door: [
+            { title: "Door Catcher magnet", price: "300" },
+            { title: "Door Chatakni", price: "300" },
+            { title: "Door Glass fix", price: "50" },
+            { title: "Door Handle & Lock replacement", price: "600" },
+            { title: "Door Installation Sliding", price: "120" },
+            { title: "Door Kundi/Latches replacement", price: "500" },
+            { title: "Door Chokhat Repair (disfuguration)", price: "500" },
+            { title: "Door Chokhat Stopper", price: "500" },
+            { title: "Wooden Door Installation with lock", price: "500" },
+        ],
+        Drawer: [
+            { title: "Drawer Channel Replacement", price: "500" },
+            { title: "Drawer Lock Change", price: "250" },
+           
+        ],
+        Installation: [
+            { title: "Art work or Mirror Installation", price: "200" },
+            { title: "Curtain Rod Installation", price: "300" },
+            { title: "Mosquito netting", price: "80" },
+            { title: "Shelf Installation", price: "600" },
+           
+        ],
+        Polish: [
+            { title: "Furniture Polish-Varnishing", price: "1000" },
+            { title: "Laquer", price: "1" },
+        ],
+        Window: [
+            { title: "Window Glass fix", price: "50" },
+            { title: "Window Installation Sliding", price: "150" },
+            { title: "Wooden Window Installation", price: "120" },
         ],
     },
 ]
@@ -154,8 +166,8 @@ class home extends React.Component {
                             />
                         </View>
                         <View style={{ flex: 2, justifyContent: "center", alignItems: "center" }}>
-                            <TouchableOpacity
-                                onPress={() => this.setState({ catogery: true })}
+                            <View
+                                // onPress={() => this.setState({ catogery: true })}
                                 style={{
                                     shadowColor: "#000",
                                     shadowOffset: {
@@ -174,7 +186,7 @@ class home extends React.Component {
                                 {/* charactor btn */}
                                 {charactorBtn[charactor]}
 
-                            </TouchableOpacity>
+                            </View>
                             <TouchableOpacity
                                 onPress={() => this.props.navigation.navigate("Service", { profession: profession[charactor] })}
                                 style={{

@@ -7,6 +7,8 @@ import Icon from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Header from '../../components/header';
 import Charactors from '../../components/charactors';
+import axios from 'axios';
+
 // import { ScrollView } from 'react-native-gesture-handler';
 let { height, width } = Dimensions.get('window');
 class checkout extends React.Component {
@@ -64,7 +66,30 @@ class checkout extends React.Component {
                 break
             }
         }
-        {verify&&console.log("order place successfully",obj)}
+        {
+            verify && console.log("order place successfully", obj)
+            var options = {
+                method: 'POST',
+                url: `http://192.168.10.14:5000/sendEmail/`,
+                headers:
+                {
+                    'cache-control': 'no-cache',
+                    "Allow-Cross-Origin": '*',
+                },
+                data: obj
+            };
+            axios(options)
+                .then((data) => {
+                    console.log(data, "SEND_EMAIL_SUCCESSFULLY")
+                }).catch((err) => {
+                    console.log(err, "ERROR_ON_SEND_EMAIL_")
+
+                })
+
+
+
+
+        }
         console.log(obj, "checkoiut form goes to email")
     }
     render() {
@@ -95,7 +120,7 @@ class checkout extends React.Component {
                     )}
                     {/* draewaer  */}
                     {/* header */}
-                    <Header func={() => this.setState({ drawer: true })} heading="Checkout" />
+                    <Header func={() => this.setState({ drawer: true })} />
                     {/* header */}
                     {/* body */}
                     <View style={{ flex: 1, }}>
@@ -103,13 +128,13 @@ class checkout extends React.Component {
                             <View style={{ alignItems: "center" }}>
                                 <AntDesign name="shoppingcart" size={60} style={{ color: "#fff" }} />
                             </View>
-                            <View style={{ flexDirection: "row", paddingHorizontal: 22 }}>
-                                <Text style={{ flex: 7, fontSize: 16, color: "#fff" }}>Service </Text>
-                                <Text style={{ flex: 3, fontSize: 16, color: "#fff", fontWeight: "bold" }}>{basket.title} </Text>
+                            <View style={{ flexDirection: "row", paddingVertical: 5, paddingHorizontal: 22, borderBottomColor: "#fff", borderBottomWidth: 0.3 }}>
+                                <Text style={{ flex: 5, fontSize: 16, color: "#fff" }}>Service </Text>
+                                <Text style={{ flex: 5, fontSize: 16, color: "#fff", fontWeight: "bold" }}>{basket.title} </Text>
                             </View>
-                            <View style={{ flexDirection: "row", paddingHorizontal: 22 }}>
-                                <Text style={{ flex: 7, fontSize: 16, color: "#fff" }}>Total </Text>
-                                <Text style={{ flex: 3, fontSize: 16, color: "#fff", fontWeight: "bold" }}>Rs {basket.price} </Text>
+                            <View style={{ marginTop: 5, flexDirection: "row", paddingHorizontal: 22 }}>
+                                <Text style={{ flex: 5, fontSize: 16, color: "#fff" }}>Total </Text>
+                                <Text style={{ flex: 5, fontSize: 16, color: "#fff", fontWeight: "bold" }}>Rs {basket.price} </Text>
                             </View>
                             <View style={{ alignItems: "center", marginTop: 15 }}>
                                 <View

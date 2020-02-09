@@ -43,7 +43,7 @@ class AvailServiceRow extends React.Component {
                     </View>
                 </View>
                 <View style={{ flex: 1.5, alignItems: "center" }}>
-                    <Ionicons name="ios-arrow-forward" size={60} style={{ color: "#235071" }} />
+                    <Ionicons name="ios-arrow-forward" size={35} style={{ color: "#235071" }} />
                 </View>
             </TouchableOpacity>
         );

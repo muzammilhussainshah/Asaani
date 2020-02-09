@@ -38,7 +38,7 @@ class ServiceRow extends React.Component {
                     <Text style={{ marginLeft: 5, fontWeight: "bold", fontSize: 16 }}> {title} </Text>
                 </View>
                 <View style={{ flex: 1.5, alignItems: "center" }}>
-                    <Ionicons name="ios-arrow-forward" size={60} style={{ color: "#235071" }} />
+                    <Ionicons name="ios-arrow-forward" size={35} style={{ color: "#235071" }} />
                 </View>
             </TouchableOpacity>
         );
