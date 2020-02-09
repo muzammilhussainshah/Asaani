@@ -3,21 +3,107 @@ import { View, StyleSheet, Text, Dimensions, TouchableOpacity, Image, ImageBackg
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Drawer from '../../components/drawer'
-import Icon from 'react-native-vector-icons/Entypo';
-import SlideDownCatogery from '../../components/SlideDownCatogery';
 import Header from '../../components/header';
 import Charactors from '../../components/charactors';
-let { height, width } = Dimensions.get('window');
+const charactorBtn = [
+    <Image resizeMode="contain" style={{ width: "100%", }} source={require("../../assets/c0.png")} />,
+    <Image resizeMode="contain" style={{ width: "100%", }} source={require("../../assets/c1.png")} />,
+    <Image resizeMode="contain" style={{ width: "100%", }} source={require("../../assets/c2.png")} />,
+    <Image resizeMode="contain" style={{ width: "100%", }} source={require("../../assets/c3.png")} />,
+    <Image resizeMode="contain" style={{ width: "100%", }} source={require("../../assets/c4.png")} />,
+    <Image resizeMode="contain" style={{ width: "100%", }} source={require("../../assets/c5.png")} />,
+    <Image resizeMode="contain" style={{ width: "100%", }} source={require("../../assets/c6.png")} />,
+]
+// const profession=[
+//     {
+//         ServiceChild:["Inverter","Non-Inverter"],
+//         ServiceGrandChild:["Maintenance","Installation"],
+//         DataOfServices:[{icon:"",price:"",title:""},"Installation"],
+//     }, 
+// ]
+// const profession = [
+//     {
+//         Inverter: [
+//             {
+
+//                 Maintenance: [
+//                     {
+//                         price: "12000", title: "AC Compressor Change"
+//                     },
+//                     {
+//                         price: "1000", title: "AC Countinuous Trip"
+//                     },
+
+//                 ],
+//                 Installation: {
+//                     icon: "", price: "", title: ""
+//                 }
+//             },
+//             // {
+//             //     Installation: {
+//             //         icon: "", price: "", title: ""
+//             //     }
+//             // }
+//         ],
+
+//         "Non-Inverter": [
+//             {
+
+//                 Maintenance: {
+//                     icon: "", price: "", title: ""
+//                 },
+//                 Installation: {
+//                     icon: "", price: "", title: ""
+//                 }
+//             },
+//         ]
+//     },
+// ]
+
+
+const profession = [
+    // ac technitian
+    {
+        Invertor: {
+            Installation: [
+                { title: "AC Compressor Change", price: "250" },
+                { title: "AC Countinuous Trip", price: "20" },
+            ],
+            Maintenance: [
+                { title: "AC Compressor Change", price: "250" },
+                { title: "AC Countinuous Trip", price: "20" },
+            ],
+        },
+        "Non-Invertor": {
+            Installation: [
+                { title: "AC Compressor Change", price: "250" },
+                { title: "AC Countinuous Trip", price: "20" },
+            ],
+            Maintenance: [
+                { title: "AC Compressor Change", price: "250" },
+                { title: "AC Countinuous Trip", price: "20" },
+            ],
+        }
+    },
+    // Carpenter
+    {
+        route:"AvailService",
+        Bed:
+            [
+                { title: "carpenter", price: "300" },
+                { title: "AC Countinuous Trip", price: "900" },
+            ],
+        Cabinet: [
+            { title: "carpenter", price: "500" },
+            { title: "AC Countinuous Trip", price: "600" },
+        ],
+    },
+]
+
 class home extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            drawer: false,
-            slideStyle: "slideInLeft",
-            screenHeight: "",
-            catogery: false,
-
-        }
+        this.state = { drawer: false, slideStyle: "slideInLeft", screenHeight: "", catogery: false, charactor: "0" }
     };
     componentWillMount() {
         var { height, width } = Dimensions.get('window');
@@ -29,25 +115,17 @@ class home extends React.Component {
         // BackHandler.removeEventListener('hardwareBackPress', BackHandler.exitApp());
     }
     animateParent(fals) {
-        console.log(fals, "9999999999999999")
         setTimeout(() => {
-            this.setState({
-                drawer: false
-            })
+            this.setState({ drawer: false })
         }, 250);
     }
     render() {
-        const { fields, loading, screenHeight } = this.state
+        const { fields, loading, screenHeight, charactor } = this.state
         return (
             <ImageBackground source={require("../../assets/gradient.jpg")}
 
                 style={{ width: '100%', height: '100%' }}>
                 <View style={{ flex: 1, }}>
-                    {/* slidedown catogery  */}
-                    {/* {(this.state.catogery === true) && (
-                        <SlideDownCatogery/>
-                    )} */}
-                    {/* slidedown catogery  */}
                     {/* //drawer close view// */}
                     {(this.state.drawer === true) && (
                         <TouchableOpacity
@@ -56,7 +134,6 @@ class home extends React.Component {
                             style={{ position: "absolute", height: screenHeight, width: "30%", right: 0, zIndex: 1 }}>
                         </TouchableOpacity>
                     )}
-                    {/* //drawer close view// */}
                     {/* draewaer  */}
                     {(this.state.drawer === true) && (
                         <Drawer
@@ -65,14 +142,16 @@ class home extends React.Component {
                             animateParent={this.animateParent.bind(this)}
                         />
                     )}
-                    {/* draewaer  */}
                     {/* header */}
-                    <Header func={() => this.setState({ drawer: true })} heading="Home" />
-                    {/* header */}
+                    <Header func={() => this.setState({ drawer: true })}
+                    // heading="Home"
+                    />
                     {/* body */}
                     <View style={{ flex: 9, }}>
                         <View style={{ flex: 8, justifyContent: "center", alignItems: "center" }}>
-                            <Charactors />
+                            <Charactors
+                                func={(index) => { this.setState({ charactor: index }) }}
+                            />
                         </View>
                         <View style={{ flex: 2, justifyContent: "center", alignItems: "center" }}>
                             <TouchableOpacity
@@ -86,32 +165,18 @@ class home extends React.Component {
                                     shadowOpacity: 0.22,
                                     shadowRadius: 2.22,
                                     borderRadius: 5,
-                                    elevation: 3,
-                                    backgroundColor: "#fff", justifyContent: "center",
+                                    elevation: 0,
+                                    justifyContent: "center",
                                     alignItems: "center", width: "80%", height: 40,
                                     flexDirection: "row",
                                 }}>
-                                {/* <Image
-                                    resizeMode="contain"
-                                    style={{ width: 30, height: 30, }}
-                                    source={require('../../assets/charactor.jpg')}
-                                />
-                                <Text style={{ color: "#0C4F7A", fontWeight: "bold",  }}>AC mechanic</Text> */}
-                                {/* <Text style={{ color: "#0C4F7A", fontWeight: "bold", flex: 2 }}>250 Rs</Text> */}
-                                {/* <Icon name="chevron-small-down" size={30} style={{ color: "#515659" }} /> */}
-                                <View style={{backgroundColor:"red",width:"10%"}}>
-                                    <Image
-                                    resizeMode="contain"
-                                    style={{ width: 30, height: 30, }}
-                                    source={require('../../assets/charactor.jpg')}
-                                />
-                                </View>
-                                <View style={{backgroundColor:"yellow",width:"90%",}}>
-                                    <Text style={{ color: "#0C4F7A", fontWeight: "bold",textAlign:"center"  }}>Ac repairing man</Text>
-                                </View>
+
+                                {/* charactor btn */}
+                                {charactorBtn[charactor]}
+
                             </TouchableOpacity>
                             <TouchableOpacity
-                                onPress={() => this.props.navigation.navigate("checkout")}
+                                onPress={() => this.props.navigation.navigate("Service", { profession: profession[charactor] })}
                                 style={{
                                     marginTop: 5,
                                     shadowColor: "#000",
@@ -122,18 +187,19 @@ class home extends React.Component {
                                     shadowOpacity: 0.22,
                                     shadowRadius: 2.22,
                                     borderRadius: 5,
-                                    elevation: 3,
-                                    backgroundColor: "#F5CD54", width: "80%", height: 40,justifyContent:"center"
-                                }}
-                            >
-                                <Text style={{ color: "white", fontWeight: "bold",textAlign:"center" }}>Book now</Text>
+                                    elevation: 0,
+                                    width: "80%", height: 40, justifyContent: "center"
+                                }}>
+                                <Image
+                                    resizeMode="contain"
+                                    style={{ width: "100%", }}
+                                    source={require("../../assets/Book-Now-Button.png")}
+                                />
                             </TouchableOpacity>
                         </View>
                     </View>
-                    {/* body */}
                 </View>
             </ImageBackground>
-
         );
     }
 }

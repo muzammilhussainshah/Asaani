@@ -16,14 +16,22 @@ class checkout extends React.Component {
             drawer: false,
             slideStyle: "slideInLeft",
             screenHeight: "",
+            err: false,
+            errMessage: "",
         }
     };
+
+
     componentWillMount() {
+        let basket = this.props.navigation.getParam("data")
+        console.log(basket, "checkout page")
         var { height, width } = Dimensions.get('window');
         this.setState({
             screenHeight: height,
+            basket,
         })
     }
+
     componentWillUnmount() {
         // BackHandler.removeEventListener('hardwareBackPress', BackHandler.exitApp());
     }
@@ -35,15 +43,39 @@ class checkout extends React.Component {
             })
         }, 250);
     }
+    order() {
+        const { Name, Address, Description, Phone, basket } = this.state
+
+        let obj = {
+            Name, Address, Phone, Description, basket
+        }
+        let verify = true
+        for (var key in obj) {
+            if (!obj[key]) {
+                this.setState({
+                    err: true, errMessage: key
+                })
+                setTimeout(() => {
+                    this.setState({
+                        err: false, errMessage: ""
+                    })
+                }, 5000);
+                verify = false
+                break
+            }
+        }
+        {verify&&console.log("order place successfully",obj)}
+        console.log(obj, "checkoiut form goes to email")
+    }
     render() {
-        const { fields, loading, screenHeight } = this.state
+        const { fields, loading, screenHeight, basket, err, errMessage } = this.state
         return (
             <ImageBackground source={require("../../assets/gradient.jpg")}
 
                 style={{ width: '100%', height: '100%' }}>
 
                 <View style={{ flex: 1, }}>
-                   
+
                     {/* //drawer close view// */}
                     {(this.state.drawer === true) && (
                         <TouchableOpacity
@@ -73,14 +105,14 @@ class checkout extends React.Component {
                             </View>
                             <View style={{ flexDirection: "row", paddingHorizontal: 22 }}>
                                 <Text style={{ flex: 7, fontSize: 16, color: "#fff" }}>Service </Text>
-                                <Text style={{ flex: 3, fontSize: 16, color: "#fff", fontWeight: "bold" }}>Ac mechanic </Text>
+                                <Text style={{ flex: 3, fontSize: 16, color: "#fff", fontWeight: "bold" }}>{basket.title} </Text>
                             </View>
                             <View style={{ flexDirection: "row", paddingHorizontal: 22 }}>
                                 <Text style={{ flex: 7, fontSize: 16, color: "#fff" }}>Total </Text>
-                                <Text style={{ flex: 3, fontSize: 16, color: "#fff", fontWeight: "bold" }}>250 Rs </Text>
+                                <Text style={{ flex: 3, fontSize: 16, color: "#fff", fontWeight: "bold" }}>Rs {basket.price} </Text>
                             </View>
                             <View style={{ alignItems: "center", marginTop: 15 }}>
-                            <View
+                                <View
                                     style={{ width: "90%", borderColor: "white", borderWidth: 0.3, borderRadius: 5, paddingHorizontal: 15 }}
                                 >
                                     <TextInput
@@ -90,6 +122,8 @@ class checkout extends React.Component {
                                         keyboardAppearance='default'
                                         autoCapitalize='none' returnKeyType='next'
                                         style={{}} autoCorrect={false}
+                                        onChangeText={Name => { this.setState({ Name }) }}
+
                                     // onChangeText={companyName => {
                                     //     this.setState({ [value[1]]: companyName }, () => {
                                     //         console.log("con", this.state.companyName, this.state.email, this.state.password, this.state.cnfpassword)
@@ -109,6 +143,8 @@ class checkout extends React.Component {
                                         keyboardAppearance='default'
                                         autoCapitalize='none' returnKeyType='next'
                                         style={{}} autoCorrect={false}
+                                        onChangeText={Address => { this.setState({ Address }) }}
+
                                     // onChangeText={companyName => {
                                     //     this.setState({ [value[1]]: companyName }, () => {
                                     //         console.log("con", this.state.companyName, this.state.email, this.state.password, this.state.cnfpassword)
@@ -126,11 +162,7 @@ class checkout extends React.Component {
                                         keyboardAppearance='default'
                                         autoCapitalize='none' returnKeyType='next'
                                         style={{}} autoCorrect={false}
-                                    // onChangeText={companyName => {
-                                    //     this.setState({ [value[1]]: companyName }, () => {
-                                    //         console.log("con", this.state.companyName, this.state.email, this.state.password, this.state.cnfpassword)
-                                    //     })
-                                    // }}
+                                        onChangeText={Phone => { this.setState({ Phone }) }}
                                     />
                                 </View>
                                 <View
@@ -143,6 +175,8 @@ class checkout extends React.Component {
                                         keyboardAppearance='default'
                                         autoCapitalize='none' returnKeyType='next'
                                         style={{}} autoCorrect={false}
+                                        onChangeText={Description => { this.setState({ Description }) }}
+
                                     // onChangeText={companyName => {
                                     //     this.setState({ [value[1]]: companyName }, () => {
                                     //         console.log("con", this.state.companyName, this.state.email, this.state.password, this.state.cnfpassword)
@@ -153,7 +187,7 @@ class checkout extends React.Component {
                             </View>
                             <View style={{ alignItems: "center", marginTop: "5%" }}>
                                 <TouchableOpacity
-                                    onPress={() => this.props.navigation.navigate("checkout")}
+                                    onPress={() => this.order()}
                                     style={{
                                         marginTop: 5,
                                         shadowColor: "#000",
@@ -171,6 +205,10 @@ class checkout extends React.Component {
                                 >
                                     <Text style={{ color: "white", fontWeight: "bold" }}>Confirm order</Text>
                                 </TouchableOpacity>
+                                {
+                                    err &&
+                                    <Text style={{ color: "red", marginTop: 10 }}>{errMessage}is required</Text>
+                                }
                             </View>
                         </ScrollView>
                     </View>
