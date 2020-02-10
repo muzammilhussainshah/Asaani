@@ -32,7 +32,7 @@ export class Charactors extends Component {
                 leftArrowText={'<'}
                 leftArrowStyle={{
                     fontSize: 50, margin: 20,
-                    // color: '#F5CD54',
+                    color: '#F5CD54',
                     // textShadowOffset: { width: 2, height: 2 },
                     // textShadowRadius: 1,
                     // textShadowColor: '#000',
@@ -40,7 +40,7 @@ export class Charactors extends Component {
                 rightArrowText={'>'}
                 rightArrowStyle={{
                     fontSize: 50, margin: 20,
-                    //  color: '#F5CD54',
+                     color: '#F5CD54',
                     // textShadowOffset: { width: 2, height: 2 },
                     // textShadowRadius: 1,
                     // textShadowColor: '#000',

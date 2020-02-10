@@ -1,6 +1,7 @@
 
 import ActionTypes from '../constant/constant';
 // import firebase from 'react-native-firebase'
+import axios from 'axios';
 
 
 //login user 
@@ -24,7 +25,27 @@ export function login(user) {
         })
     }
 }
+export function createOrder(obj) {
+    return dispatch => {
+        var options = {
+            method: 'POST',
+            url: `https://thawing-tor-85190.herokuapp.com/sendEmail/`,
+            headers:
+            {
+                'cache-control': 'no-cache',
+                "Allow-Cross-Origin": '*',
+            },
+            data: obj
+        };
+        axios(options)
+            .then((data) => {
+                console.log(data, "SEND_EMAIL_SUCCESSFULLY")
+            }).catch((err) => {
+                console.log(err, "ERROR_ON_SEND_EMAIL_")
 
+            })
+    }
+}
 
 export function userSignUp(user) {
     return dispatch => {

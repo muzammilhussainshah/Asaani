@@ -8,6 +8,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Header from '../../components/header';
 import Charactors from '../../components/charactors';
 import axios from 'axios';
+import { createOrder } from "../../store/action/action"
 
 // import { ScrollView } from 'react-native-gesture-handler';
 let { height, width } = Dimensions.get('window');
@@ -67,28 +68,7 @@ class checkout extends React.Component {
             }
         }
         {
-            verify && console.log("order place successfully", obj)
-            var options = {
-                method: 'POST',
-                url: `http://192.168.10.14:5000/sendEmail/`,
-                headers:
-                {
-                    'cache-control': 'no-cache',
-                    "Allow-Cross-Origin": '*',
-                },
-                data: obj
-            };
-            axios(options)
-                .then((data) => {
-                    console.log(data, "SEND_EMAIL_SUCCESSFULLY")
-                }).catch((err) => {
-                    console.log(err, "ERROR_ON_SEND_EMAIL_")
-
-                })
-
-
-
-
+            verify && this.props.createOrder(obj)
         }
         console.log(obj, "checkoiut form goes to email")
     }
@@ -254,13 +234,14 @@ function mapStateToProps(states) {
     return ({
     })
 }
-
 function mapDispatchToProps(dispatch) {
-    return {
-        actions: bindActionCreators({
-            // signInWithGoogle, login
-        }, dispatch)
-    }
+    return ({
+        createOrder: (obj) => {
+            dispatch(createOrder(obj));
+        },
+
+    })
 }
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(checkout);
