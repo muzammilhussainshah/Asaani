@@ -48,7 +48,6 @@ class checkout extends React.Component {
     }
     order() {
         const { Name, Address, Description, Phone, basket } = this.state
-
         let obj = {
             Name, Address, Phone, Description, basket
         }

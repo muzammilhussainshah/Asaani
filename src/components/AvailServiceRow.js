@@ -32,7 +32,7 @@ class AvailServiceRow extends React.Component {
                         style={{ width: "100%", height: 200, }}
                         // style={{height:200}}
                         resizeMode="contain"
-                        source={require('../assets/logo.jpg')} />
+                        source={require('../assets/logocopy.png')} />
                 </View>
                 <View style={{ flex: 7,  }}>
                     <View>
