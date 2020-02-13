@@ -42,7 +42,6 @@ export function createOrder(obj) {
                 console.log(data, "SEND_EMAIL_SUCCESSFULLY")
             }).catch((err) => {
                 console.log(err, "ERROR_ON_SEND_EMAIL_")
-
             })
     }
 }

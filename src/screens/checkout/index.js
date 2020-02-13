@@ -102,22 +102,22 @@ class checkout extends React.Component {
                     <Header func={() => this.setState({ drawer: true })} />
                     {/* header */}
                     {/* body */}
-                    <View style={{ flex: 1, }}>
+                    <View style={{ flex: 1,backgroundColor:"white" }}>
                         <ScrollView>
                             <View style={{ alignItems: "center" }}>
-                                <AntDesign name="shoppingcart" size={60} style={{ color: "#fff" }} />
+                                <AntDesign name="shoppingcart" size={60} style={{ color: "black" }} />
                             </View>
-                            <View style={{ flexDirection: "row", paddingVertical: 5, paddingHorizontal: 22, borderBottomColor: "#fff", borderBottomWidth: 0.3 }}>
-                                <Text style={{ flex: 5, fontSize: 16, color: "#fff" }}>Service </Text>
-                                <Text style={{ flex: 5, fontSize: 16, color: "#fff", fontWeight: "bold" }}>{basket.title} </Text>
+                            <View style={{ flexDirection: "row", paddingVertical: 5, paddingHorizontal: 22, borderBottomColor: "black", borderBottomWidth: 0.3 }}>
+                                <Text style={{ flex: 5, fontSize: 16, color: "black" }}>Service </Text>
+                                <Text style={{ flex: 5, fontSize: 16, color: "black", fontWeight: "bold" }}>{basket.title} </Text>
                             </View>
                             <View style={{ marginTop: 5, flexDirection: "row", paddingHorizontal: 22 }}>
-                                <Text style={{ flex: 5, fontSize: 16, color: "#fff" }}>Total </Text>
-                                <Text style={{ flex: 5, fontSize: 16, color: "#fff", fontWeight: "bold" }}>Rs {basket.price} </Text>
+                                <Text style={{ flex: 5, fontSize: 16, color: "black" }}>Total </Text>
+                                <Text style={{ flex: 5, fontSize: 16, color: "black", fontWeight: "bold" }}>Rs {basket.price} </Text>
                             </View>
                             <View style={{ alignItems: "center", marginTop: 15 }}>
                                 <View
-                                    style={{ width: "90%", borderColor: "white", borderWidth: 0.3, borderRadius: 5, paddingHorizontal: 15 }}
+                                    style={{ width: "90%", borderColor: "black", borderWidth: 0.3, borderRadius: 5, paddingHorizontal: 15 }}
                                 >
                                     <TextInput
                                         // placeholderTextColor='#fff'
@@ -138,7 +138,7 @@ class checkout extends React.Component {
 
 
                                 <View
-                                    style={{ marginTop: 10, width: "90%", borderColor: "white", borderWidth: 0.3, borderRadius: 5, paddingHorizontal: 15 }}
+                                    style={{ marginTop: 10, width: "90%", borderColor: "black", borderWidth: 0.3, borderRadius: 5, paddingHorizontal: 15 }}
                                 >
                                     <TextInput
                                         // placeholderTextColor='#fff'
@@ -157,7 +157,7 @@ class checkout extends React.Component {
                                     />
                                 </View>
                                 <View
-                                    style={{ marginTop: 10, width: "90%", borderColor: "white", borderWidth: 0.3, borderRadius: 5, paddingHorizontal: 15 }}
+                                    style={{ marginTop: 10, width: "90%", borderColor: "black", borderWidth: 0.3, borderRadius: 5, paddingHorizontal: 15 }}
                                 >
                                     <TextInput
                                         // placeholderTextColor='#fff'
@@ -170,7 +170,7 @@ class checkout extends React.Component {
                                     />
                                 </View>
                                 <View
-                                    style={{ marginTop: 10, width: "90%", borderColor: "white", borderWidth: 0.3, borderRadius: 5, paddingHorizontal: 15 }}
+                                    style={{ marginTop: 10, width: "90%", borderColor: "black", borderWidth: 0.3, borderRadius: 5, paddingHorizontal: 15 }}
                                 >
                                     <TextInput
                                         // placeholderTextColor='#fff'
