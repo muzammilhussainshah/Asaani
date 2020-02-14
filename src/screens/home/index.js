@@ -274,8 +274,6 @@ const profession = [
                 { title: "Toilet Seat Fixing", price: "300" },
             ],
     },
-
-
 ]
 
 class home extends React.Component {

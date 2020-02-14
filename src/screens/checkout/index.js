@@ -6,8 +6,7 @@ import Drawer from '../../components/drawer'
 import Icon from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Header from '../../components/header';
-import Charactors from '../../components/charactors';
-import axios from 'axios';
+import DatePicker from 'react-native-datepicker'
 import { createOrder } from "../../store/action/action"
 
 // import { ScrollView } from 'react-native-gesture-handler';
@@ -21,6 +20,7 @@ class checkout extends React.Component {
             screenHeight: "",
             err: false,
             errMessage: "",
+            date: "2020-03-15"
         }
     };
 
@@ -102,7 +102,7 @@ class checkout extends React.Component {
                     <Header func={() => this.setState({ drawer: true })} />
                     {/* header */}
                     {/* body */}
-                    <View style={{ flex: 1,backgroundColor:"white" }}>
+                    <View style={{ flex: 1, backgroundColor: "white" }}>
                         <ScrollView>
                             <View style={{ alignItems: "center" }}>
                                 <AntDesign name="shoppingcart" size={60} style={{ color: "black" }} />
@@ -186,6 +186,34 @@ class checkout extends React.Component {
                                     //         console.log("con", this.state.companyName, this.state.email, this.state.password, this.state.cnfpassword)
                                     //     })
                                     // }}
+                                    />
+                                </View>
+                                <View
+                                    style={{ marginTop: 10, width: "90%", borderColor: "black", borderWidth: 0.3, borderRadius: 5, paddingHorizontal: 15 }}
+                                >
+                                    <DatePicker
+                                        style={{ width: 200 }}
+                                        date={this.state.date}
+                                        mode="date"
+                                        placeholder="Booking Slot"
+                                        format="YYYY-MM-DD"
+                                        minDate="2016-05-01"
+                                        maxDate="2016-06-01"
+                                        confirmBtnText="Confirm"
+                                        cancelBtnText="Cancel"
+                                        customStyles={{
+                                            dateIcon: {
+                                                position: 'absolute',
+                                                left: 0,
+                                                top: 4,
+                                                marginLeft: 0
+                                            },
+                                            dateInput: {
+                                                marginLeft: 36
+                                            }
+                                            // ... You can check the source to find the other keys.
+                                        }}
+                                        onDateChange={(date) => { this.setState({ date: date }) }}
                                     />
                                 </View>
                             </View>
