@@ -20,7 +20,7 @@ class checkout extends React.Component {
             screenHeight: "",
             err: false,
             errMessage: "",
-            date: "2020-03-15"
+            date: ""
         }
     };
 
@@ -47,9 +47,9 @@ class checkout extends React.Component {
         }, 250);
     }
     order() {
-        const { Name, Address, Description, Phone, basket } = this.state
+        const { Name, Address, Description, Phone, basket, date } = this.state
         let obj = {
-            Name, Address, Phone, Description, basket
+            Name, Address, Phone, Description, basket, date
         }
         let verify = true
         for (var key in obj) {
@@ -69,15 +69,22 @@ class checkout extends React.Component {
         {
             verify && this.props.createOrder(obj)
         }
-        console.log(obj, "checkoiut form goes to email")
     }
+
     render() {
         const { fields, loading, screenHeight, basket, err, errMessage } = this.state
         return (
             <ImageBackground source={require("../../assets/gradient.jpg")}
 
                 style={{ width: '100%', height: '100%' }}>
+                {(!this.props.test) ? (
+                    <View>
+                        <Text>
+                            sss
+    </Text>
+                    </View>
 
+                ) : (null)}
                 <View style={{ flex: 1, }}>
 
                     {/* //drawer close view// */}
@@ -104,20 +111,34 @@ class checkout extends React.Component {
                     {/* body */}
                     <View style={{ flex: 1, backgroundColor: "white" }}>
                         <ScrollView>
-                            <View style={{ alignItems: "center" }}>
+                            <View style={{
+                                backgroundColor: "rgba(0, 0, 0, 0.1)",
+                                shadowColor: "#000",
+                                shadowOffset: {
+                                    width: 0,
+                                    height: 1,
+                                },
+                                shadowOpacity: 0.20,
+                                shadowRadius: 1.41,
+
+                                elevation: 3,
+                            }}>
+
+                                {/* <View style={{ alignItems: "center" }}>
                                 <AntDesign name="shoppingcart" size={60} style={{ color: "black" }} />
-                            </View>
-                            <View style={{ flexDirection: "row", paddingVertical: 5, paddingHorizontal: 22, borderBottomColor: "black", borderBottomWidth: 0.3 }}>
-                                <Text style={{ flex: 5, fontSize: 16, color: "black" }}>Service </Text>
-                                <Text style={{ flex: 5, fontSize: 16, color: "black", fontWeight: "bold" }}>{basket.title} </Text>
-                            </View>
-                            <View style={{ marginTop: 5, flexDirection: "row", paddingHorizontal: 22 }}>
-                                <Text style={{ flex: 5, fontSize: 16, color: "black" }}>Total </Text>
-                                <Text style={{ flex: 5, fontSize: 16, color: "black", fontWeight: "bold" }}>Rs {basket.price} </Text>
+                            </View> */}
+                                <View style={{ flexDirection: "row", paddingVertical: 5, paddingHorizontal: 22, borderBottomColor: "black", borderBottomWidth: 0.3 }}>
+                                    <AntDesign name="shoppingcart" size={60} style={{ flex: 5, color: "black" }} />
+                                    <Text style={{ flex: 5, fontSize: 16, color: "black", fontWeight: "bold", alignSelf: "center" }}>{basket.title} </Text>
+                                </View>
+                                <View style={{ marginTop: 5, flexDirection: "row", paddingHorizontal: 22 }}>
+                                    <Text style={{ flex: 5, fontSize: 16, color: "black" }}>Total </Text>
+                                    <Text style={{ flex: 5, fontSize: 16, color: "black", fontWeight: "bold" }}>Rs {basket.price} </Text>
+                                </View>
                             </View>
                             <View style={{ alignItems: "center", marginTop: 15 }}>
                                 <View
-                                    style={{ width: "90%", borderColor: "black", borderWidth: 0.3, borderRadius: 5, paddingHorizontal: 15 }}
+                                    style={{ width: "90%", borderBottomColor: "black", borderBottomWidth: 0.3, borderRadius: 5, paddingHorizontal: 15 }}
                                 >
                                     <TextInput
                                         // placeholderTextColor='#fff'
@@ -138,7 +159,7 @@ class checkout extends React.Component {
 
 
                                 <View
-                                    style={{ marginTop: 10, width: "90%", borderColor: "black", borderWidth: 0.3, borderRadius: 5, paddingHorizontal: 15 }}
+                                    style={{ marginTop: 10, width: "90%", borderBottomColor: "black", borderBottomWidth: 0.3, borderRadius: 5, paddingHorizontal: 15 }}
                                 >
                                     <TextInput
                                         // placeholderTextColor='#fff'
@@ -157,7 +178,7 @@ class checkout extends React.Component {
                                     />
                                 </View>
                                 <View
-                                    style={{ marginTop: 10, width: "90%", borderColor: "black", borderWidth: 0.3, borderRadius: 5, paddingHorizontal: 15 }}
+                                    style={{ marginTop: 10, width: "90%", borderBottomColor: "black", borderBottomWidth: 0.3, borderRadius: 5, paddingHorizontal: 15 }}
                                 >
                                     <TextInput
                                         // placeholderTextColor='#fff'
@@ -170,7 +191,7 @@ class checkout extends React.Component {
                                     />
                                 </View>
                                 <View
-                                    style={{ marginTop: 10, width: "90%", borderColor: "black", borderWidth: 0.3, borderRadius: 5, paddingHorizontal: 15 }}
+                                    style={{ marginTop: 10, width: "90%", borderBottomColor: "black", borderBottomWidth: 0.3, borderRadius: 5, paddingHorizontal: 15 }}
                                 >
                                     <TextInput
                                         // placeholderTextColor='#fff'
@@ -189,16 +210,16 @@ class checkout extends React.Component {
                                     />
                                 </View>
                                 <View
-                                    style={{ marginTop: 10, width: "90%", borderColor: "black", borderWidth: 0.3, borderRadius: 5, paddingHorizontal: 15 }}
+                                    style={{ marginTop: 10, width: "90%", borderBottomColor: "black", borderBottomWidth: 0.3, borderRadius: 5, paddingHorizontal: 15 }}
                                 >
                                     <DatePicker
-                                        style={{ width: 200 }}
+                                        style={{ width: "100%", }}
                                         date={this.state.date}
                                         mode="date"
                                         placeholder="Booking Slot"
                                         format="YYYY-MM-DD"
-                                        minDate="2016-05-01"
-                                        maxDate="2016-06-01"
+                                        // minDate="2016-05-01"
+                                        // maxDate="2016-06-01"
                                         confirmBtnText="Confirm"
                                         cancelBtnText="Cancel"
                                         customStyles={{
@@ -209,6 +230,7 @@ class checkout extends React.Component {
                                                 marginLeft: 0
                                             },
                                             dateInput: {
+                                                borderColor: "black", borderWidth: 0,
                                                 marginLeft: 36
                                             }
                                             // ... You can check the source to find the other keys.
@@ -216,6 +238,29 @@ class checkout extends React.Component {
                                         onDateChange={(date) => { this.setState({ date: date }) }}
                                     />
                                 </View>
+                                <View
+                                    style={{ marginTop: 10, width: "90%", borderBottomColor: "black", borderBottomWidth: 0.3, borderRadius: 5, paddingHorizontal: 15 }}
+                                >
+                                    <TextInput
+                                        // placeholderTextColor='#fff'
+                                        // value={this.state[value[1]]}
+                                        placeholder={"Do you have any discount coupon?"}
+                                        keyboardAppearance='default'
+                                        autoCapitalize='none' returnKeyType='next'
+                                        style={{}} autoCorrect={false}
+                                        onChangeText={coupon => { this.setState({ coupon }) }}
+
+                                    // onChangeText={companyName => {
+                                    //     this.setState({ [value[1]]: companyName }, () => {
+                                    //         console.log("con", this.state.companyName, this.state.email, this.state.password, this.state.cnfpassword)
+                                    //     })
+                                    // }}
+                                    />
+                                </View>
+                                {/* {
+                                    err &&
+                                    <Text style={{ color: "red", marginTop: 10 }}>Invalid coupon</Text>
+                                } */}
                             </View>
                             <View style={{ alignItems: "center", marginTop: "5%" }}>
                                 <TouchableOpacity
@@ -229,17 +274,17 @@ class checkout extends React.Component {
                                         },
                                         shadowOpacity: 0.22,
                                         shadowRadius: 2.22,
-                                        borderRadius: 5,
+                                        // borderRadius: 5,
                                         elevation: 3,
                                         backgroundColor: "#F5CD54", justifyContent: "center",
-                                        alignItems: "center", width: "80%", height: 40
+                                        alignItems: "center", width: "100%", height: 50
                                     }}
                                 >
-                                    <Text style={{ color: "white", fontWeight: "bold" }}>Confirm order</Text>
+                                    <Text style={{ color: "white", }}>Confirm order</Text>
                                 </TouchableOpacity>
                                 {
                                     err &&
-                                    <Text style={{ color: "red", marginTop: 10 }}>{errMessage}is required</Text>
+                                    <Text style={{ color: "red", marginTop: 10 }}>{errMessage} is required</Text>
                                 }
                             </View>
                         </ScrollView>
@@ -247,7 +292,6 @@ class checkout extends React.Component {
                     {/* body */}
                 </View>
             </ImageBackground>
-
         );
     }
 }
@@ -257,11 +301,25 @@ const styles = StyleSheet.create({
     },
 })
 
-function mapStateToProps(states) {
+// function mapStateToProp(state) {
+//     return ({
+//         test: state.root.test,
+
+//     })
+// }
+
+
+
+
+
+function mapStateToProp(state) {
     return ({
+
+        test: state.root.test,
+
     })
 }
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProp(dispatch) {
     return ({
         createOrder: (obj) => {
             dispatch(createOrder(obj));
@@ -270,5 +328,4 @@ function mapDispatchToProps(dispatch) {
     })
 }
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(checkout);
+export default connect(mapStateToProp, mapDispatchToProp)(checkout);

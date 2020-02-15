@@ -40,6 +40,8 @@ export function createOrder(obj) {
         axios(options)
             .then((data) => {
                 console.log(data, "SEND_EMAIL_SUCCESSFULLY")
+                dispatch({ type: ActionTypes.THANKYOUFORORDER, payload: true })
+
             }).catch((err) => {
                 console.log(err, "ERROR_ON_SEND_EMAIL_")
             })

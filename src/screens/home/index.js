@@ -387,6 +387,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(states) {
     return ({
+        USERDATA: states.root.USERDATA,
+
     })
 }
 
