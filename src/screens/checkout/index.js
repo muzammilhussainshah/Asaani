@@ -26,6 +26,7 @@ class checkout extends React.Component {
             date: "",
             coupon: "",
             modalVisible: true,
+            discountPkg: ""
         }
     };
 
@@ -77,7 +78,7 @@ class checkout extends React.Component {
     }
 
     render() {
-        const { fields, loading, screenHeight, basket, err, errMessage, modalVisible, coupon } = this.state
+        const { fields, loading, screenHeight, basket, err, errMessage, discountPkg, coupon } = this.state
         const { appLoader, thankYou, discountFrmDb } = this.props
         console.log(discountFrmDb, "coupon")
         console.log(discountFrmDb[0]["coupon expiry date"], "coupon",
@@ -139,7 +140,7 @@ class checkout extends React.Component {
                                 </View>
                                 <View style={{ marginTop: 5, flexDirection: "row", paddingHorizontal: 22 }}>
                                     <Text style={{ flex: 5, fontSize: 16, color: "black" }}>Total </Text>
-                                    <Text style={{ flex: 5, fontSize: 16, color: "black", fontWeight: "bold" }}>Rs {basket.price} </Text>
+                                    <Text style={{ flex: 5, fontSize: 16, color: "black", fontWeight: "bold" }}>Rs {discountPkg ? basket.price - basket.price / 100 * discountPkg : basket.price} </Text>
                                 </View>
                             </View>
                             <View style={{ alignItems: "center", marginTop: 15 }}>
@@ -255,8 +256,14 @@ class checkout extends React.Component {
                                         autoCapitalize='none' returnKeyType='next'
                                         style={{}} autoCorrect={false}
                                         onChangeText={coupon => {
-                                            
-                                            this.setState({ coupon }) }}
+
+
+                                            this.setState({
+                                                coupon,
+                                                discountPkg: (discountFrmDb[0]["coupon code"] === coupon && coupon !== "" &&
+                                                    new Date(discountFrmDb[0]["coupon expiry date"]).getTime() - new Date().getTime() > 1) ? discountFrmDb[0]["discount ammount in %"] : "",
+                                            })
+                                        }}
 
                                     // onChangeText={companyName => {
                                     //     this.setState({ [value[1]]: companyName }, () => {
@@ -271,21 +278,21 @@ class checkout extends React.Component {
                                             Invalid coupon<AntDesign name="close" size={20} style={{ flex: 5, color: "red" }} />
                                         </Text> :
                                         (discountFrmDb[0]["coupon code"] === coupon && coupon !== ""
-                                        &&(new Date(discountFrmDb[0]["coupon expiry date"]).getTime() - new Date().getTime()>1)
+                                            && (new Date(discountFrmDb[0]["coupon expiry date"]).getTime() - new Date().getTime() > 1)
                                         ) ?
-                                        
+
                                             <Text style={{ color: "green", marginTop: 10 }}>
                                                 Activated<AntDesign name="check" size={20} style={{ flex: 5, color: "green" }} />
-                                            </Text> 
-                                            
-                                            
+                                            </Text>
+
+
                                             :
-                                               (discountFrmDb[0]["coupon code"] === coupon && coupon !== "")
-                                               &&(new Date(discountFrmDb[0]["coupon expiry date"]).getTime() - new Date().getTime()<0)?
-                                               <Text style={{ color: "red", marginTop: 10 }}>
-                                                your coupon is expired<AntDesign name="close" size={20} style={{ flex: 5, color: "red" }} />
-                                            </Text> : 
-                                            null
+                                            (discountFrmDb[0]["coupon code"] === coupon && coupon !== "")
+                                                && (new Date(discountFrmDb[0]["coupon expiry date"]).getTime() - new Date().getTime() < 0) ?
+                                                <Text style={{ color: "red", marginTop: 10 }}>
+                                                    your coupon is expired<AntDesign name="close" size={20} style={{ flex: 5, color: "red" }} />
+                                                </Text> :
+                                                null
                                 }
                             </View>
                             <View style={{ alignItems: "center", marginTop: "5%" }}>
