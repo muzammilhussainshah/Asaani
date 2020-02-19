@@ -1,13 +1,16 @@
 import React, { useReducer } from 'react';
-import { View, StyleSheet, Text, Dimensions, TouchableOpacity, TextInput, ImageBackground, ScrollView, Image } from 'react-native';
+import { View, StyleSheet, Text, Dimensions, TouchableOpacity, TextInput, ImageBackground, ScrollView, Image, Modal,ActivityIndicator } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Drawer from '../../components/drawer'
+import ThankYou from '../../components/ThankYou'
 import Icon from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Header from '../../components/header';
 import DatePicker from 'react-native-datepicker'
 import { createOrder } from "../../store/action/action"
+import * as Animatable from 'react-native-animatable';
 
 // import { ScrollView } from 'react-native-gesture-handler';
 let { height, width } = Dimensions.get('window');
@@ -20,7 +23,8 @@ class checkout extends React.Component {
             screenHeight: "",
             err: false,
             errMessage: "",
-            date: ""
+            date: "",
+            modalVisible: true,
         }
     };
 
@@ -72,19 +76,17 @@ class checkout extends React.Component {
     }
 
     render() {
-        const { fields, loading, screenHeight, basket, err, errMessage } = this.state
+        const { fields, loading, screenHeight, basket, err, errMessage,modalVisible } = this.state
+        const { appLoader,thankYou } = this.props
+
         return (
             <ImageBackground source={require("../../assets/gradient.jpg")}
 
                 style={{ width: '100%', height: '100%' }}>
-                {(!this.props.test) ? (
-                    <View>
-                        <Text>
-                            sss
-    </Text>
-                    </View>
-
+                {(thankYou) ? (
+                    <ThankYou  modalState={thankYou} navigation={this.props.navigation} />
                 ) : (null)}
+
                 <View style={{ flex: 1, }}>
 
                     {/* //drawer close view// */}
@@ -263,25 +265,49 @@ class checkout extends React.Component {
                                 } */}
                             </View>
                             <View style={{ alignItems: "center", marginTop: "5%" }}>
-                                <TouchableOpacity
-                                    onPress={() => this.order()}
-                                    style={{
-                                        marginTop: 5,
-                                        shadowColor: "#000",
-                                        shadowOffset: {
-                                            width: 0,
-                                            height: 1,
-                                        },
-                                        shadowOpacity: 0.22,
-                                        shadowRadius: 2.22,
-                                        // borderRadius: 5,
-                                        elevation: 3,
-                                        backgroundColor: "#F5CD54", justifyContent: "center",
-                                        alignItems: "center", width: "100%", height: 50
-                                    }}
-                                >
-                                    <Text style={{ color: "white", }}>Confirm order</Text>
-                                </TouchableOpacity>
+                                {appLoader ?
+                                     <View
+                                    //  onPress={() => this.order()}
+                                     style={{
+                                         marginTop: 5,
+                                         shadowColor: "#000",
+                                         shadowOffset: {
+                                             width: 0,
+                                             height: 1,
+                                         },
+                                         shadowOpacity: 0.22,
+                                         shadowRadius: 2.22,
+                                         // borderRadius: 5,
+                                         elevation: 3,
+                                         backgroundColor: "#F5CD54", justifyContent: "center",
+                                         alignItems: "center", width: "100%", height: 50
+                                     }}
+                                 >
+                                                  <ActivityIndicator style={styles.row1} size={25} color="white" />
+
+                                 </View>
+                                     :
+                                    <TouchableOpacity
+                                        onPress={() => this.order()}
+                                        style={{
+                                            marginTop: 5,
+                                            shadowColor: "#000",
+                                            shadowOffset: {
+                                                width: 0,
+                                                height: 1,
+                                            },
+                                            shadowOpacity: 0.22,
+                                            shadowRadius: 2.22,
+                                            // borderRadius: 5,
+                                            elevation: 3,
+                                            backgroundColor: "#F5CD54", justifyContent: "center",
+                                            alignItems: "center", width: "100%", height: 50
+                                        }}
+                                    >
+                                        <Text style={{ color: "white", }}>Confirm order</Text>
+                                    </TouchableOpacity>
+                                }
+
                                 {
                                     err &&
                                     <Text style={{ color: "red", marginTop: 10 }}>{errMessage} is required</Text>
@@ -315,7 +341,8 @@ const styles = StyleSheet.create({
 function mapStateToProp(state) {
     return ({
 
-        test: state.root.test,
+        thankYou: state.root.thankYou,
+        appLoader: state.root.appLoader,
 
     })
 }

@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import { View, StyleSheet, Text, Dimensions, TouchableOpacity, Image, ImageBackground } from 'react-native';
+import { View, StyleSheet, Text, Dimensions, TouchableOpacity, Image, ImageBackground, BackHandler } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Drawer from '../../components/drawer'
@@ -14,6 +14,7 @@ const charactorBtn = [
     <Image resizeMode="contain" style={{ width: "100%", }} source={require("../../assets/c5.png")} />,
     <Image resizeMode="contain" style={{ width: "100%", }} source={require("../../assets/c6.png")} />,
 ]
+
 const profession = [
     // ac technitian
     {
@@ -178,27 +179,27 @@ const profession = [
                 { title: "Medium size washing", price: "40" },
                 { title: "Large size washing", price: "50" },
             ],
-            Shirt:
+        Shirt:
             [
                 { title: "Small size washing", price: "30" },
                 { title: "Medium size washing", price: "40" },
                 { title: "Large size washing", price: "50" },
             ],
-            Kurta:
+        Kurta:
             [
                 { title: "Small size washing", price: "30" },
                 { title: "Medium size washing", price: "40" },
                 { title: "Large size washing", price: "50" },
             ],
-            Pajama:
+        Pajama:
             [
                 { title: "Small size washing", price: "30" },
                 { title: "Medium size washing", price: "40" },
                 { title: "Large size washing", price: "50" },
             ],
     },
-       // Painter
-       {
+    // Painter
+    {
         route: "AvailService",
         Painter:
             [
@@ -210,27 +211,27 @@ const profession = [
                 { title: "Water Base Matt sq.ft", price: "25" },
                 { title: "Water Base Matt sq.ft", price: "25" },
             ],
-            Shirt:
+        Shirt:
             [
                 { title: "Small size washing", price: "30" },
                 { title: "Medium size washing", price: "40" },
                 { title: "Large size washing", price: "50" },
             ],
-            Kurta:
+        Kurta:
             [
                 { title: "Small size washing", price: "30" },
                 { title: "Medium size washing", price: "40" },
                 { title: "Large size washing", price: "50" },
             ],
-            Pajama:
+        Pajama:
             [
                 { title: "Small size washing", price: "30" },
                 { title: "Medium size washing", price: "40" },
                 { title: "Large size washing", price: "50" },
             ],
     },
-     // Plumber
-     {
+    // Plumber
+    {
         route: "AvailService",
         Geyser:
             [
@@ -241,13 +242,13 @@ const profession = [
                 { title: "Geyser Service", price: "750" },
                 { title: "Geyser Thermostat Change", price: "800" },
             ],
-            "Pumps & Tanks":
+        "Pumps & Tanks":
             [
                 { title: "Motor Installation/Replacement", price: "1000" },
                 { title: "Motor Machine Installation/Replacement with piping", price: "1500" },
                 { title: "Water Tank Cleaning", price: "1200" },
             ],
-            "Installation/Repair":
+        "Installation/Repair":
             [
                 { title: "Airlock", price: "1500" },
                 { title: "Fibre or PVC Tank Installation without piping", price: "2500" },
@@ -259,7 +260,7 @@ const profession = [
                 { title: "Sink Spindle Change", price: "500" },
                 { title: "Water leaks", price: "300" },
             ],
-            Bathroom:
+        Bathroom:
             [
                 { title: "Bath Tub Installation", price: "3000" },
                 { title: "Bathroom Accessory Set Installation", price: "1000" },
@@ -281,14 +282,90 @@ class home extends React.Component {
         super(props)
         this.state = { drawer: false, slideStyle: "slideInLeft", screenHeight: "", catogery: false, charactor: "0" }
     };
-    componentWillMount() {
+    componentDidMount() {
+        const { serFrmDb } = this.props
+
         var { height, width } = Dimensions.get('window');
         this.setState({
             screenHeight: height,
         })
+        console.log(serFrmDb, "serFrmDbserFrmDb")
+        //ac Invertor maintanence 
+        profession[0].Invertor.Maintenance[0].price = serFrmDb[2]["AC Compressor Change"]
+        profession[0].Invertor.Maintenance[1].price = serFrmDb[2]["AC Countinuous Trip"]
+        profession[0].Invertor.Maintenance[2].price = serFrmDb[2]["AC Icing"]
+        profession[0].Invertor.Maintenance[3].price = serFrmDb[2]["AC water leak"]
+        profession[0].Invertor.Maintenance[4].price = serFrmDb[2]["Gas Filling 1 Ton"]
+        profession[0].Invertor.Maintenance[5].price = serFrmDb[2]["Gas Filling 2 Ton"]
+        profession[0].Invertor.Maintenance[6].price = serFrmDb[2]["General Service"]
+        profession[0].Invertor.Maintenance[7].price = serFrmDb[2]["Diagnostic Visit"]
+        profession[0].Invertor.Maintenance[8].price = serFrmDb[2]["Inverter Capacitor change"]
+        profession[0].Invertor.Maintenance[9].price = serFrmDb[2]["Inverter Repair Fan"]
+        profession[0].Invertor.Maintenance[10].price = serFrmDb[2]["Inverter Repair circuit"]
+        profession[0].Invertor.Maintenance[11].price = serFrmDb[2]["Inverter valve replacement"]
+        profession[0].Invertor.Maintenance[12].price = serFrmDb[2]["Master Service"]
+        profession[0].Invertor.Maintenance[13].price = serFrmDb[2]["Gas Filling 1.5 Ton"]
+        //ac Invertor Installation 
+        profession[0].Invertor.Installation[0].price = serFrmDb[2]["Installation"]
+        profession[0].Invertor.Installation[1].price = serFrmDb[2]["AC Dismantle"]
+        profession[0].Invertor.Installation[2].price = serFrmDb[2]["Installation (Higher than the 2nd floor)"]
+        //ac Non Invertor Maintenance
+        profession[0]["Non-Invertor"].Maintenance[0].price = serFrmDb[2]["AC Circuit Repair (Regular AC) (non)"]
+        profession[0]["Non-Invertor"].Maintenance[1].price = serFrmDb[2]["AC Circuit Replace (Regular AC) (non)"]
+        profession[0]["Non-Invertor"].Maintenance[2].price = serFrmDb[2]["AC Compressor Change (non)"]
+        profession[0]["Non-Invertor"].Maintenance[3].price = serFrmDb[2]["AC Countinuous Trip (non)"]
+        profession[0]["Non-Invertor"].Maintenance[4].price = serFrmDb[2]["AC Icing (non)"]
+        profession[0]["Non-Invertor"].Maintenance[5].price = serFrmDb[2]["AC water leak (non)"]
+        profession[0]["Non-Invertor"].Maintenance[6].price = serFrmDb[2]["Gas Filling 1 Ton (non)"]
+        profession[0]["Non-Invertor"].Maintenance[7].price = serFrmDb[2]["Gas Filling 2 Ton (non)"]
+        profession[0]["Non-Invertor"].Maintenance[8].price = serFrmDb[2]["General Service (non)"]
+        profession[0]["Non-Invertor"].Maintenance[9].price = serFrmDb[2]["Diagnostic Visit (non)"]
+        profession[0]["Non-Invertor"].Maintenance[10].price = serFrmDb[2]["Master Service (non)"]
+        profession[0]["Non-Invertor"].Maintenance[11].price = serFrmDb[2]["Gas Filling 1.5 Ton (non)"]
+        //ac Non Invertor Installation
+        profession[0]["Non-Invertor"].Installation[0].price = serFrmDb[2]["Installation (non)"]
+        profession[0]["Non-Invertor"].Installation[1].price = serFrmDb[2]["AC Dismantle (non)"]
+        profession[0]["Non-Invertor"].Installation[2].price = serFrmDb[2]["Installation (Higher than the 2nd floor) (non)"]
+        //Carpenter bed
+        profession[1].Bed[0].price = serFrmDb[0]["Bed Dismantle"]
+        profession[1].Bed[1].price = serFrmDb[0]["Bed Repair"]
+        //Carpenter Cabinet
+        profession[1].Cabinet[0].price = serFrmDb[0]["Cabinet Handle replacement"]
+        profession[1].Cabinet[1].price = serFrmDb[0]["Cabinet hinge repair"]
+        //Carpenter Door
+        profession[1].Door[0].price = serFrmDb[0]["Door Catcher magnet"]
+        profession[1].Door[1].price = serFrmDb[0]["Door Chatakni"]
+        profession[1].Door[2].price = serFrmDb[0]["Door Glass fix"]
+        profession[1].Door[3].price = serFrmDb[0]["Door Handle & Lock replacement"]
+        profession[1].Door[4].price = serFrmDb[0]["Door Installation Sliding"]
+        profession[1].Door[5].price = serFrmDb[0]["Door Kundi/Latches replacement"]
+        profession[1].Door[6].price = serFrmDb[0]["Door Chokhat Repair (disfuguration)"]
+        profession[1].Door[7].price = serFrmDb[0]["Door Chokhat Stopper"]
+        profession[1].Door[8].price = serFrmDb[0]["Wooden Door Installation with lock"]
+        //Carpenter Drawer
+        profession[1].Drawer[0].price = serFrmDb[0]["Drawer Channel Replacement"]
+        profession[1].Drawer[1].price = serFrmDb[0]["Drawer Lock Change"]
+        //Carpenter Installation
+        profession[1].Installation[0].price = serFrmDb[0]["Art work or Mirror Installation"]
+        profession[1].Installation[1].price = serFrmDb[0]["Curtain Rod Installation"]
+        profession[1].Installation[2].price = serFrmDb[0]["Mosquito netting"]
+        profession[1].Installation[3].price = serFrmDb[0]["Shelf Installation"]
+
+        //Carpenter Polish
+        profession[1].Polish[0].price = serFrmDb[0]["Furniture Polish-Varnishing"]
+        profession[1].Polish[1].price = serFrmDb[0]["Laquer"]
+        //Carpenter Window
+        profession[1].Window[0].price = serFrmDb[0]["Window Glass fix"]
+        profession[1].Window[1].price = serFrmDb[0]["Window Installation Sliding"]
+        profession[1].Window[2].price = serFrmDb[0]["Wooden Window Installation"]
+        //Electrition Fans
+        profession[2].Fans[0].price = serFrmDb[1]["Fan Installation"]
+
+
+
     }
     componentWillUnmount() {
-        // BackHandler.removeEventListener('hardwareBackPress', BackHandler.exitApp());
+        BackHandler.removeEventListener('hardwareBackPress', BackHandler.exitApp());
     }
     animateParent(fals) {
         setTimeout(() => {
@@ -387,7 +464,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(states) {
     return ({
-        USERDATA: states.root.USERDATA,
+        // USERDATA: states.root.USERDATA,
+        serFrmDb: states.root.serFrmDb,
 
     })
 }

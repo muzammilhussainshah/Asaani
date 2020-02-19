@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 import { View, StyleSheet, ScrollView, Text, Image, KeyboardAvoidingView, Dimensions, ActivityIndicator } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
 import { bindActionCreators } from 'redux';
-// import { signInWithGoogle,  } from '../../../store/action/action'
+import { getData,  } from '../../store/action/action'
 import { connect } from 'react-redux';
 
 // GoogleSignin.configure({
@@ -18,9 +18,15 @@ class SplashScreen extends React.Component {
         }
     };
     componentDidMount(){
-        setTimeout(() => {
-            this.props.navigation.navigate("home")
-        }, 2000);
+        const{getData,navigation}= this.props
+        getData(navigation)
+        // setTimeout(() => {
+        //     this.props.navigation.navigate("home")
+        // }, 2000);
+    
+        
+    
+    
     }
     render() {
         const { fields, loading } = this.state
@@ -45,47 +51,7 @@ class SplashScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#FDB8B0',
-        alignItems: 'center',
-        justifyContent: 'center',
-        // marginTop: 20
-    },
-    loading: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: "center",
-        // position: 'absolute'
-    },
-    Heading: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        // flex: 1,
-        marginTop: 5,
-        marginBottom: 5,
-        fontSize: 22,
-        fontWeight: 'bold',
-        color: '#2A2D3A',
-        textAlign: 'center'
-    },
-    button: {
-        width: '100%',
-        alignItems: 'center',
-        marginTop: 10,
-        opacity: 1
-    },
-    imageView: {
-        width: width,
-        height: height / 2.6,
-        alignItems: "center",
-        justifyContent: 'flex-end'
-    },
-    signupimage: {
-        height: '90%',
-        width: '90%',
-        // marginTop: 30,
-    },
+  
 })
 
 
@@ -96,9 +62,9 @@ function mapStateToProps(states) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators({
-            // signInWithGoogle, login
-        }, dispatch)
+       getData: (navigation) => {
+            dispatch(getData(navigation));
+        },
     }
 }
 

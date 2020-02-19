@@ -2,7 +2,9 @@ import ActionTypes from '../constant/constant';
 
 const INITIAL_STATE = {
     USERDATA: "aaa",
-    test: false,
+    thankYou: false,
+    appLoader: false,
+    serFrmDb: [],
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -15,7 +17,17 @@ export default (state = INITIAL_STATE, action) => {
         case ActionTypes.THANKYOUFORORDER:
             return ({
                 ...state,
-                test: action.payload
+                thankYou: action.payload
+            })
+            case ActionTypes.SERVICEFRMDB:
+                return ({
+                    ...state,
+                    serFrmDb: action.payload
+                })
+        case ActionTypes.APPLOADER:
+            return ({
+                ...state,
+                appLoader: action.payload
             })
         default:
             return state;
