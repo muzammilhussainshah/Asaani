@@ -5,12 +5,12 @@ import axios from 'axios';
 
 import firebase from 'firebase';
 
-  if (firebase.apps.length === 0) {
+if (firebase.apps.length === 0) {
     firebase.initializeApp({
         apiKey: 'AIzaSyDYqwmrFVPJ4ZIlYRIBehC2yGe4GR2wpSU',
         // authDomain: '### FIREBASE AUTH DOMAIN ###',
         projectId: 'asaani-app'
-      });
+    });
 }
 // firebase.initializeApp(config);
 require('firebase/firestore')
@@ -40,19 +40,19 @@ export function login(user) {
 export function getData(navigation) {
     return dispatch => {
         db.collection("services").get().then((querySnapshot) => {
-            let servicesFromDb=[]
-            console.log(querySnapshot,"querySnapshot");
+            let servicesFromDb = []
+            console.log(querySnapshot, "querySnapshot");
             querySnapshot.forEach((doc) => {
-                servicesFromDb.push(doc.data()) 
+                servicesFromDb.push(doc.data())
                 console.log(`${doc.id} => ${doc.data()}`);
             });
-            console.log(servicesFromDb,"test");
+            console.log(servicesFromDb, "test");
 
-        dispatch({ type: ActionTypes.SERVICEFRMDB, payload: servicesFromDb })
-        navigation.navigate("home")
+            dispatch({ type: ActionTypes.SERVICEFRMDB, payload: servicesFromDb })
+            navigation.navigate("home")
 
         });
-        
+
 
 
     }
