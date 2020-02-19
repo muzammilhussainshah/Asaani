@@ -5,6 +5,7 @@ const INITIAL_STATE = {
     thankYou: false,
     appLoader: false,
     serFrmDb: [],
+    discountFrmDb: [],
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -23,6 +24,11 @@ export default (state = INITIAL_STATE, action) => {
                 return ({
                     ...state,
                     serFrmDb: action.payload
+                })
+            case ActionTypes.DISCOUNTFRMDB:
+                return ({
+                    ...state,
+                    discountFrmDb: action.payload
                 })
         case ActionTypes.APPLOADER:
             return ({

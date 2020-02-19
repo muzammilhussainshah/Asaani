@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import { View, StyleSheet, Text, Dimensions, TouchableOpacity, TextInput, ImageBackground, ScrollView, Image, Modal,ActivityIndicator } from 'react-native';
+import { View, StyleSheet, Text, Dimensions, TouchableOpacity, TextInput, ImageBackground, ScrollView, Image, Modal, ActivityIndicator } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Drawer from '../../components/drawer'
@@ -24,6 +24,7 @@ class checkout extends React.Component {
             err: false,
             errMessage: "",
             date: "",
+            coupon: "",
             modalVisible: true,
         }
     };
@@ -76,15 +77,18 @@ class checkout extends React.Component {
     }
 
     render() {
-        const { fields, loading, screenHeight, basket, err, errMessage,modalVisible } = this.state
-        const { appLoader,thankYou } = this.props
-
+        const { fields, loading, screenHeight, basket, err, errMessage, modalVisible, coupon } = this.state
+        const { appLoader, thankYou, discountFrmDb } = this.props
+        console.log(discountFrmDb, "coupon")
+        console.log(discountFrmDb[0]["coupon expiry date"], "coupon",
+            new Date(discountFrmDb[0]["coupon expiry date"]).getTime() - new Date().getTime()
+        )
         return (
             <ImageBackground source={require("../../assets/gradient.jpg")}
 
                 style={{ width: '100%', height: '100%' }}>
                 {(thankYou) ? (
-                    <ThankYou  modalState={thankYou} navigation={this.props.navigation} />
+                    <ThankYou modalState={thankYou} navigation={this.props.navigation} />
                 ) : (null)}
 
                 <View style={{ flex: 1, }}>
@@ -250,7 +254,9 @@ class checkout extends React.Component {
                                         keyboardAppearance='default'
                                         autoCapitalize='none' returnKeyType='next'
                                         style={{}} autoCorrect={false}
-                                        onChangeText={coupon => { this.setState({ coupon }) }}
+                                        onChangeText={coupon => {
+                                            
+                                            this.setState({ coupon }) }}
 
                                     // onChangeText={companyName => {
                                     //     this.setState({ [value[1]]: companyName }, () => {
@@ -259,34 +265,51 @@ class checkout extends React.Component {
                                     // }}
                                     />
                                 </View>
-                                {/* {
-                                    err &&
-                                    <Text style={{ color: "red", marginTop: 10 }}>Invalid coupon</Text>
-                                } */}
+                                {
+                                    (discountFrmDb[0]["coupon code"] !== coupon && coupon !== "") ?
+                                        <Text style={{ color: "red", marginTop: 10 }}>
+                                            Invalid coupon<AntDesign name="close" size={20} style={{ flex: 5, color: "red" }} />
+                                        </Text> :
+                                        (discountFrmDb[0]["coupon code"] === coupon && coupon !== ""
+                                        &&(new Date(discountFrmDb[0]["coupon expiry date"]).getTime() - new Date().getTime()>1)
+                                        ) ?
+                                        
+                                            <Text style={{ color: "green", marginTop: 10 }}>
+                                                Activated<AntDesign name="check" size={20} style={{ flex: 5, color: "green" }} />
+                                            </Text> 
+                                            
+                                            
+                                            :
+                                               (discountFrmDb[0]["coupon code"] === coupon && coupon !== "")
+                                               &&(new Date(discountFrmDb[0]["coupon expiry date"]).getTime() - new Date().getTime()<0)?
+                                               <Text style={{ color: "red", marginTop: 10 }}>
+                                                your coupon is expired<AntDesign name="close" size={20} style={{ flex: 5, color: "red" }} />
+                                            </Text> : 
+                                            null
+                                }
                             </View>
                             <View style={{ alignItems: "center", marginTop: "5%" }}>
                                 {appLoader ?
-                                     <View
-                                    //  onPress={() => this.order()}
-                                     style={{
-                                         marginTop: 5,
-                                         shadowColor: "#000",
-                                         shadowOffset: {
-                                             width: 0,
-                                             height: 1,
-                                         },
-                                         shadowOpacity: 0.22,
-                                         shadowRadius: 2.22,
-                                         // borderRadius: 5,
-                                         elevation: 3,
-                                         backgroundColor: "#F5CD54", justifyContent: "center",
-                                         alignItems: "center", width: "100%", height: 50
-                                     }}
-                                 >
-                                                  <ActivityIndicator style={styles.row1} size={25} color="white" />
-
-                                 </View>
-                                     :
+                                    <View
+                                        //  onPress={() => this.order()}
+                                        style={{
+                                            marginTop: 5,
+                                            shadowColor: "#000",
+                                            shadowOffset: {
+                                                width: 0,
+                                                height: 1,
+                                            },
+                                            shadowOpacity: 0.22,
+                                            shadowRadius: 2.22,
+                                            // borderRadius: 5,
+                                            elevation: 3,
+                                            backgroundColor: "#F5CD54", justifyContent: "center",
+                                            alignItems: "center", width: "100%", height: 50
+                                        }}
+                                    >
+                                        <ActivityIndicator style={styles.row1} size={25} color="white" />
+                                    </View>
+                                    :
                                     <TouchableOpacity
                                         onPress={() => this.order()}
                                         style={{
@@ -307,10 +330,8 @@ class checkout extends React.Component {
                                         <Text style={{ color: "white", }}>Confirm order</Text>
                                     </TouchableOpacity>
                                 }
-
                                 {
-                                    err &&
-                                    <Text style={{ color: "red", marginTop: 10 }}>{errMessage} is required</Text>
+                                    err && <Text style={{ color: "red", marginTop: 10 }}>{errMessage} is required</Text>
                                 }
                             </View>
                         </ScrollView>
@@ -343,6 +364,7 @@ function mapStateToProp(state) {
 
         thankYou: state.root.thankYou,
         appLoader: state.root.appLoader,
+        discountFrmDb: state.root.discountFrmDb,
 
     })
 }

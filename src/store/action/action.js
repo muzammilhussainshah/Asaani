@@ -39,7 +39,8 @@ export function login(user) {
 }
 export function getData(navigation) {
     return dispatch => {
-        db.collection("services").get().then((querySnapshot) => {
+        db.collection("services").get()
+        .then((querySnapshot) => {
             let servicesFromDb = []
             console.log(querySnapshot, "querySnapshot");
             querySnapshot.forEach((doc) => {
@@ -47,10 +48,19 @@ export function getData(navigation) {
                 console.log(`${doc.id} => ${doc.data()}`);
             });
             console.log(servicesFromDb, "test");
-
             dispatch({ type: ActionTypes.SERVICEFRMDB, payload: servicesFromDb })
-            navigation.navigate("home")
+        });
 
+        db.collection("discount").get().then((querySnapshot) => {
+            let discount = []
+            console.log(querySnapshot, "querySnapshot");
+            querySnapshot.forEach((doc) => {
+                discount.push(doc.data())
+                console.log(`${doc.id} => ${doc.data()}`);
+            });
+            console.log(discount, "discount");
+            dispatch({ type: ActionTypes.DISCOUNTFRMDB, payload: discount })
+            navigation.navigate("home")
         });
 
 
