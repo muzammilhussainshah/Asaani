@@ -67,7 +67,7 @@ aaaaaaa
                         <View
                             style={{ flexDirection: "row",color:"white" }}
                         >
-                            <Text style={{ color:"white", }}>
+                            <Text style={{ color:"white",fontFamily: 'Verdana-Bold', }}>
                                 Confirmation !
 </Text>
                             {/* <TouchableOpacity
@@ -83,7 +83,7 @@ aaaaaaa
                     </View>
                     <View style={{ height: 40, flexDirection: "row", justifyContent: "center", marginTop: 15 }}>
                         <View style={styles.input}>
-                          <Text style={{textAlign:"center",color:"grey"}}>
+                          <Text style={{textAlign:"center",fontFamily: 'Verdana-Bold',color:"grey"}}>
                           Thank You for the order, representative will call you back shortly 
                           </Text>
                         </View>
@@ -104,7 +104,7 @@ aaaaaaa
                                 navigation.navigate("home")
                             }}
                         >
-                            <Text style={{ color: "white", fontWeight: "bold", textAlign: "center" }}> Ok </Text>
+                            <Text style={{ color: "white", fontWeight: "bold",fontFamily: 'Verdana-Bold', textAlign: "center" }}> Ok </Text>
                         </TouchableOpacity>
                     </View>
                 </Animatable.View>

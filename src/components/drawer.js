@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View } from 'native-base';
-import { Image, TouchableOpacity, PanResponder, StyleSheet,Linking, Platform,  } from 'react-native';
+import { Image, TouchableOpacity, PanResponder, StyleSheet, Linking, Platform, } from 'react-native';
 import { login, notifications, logOut } from '../store/action/action';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -61,15 +61,15 @@ class Drawer extends Component {
     makeCall = () => {
 
         let phoneNumber = '';
-    
+
         if (Platform.OS === 'android') {
-          phoneNumber = 'tel:${03464100928}';
+            phoneNumber = 'tel:${+923422887839}';
         } else {
-          phoneNumber = 'telprompt:${03464100928}';
+            phoneNumber = 'telprompt:${+923422887839}';
         }
-    
+
         Linking.openURL(phoneNumber);
-      };
+    };
     render() {
         console.log(this.state.animationStyle, "*********ssssssss******")
         return (
@@ -113,15 +113,17 @@ class Drawer extends Component {
                             <View style={{ flex: 1, flexDirection: "column", justifyContent: "center" }}>
                                 <View style={{ flexDirection: "row" }}>
                                     <View style={{ flexDirection: "row" }}>
-                                        <Text style={{ color: "#02275c", }}>Home</Text>
+                                        <Text style={{
+                                            color: "#02275c", fontFamily: 'Verdana-Bold',
+                                        }}>Home</Text>
                                     </View>
                                 </View>
                             </View>
                         </View>
                     </TouchableOpacity>
                     {/* Home */}
-                       {/* Notifications */}
-                       <TouchableOpacity
+                    {/* Notifications */}
+                    <TouchableOpacity
                         onPress={() => this.props.navigation.navigate("Notifications")}
                         style={{ flex: 0.13, flexDirection: "row" }}>
                         <View style={{ flex: 1, flexDirection: "column", justifyContent: "center", alignItems: "center", }}>
@@ -131,7 +133,7 @@ class Drawer extends Component {
                             <View style={{ flex: 1, flexDirection: "column", justifyContent: "center" }}>
                                 <View style={{ flexDirection: "row" }}>
                                     <View style={{ flexDirection: "row" }}>
-                                        <Text style={{ color: "#02275c", }}>Notifications</Text>
+                                        <Text style={{ color: "#02275c", fontFamily: 'Verdana-Bold', }}>Notifications</Text>
                                     </View>
                                 </View>
                             </View>
@@ -149,7 +151,7 @@ class Drawer extends Component {
                             <View style={{ flex: 1, flexDirection: "column", justifyContent: "center" }}>
                                 <View style={{ flexDirection: "row" }}>
                                     <View style={{ flexDirection: "row" }}>
-                                        <Text style={{ color: "#02275c", }}>About</Text>
+                                        <Text style={{ color: "#02275c", fontFamily: 'Verdana-Bold', }}>About</Text>
                                     </View>
                                 </View>
                             </View>
@@ -167,7 +169,7 @@ class Drawer extends Component {
                             <View style={{ flex: 1, flexDirection: "column", justifyContent: "center" }}>
                                 <View style={{ flexDirection: "row" }}>
                                     <View style={{ flexDirection: "row" }}>
-                                        <Text style={{ color: "#02275c", }}>FAQs</Text>
+                                        <Text style={{ color: "#02275c", fontFamily: 'Verdana-Bold', }}>FAQs</Text>
                                     </View>
                                 </View>
                             </View>
@@ -186,7 +188,7 @@ class Drawer extends Component {
                             <View style={{ flex: 1, flexDirection: "column", justifyContent: "center" }}>
                                 <View style={{ flexDirection: "row" }}>
                                     <View style={{ flexDirection: "row" }}>
-                                        <Text style={{ color: "#02275c", }}>Help line</Text>
+                                        <Text style={{ color: "#02275c", fontFamily: 'Verdana-Bold', }}>Help line</Text>
                                     </View>
                                 </View>
                             </View>

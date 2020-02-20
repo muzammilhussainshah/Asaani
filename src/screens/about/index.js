@@ -84,16 +84,16 @@ class About extends React.Component {
                             </View>
 
                             <Text
-                                style={{ color: "#fff", marginTop: 5 }}>
+                                style={{ color: "#fff", marginTop: 5,fontFamily: 'Verdana-Bold', }}>
                                 Asaani is a sister concern of M/s Avalon Services (Pvt) Ltd which is a leading housekeeping and janitorial service Organization in Pakistan. Since its inception 2001 providing services to Banks, Government, Semi Government Organizations. ASAANI is a strategic business unit having competence in the area of maintenance and repairing services at door steps.
                                 Keeping in view the needs of verified, skilled and reliable workers of repairing services at homes, offices and industries. ASAANI hires competent workers after proper screaming of their characteristics and credentials
                              </Text>
                             <Text
-                                style={{ color: "#fff", fontWeight: "bold", fontSize: 18 }}>
+                                style={{ color: "#fff", fontWeight: "bold", fontSize: 18,fontFamily: 'Verdana-Bold', }}>
                                 Our Mission:
                             </Text>
                             <Text
-                                style={{ color: "#fff", marginTop: 15 }}>
+                                style={{ color: "#fff", marginTop: 15,fontFamily: 'Verdana-Bold', }}>
                                 The mission of One Stop Home Repair is to provide world-class service to commercial and residential clients in the community by providing hassle-free, high quality repair.
                             </Text>
                             <View >
@@ -104,11 +104,11 @@ class About extends React.Component {
                                     source={require('../../assets/about2.jpg')} />
                             </View>
                             <Text
-                                style={{ marginTop: 5, color: "#fff", fontWeight: "bold", fontSize: 18 }}>
+                                style={{ marginTop: 5, color: "#fff", fontWeight: "bold", fontSize: 18 ,fontFamily: 'Verdana-Bold',}}>
                                 Our Vision:
                             </Text>
                             <Text
-                                style={{ color: "#fff", marginTop: 15 }}>
+                                style={{ color: "#fff",fontFamily: 'Verdana-Bold', marginTop: 15 }}>
                                 At Asaani.com.pk, we seek to bring you the best repair works from your local area. As pioneers in location based repair booking site, we strive is to make everyday hassles of maintenance, seamless for our customers. Skilled service and a better standard of life and delivery form the core of our company’s vision. Making homes better, one service at a time.
                                 </Text>
                             <View style={{ flexDirection: "row", justifyContent: "space-between", flex: 1, }}>
@@ -119,7 +119,7 @@ class About extends React.Component {
                                         resizeMode="contain"
                                         source={require('../../assets/about3.png')} />
                                     <Text
-                                        style={{ color: "#fff", textAlign: "center" }}>
+                                        style={{ color: "#fff", fontFamily: 'Verdana-Bold',textAlign: "center" }}>
                                         Consumer is the key for us. The Company works earnestly towards creating the highest satisfaction levels for customers.
                                     </Text>
                                 </View>
@@ -130,7 +130,7 @@ class About extends React.Component {
                                         resizeMode="contain"
                                         source={require('../../assets/about4.png')} />
                                     <Text
-                                        style={{ color: "#fff", textAlign: "center" }}>
+                                        style={{ color: "#fff",fontFamily: 'Verdana-Bold', textAlign: "center" }}>
                                         We ensure that local service providers we work with reach you with the same perfection and professionalism standards that we follow.
                                         </Text>
                                 </View>

@@ -35,7 +35,7 @@ class ServiceRow extends React.Component {
                         source={require('../assets/logocopy.png')} />
                 </View>
                 <View style={{ flex: 7, }}>
-                    <Text style={{ marginLeft: 5, fontWeight: "bold", fontSize: 16 }}> {title} </Text>
+                    <Text style={{ marginLeft: 5,fontFamily: 'Verdana-Bold', fontWeight: "bold", fontSize: 16 }}> {title} </Text>
                 </View>
                 <View style={{ flex: 1.5, alignItems: "center" }}>
                     <Ionicons name="ios-arrow-forward" size={35} style={{ color: "#235071" }} />

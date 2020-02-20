@@ -91,8 +91,8 @@ class Notifications extends React.Component {
                                         source={require('../../assets/logocopy.png')} />
                                 </View>
                                 <View style={{ flex: 7, }}>
-                                    <Text style={{ marginLeft: 5,  fontSize: 14 }}> {"Discount Coupon is "+ discountFrmDb[0]["coupon code"] } </Text>
-                                    <Text style={{ marginLeft: 5,  fontSize: 9 }}> {"Valid till "+discountFrmDb[0]["coupon expiry date"]} </Text>
+                                    <Text style={{ marginLeft: 5,  fontSize: 14,fontFamily: 'Verdana-Bold', }}> {"Discount Coupon is "+ discountFrmDb[0]["coupon code"] } </Text>
+                                    <Text style={{ marginLeft: 5,  fontSize: 9,fontFamily: 'Verdana-Bold', }}> {"Valid till "+discountFrmDb[0]["coupon expiry date"]} </Text>
                                 </View>
                                 <View style={{ flex: 1.5, alignItems: "center" }}>
                                     <FontAwesome5 name="discourse" size={25} style={{ color: "#235071" }} />

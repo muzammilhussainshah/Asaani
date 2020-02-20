@@ -35,7 +35,7 @@ class Header extends React.Component {
                     style={{ justifyContent: "center", marginHorizontal: "3%" }}>
                     <Icon name="menu" size={30} style={{ color: "#fff" }} />
                 </TouchableOpacity>
-                <Text style={{ marginLeft: "5%", fontWeight: "bold", color: "#fff" }}>{heading}</Text>
+                <Text style={{ marginLeft: "5%", fontWeight: "bold",fontFamily: 'Verdana-Bold', color: "#fff" }}>{heading}</Text>
             </View>
         );
     }

@@ -133,19 +133,24 @@ class checkout extends React.Component {
                                 elevation: 3,
                             }}>
                                 <View style={{ flexDirection: "row", paddingVertical: 5, paddingHorizontal: 22, borderBottomColor: "black", borderBottomWidth: 0.3 }}>
-                                    <View style={{ flex: 5,alignItems:"center",justifyContent:"center" }}>
-                                        <AntDesign name="shoppingcart" size={40} style={{  color: "black" }} />
+                                    <View style={{ flex: 5, alignItems: "center", justifyContent: "center" }}>
+                                        <AntDesign name="shoppingcart" size={40} style={{ color: "black" }} />
                                     </View>
-                                    <View style={{ flex: 5,alignItems:"center",justifyContent:"center" }}>
-                                        <Text style={{ fontSize: 16, color: "black", fontWeight: "bold", alignSelf: "center" }}>{basket.title} </Text>
+                                    <View style={{ flex: 5, alignItems: "center", justifyContent: "center" }}>
+                                        <Text style={{
+                                            fontSize: 16,
+                                            fontFamily: 'Verdana-Bold',
+                                            color: "black", fontWeight: "bold", alignSelf: "center"
+                                        }}>{basket.title} </Text>
+                                     
                                     </View>
                                 </View>
                                 <View style={{ marginTop: 5, flexDirection: "row", paddingHorizontal: 22 }}>
-                                    <View style={{ flex: 5,alignItems:"center",justifyContent:"center" }}>
-                                        <Text style={{  fontSize: 16, color: "black" }}>Total </Text>
+                                    <View style={{ flex: 5, alignItems: "center", justifyContent: "center" }}>
+                                        <Text style={{ fontSize: 16, color: "black" }}>Total </Text>
                                     </View>
                                     <View style={{ flex: 5, }}>
-                                        <Text style={{  fontSize: 16, color: "black", fontWeight: "bold" }}>Rs {discountPkg ? basket.price - basket.price / 100 * discountPkg : basket.price} </Text>
+                                        <Text style={{ fontSize: 16, color: "black", fontWeight: "bold" }}>Rs {discountPkg ? basket.price - basket.price / 100 * discountPkg : basket.price} </Text>
                                     </View>
                                 </View>
                             </View>

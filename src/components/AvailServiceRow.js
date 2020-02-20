@@ -36,10 +36,10 @@ class AvailServiceRow extends React.Component {
                 </View>
                 <View style={{ flex: 7,  }}>
                     <View>
-                        <Text style={{ marginLeft: 5, fontWeight: "bold", fontSize: 16 }}> {data.title} </Text>
+                        <Text style={{ marginLeft: 5, fontWeight: "bold", fontSize: 16,fontFamily: 'Verdana-Bold', }}> {data.title} </Text>
                     </View>
                     <View>
-                        <Text style={{ marginLeft: 5, fontSize: 16 }}> Rs{data.price} </Text>
+                        <Text style={{ marginLeft: 5,fontFamily: 'Verdana-Bold', fontSize: 16 }}> Rs{data.price} </Text>
                     </View>
                 </View>
                 <View style={{ flex: 1.5, alignItems: "center" }}>

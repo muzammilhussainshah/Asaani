@@ -74,19 +74,19 @@ class ContactUs extends React.Component {
                     <View style={{ flex: 9, padding: 8 }}>
                         <ScrollView>
                             <Text
-                                style={{ color: "#fff", }}>
+                                style={{ color: "#fff",fontFamily: 'Verdana-Bold', }}>
                                 PHONE NO:
                             </Text>
                             <Text
-                                style={{ color: "#fff", }}>
+                                style={{ color: "#fff",fontFamily: 'Verdana-Bold', }}>
                                 +92311 7799626
                             </Text>
                             <Text
-                                style={{ color: "#fff", }}>
+                                style={{ color: "#fff", fontFamily: 'Verdana-Bold',}}>
                               EMAIL::
                             </Text>
                             <Text
-                                style={{ color: "#fff", }}>
+                                style={{ color: "#fff",fontFamily: 'Verdana-Bold', }}>
                                 info@asaani.com.pk
                             </Text>
 
