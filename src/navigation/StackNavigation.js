@@ -12,6 +12,7 @@ import Service from '../screens/Service';
 import AvailService from '../screens/AvailService';
 import SubService from '../screens/SubService';
 import about from '../screens/about';
+import Notifications from '../screens/Notifications';
 import faqs from '../screens/faqs';
 import contactUs from '../screens/contactUs';
 // import SignUp from '../screens/home/SignUp';
@@ -23,6 +24,7 @@ const StackNavigator = createStackNavigator({
     home: { screen: home },
     checkout: { screen: checkout },
     about: { screen: about },
+    Notifications: { screen: Notifications },
     faqs: { screen: faqs },
     contactUs: { screen: contactUs },
     Service: { screen: Service },

@@ -3,7 +3,7 @@ import { Text, View } from 'native-base';
 import { Image, TouchableOpacity, PanResponder, StyleSheet,Linking, Platform,  } from 'react-native';
 import { login, notifications, logOut } from '../store/action/action';
 
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { connect } from 'react-redux';
@@ -104,7 +104,7 @@ class Drawer extends Component {
                 <View style={{ flex: 3, backgroundColor: "white" }}>
                     {/* Home */}
                     <TouchableOpacity
-                        onPress={() => this.props.navigation.push("home")}
+                        onPress={() => this.props.navigation.navigate("home")}
                         style={{ flex: 0.13, flexDirection: "row" }}>
                         <View style={{ flex: 1, flexDirection: "column", justifyContent: "center", alignItems: "center", }}>
                             <AntDesign name="home" size={20} style={{ color: "#02275c", fontSize: 25 }} />
@@ -120,9 +120,27 @@ class Drawer extends Component {
                         </View>
                     </TouchableOpacity>
                     {/* Home */}
+                       {/* Notifications */}
+                       <TouchableOpacity
+                        onPress={() => this.props.navigation.navigate("Notifications")}
+                        style={{ flex: 0.13, flexDirection: "row" }}>
+                        <View style={{ flex: 1, flexDirection: "column", justifyContent: "center", alignItems: "center", }}>
+                            <Ionicons name="ios-notifications-outline" size={20} style={{ color: "#02275c", fontSize: 30 }} />
+                        </View>
+                        <View style={{ flex: 5 }}>
+                            <View style={{ flex: 1, flexDirection: "column", justifyContent: "center" }}>
+                                <View style={{ flexDirection: "row" }}>
+                                    <View style={{ flexDirection: "row" }}>
+                                        <Text style={{ color: "#02275c", }}>Notifications</Text>
+                                    </View>
+                                </View>
+                            </View>
+                        </View>
+                    </TouchableOpacity>
+                    {/* Notifications */}
                     {/* About */}
                     <TouchableOpacity
-                        onPress={() => this.props.navigation.push("about")}
+                        onPress={() => this.props.navigation.navigate("about")}
                         style={{ flex: 0.13, flexDirection: "row" }}>
                         <View style={{ flex: 1, flexDirection: "column", justifyContent: "center", alignItems: "center", }}>
                             <MaterialCommunityIcons name="account-details" size={20} style={{ color: "#02275c", fontSize: 30 }} />
@@ -140,7 +158,7 @@ class Drawer extends Component {
                     {/* About */}
                     {/*FAQs */}
                     <TouchableOpacity
-                        onPress={() => this.props.navigation.push("faqs")}
+                        onPress={() => this.props.navigation.navigate("faqs")}
                         style={{ flex: 0.13, flexDirection: "row" }}>
                         <View style={{ flex: 1, flexDirection: "column", justifyContent: "center", alignItems: "center", }}>
                             <AntDesign name="retweet" size={20} style={{ color: "#02275c", fontSize: 25 }} />

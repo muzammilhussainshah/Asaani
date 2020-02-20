@@ -4,6 +4,8 @@ import ActionTypes from '../constant/constant';
 import axios from 'axios';
 
 import firebase from 'firebase';
+import professionArray from '../../components/professionArray';
+import dynamicPrices from '../../components/dynamicPrices';
 
 if (firebase.apps.length === 0) {
     firebase.initializeApp({
@@ -40,16 +42,24 @@ export function login(user) {
 export function getData(navigation) {
     return dispatch => {
         db.collection("services").get()
-        .then((querySnapshot) => {
-            let servicesFromDb = []
-            console.log(querySnapshot, "querySnapshot");
-            querySnapshot.forEach((doc) => {
-                servicesFromDb.push(doc.data())
-                console.log(`${doc.id} => ${doc.data()}`);
+            .then((querySnapshot) => {
+                let servicesFromDb = []
+                console.log(querySnapshot, "querySnapshot");
+                querySnapshot.forEach((doc) => {
+                    servicesFromDb.push(doc.data())
+                    console.log(`${doc.id} => ${doc.data()}`);
+                });
+                console.log(servicesFromDb, "test");
+                dispatch({ type: ActionTypes.SERVICEFRMDB, payload: servicesFromDb })
+                dynamicPrices(professionArray, servicesFromDb)
+                    .then((data) => {
+                        // profession = data
+                        console.log(data, "datain action")
+                        dispatch({ type: ActionTypes.PROFESSION, payload: data })
+                    }).catch((err) => {
+                        console.log(err, "ERROR_ON_SEND_EMAIL_")
+                    })
             });
-            console.log(servicesFromDb, "test");
-            dispatch({ type: ActionTypes.SERVICEFRMDB, payload: servicesFromDb })
-        });
 
         db.collection("discount").get().then((querySnapshot) => {
             let discount = []
@@ -62,6 +72,8 @@ export function getData(navigation) {
             dispatch({ type: ActionTypes.DISCOUNTFRMDB, payload: discount })
             navigation.navigate("home")
         });
+
+
 
 
 
@@ -80,19 +92,27 @@ export function thankYou(bolean) {
 
     }
 }
-export function createOrder(obj) {
+export function createOrder(obj,discountPkg) {
     return dispatch => {
+        let cloneObj=obj
+        // if(discountPkg){
+        //     cloneObj.basket.price=cloneObj.basket.price-cloneObj.basket.price/100*discountPkg
+        // }
+
+
+        console.log(obj,discountPkg,"obj,discountPkg")
         dispatch(appLoader(true))
 
         var options = {
             method: 'POST',
-            url: `https://thawing-tor-85190.herokuapp.com/sendEmail/`,
+            // url: `https://thawing-tor-85190.herokuapp.com/sendEmail/`,
+            url: `http://192.168.10.12:5000/sendEmail`,
             headers:
             {
                 'cache-control': 'no-cache',
                 "Allow-Cross-Origin": '*',
             },
-            data: obj
+            data: cloneObj
         };
         axios(options)
             .then((data) => {

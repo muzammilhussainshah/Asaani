@@ -6,6 +6,7 @@ const INITIAL_STATE = {
     appLoader: false,
     serFrmDb: [],
     discountFrmDb: [],
+    profession: [],
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -29,6 +30,11 @@ export default (state = INITIAL_STATE, action) => {
                 return ({
                     ...state,
                     discountFrmDb: action.payload
+                })
+            case ActionTypes.PROFESSION:
+                return ({
+                    ...state,
+                    profession: action.payload
                 })
         case ActionTypes.APPLOADER:
             return ({

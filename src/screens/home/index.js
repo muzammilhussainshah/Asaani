@@ -17,26 +17,31 @@ const charactorBtn = [
     <Image resizeMode="contain" style={{ width: "100%", }} source={require("../../assets/c5.png")} />,
     <Image resizeMode="contain" style={{ width: "100%", }} source={require("../../assets/c6.png")} />,
 ]
-const profession = professionArray
+// let profession = professionArray
 class home extends React.Component {
     constructor(props) {
         super(props)
-        this.state = { drawer: false, slideStyle: "slideInLeft", screenHeight: "", catogery: false, charactor: "0" }
+        this.state = { drawer: false, slideStyle: "slideInLeft", screenHeight: "", catogery: false, charactor: "0", }
     };
-    componentDidMount() {
-        const { serFrmDb,  } = this.props
+    componentWillMount() {
+        // const { profession } = this.state
+        // alert("work")
+        // const { profession, } = this.props
         var { height, width } = Dimensions.get('window');
-        dynamicPrices(profession,serFrmDb)
-         .then((data) => {
-            console.log(data, "data")
-        }).catch((err) => {
-            console.log(err, "ERROR_ON_SEND_EMAIL_")
-        })
+        // console.log(profession,  "profession,serFrmDb")
+        // dynamicPrices(profession, serFrmDb)
+        //     .then((data) => {
+        //         // profession = data
+        //         console.log(data, "data")
+        //     }).catch((err) => {
+        //         console.log(err, "ERROR_ON_SEND_EMAIL_")
+        //     })
         this.setState({
             screenHeight: height,
         })
     }
     componentWillUnmount() {
+        // profession = professionArray
         BackHandler.removeEventListener('hardwareBackPress', BackHandler.exitApp());
     }
     animateParent(fals) {
@@ -45,7 +50,9 @@ class home extends React.Component {
         }, 250);
     }
     render() {
-        const { fields, loading, screenHeight, charactor } = this.state
+        const { fields, loading, screenHeight, charactor, } = this.state
+        const { profession} = this.props
+        console.log(profession,"professionprofessionprofession")
         return (
             <ImageBackground source={require("../../assets/gradient.jpg")}
                 style={{ width: '100%', height: '100%' }}>
@@ -135,6 +142,7 @@ function mapStateToProps(states) {
     return ({
         // USERDATA: states.root.USERDATA,
         serFrmDb: states.root.serFrmDb,
+        profession: states.root.profession,
 
     })
 }

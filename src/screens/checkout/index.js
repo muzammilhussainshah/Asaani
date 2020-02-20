@@ -1,19 +1,13 @@
 import React, { useReducer } from 'react';
 import { View, StyleSheet, Text, Dimensions, TouchableOpacity, TextInput, ImageBackground, ScrollView, Image, Modal, ActivityIndicator } from 'react-native';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Drawer from '../../components/drawer'
 import ThankYou from '../../components/ThankYou'
-import Icon from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Header from '../../components/header';
 import DatePicker from 'react-native-datepicker'
 import { createOrder } from "../../store/action/action"
-import * as Animatable from 'react-native-animatable';
 
-// import { ScrollView } from 'react-native-gesture-handler';
-let { height, width } = Dimensions.get('window');
 class checkout extends React.Component {
     constructor(props) {
         super(props)
@@ -30,7 +24,6 @@ class checkout extends React.Component {
         }
     };
 
-
     componentWillMount() {
         let basket = this.props.navigation.getParam("data")
         console.log(basket, "checkout page")
@@ -40,9 +33,18 @@ class checkout extends React.Component {
             basket,
         })
     }
-
     componentWillUnmount() {
-        // BackHandler.removeEventListener('hardwareBackPress', BackHandler.exitApp());
+        this.setState({
+            drawer: false,
+            slideStyle: "slideInLeft",
+            screenHeight: "",
+            err: false,
+            errMessage: "",
+            date: "",
+            coupon: "",
+            modalVisible: true,
+            discountPkg: ""
+        })
     }
     animateParent(fals) {
         console.log(fals, "9999999999999999")
@@ -53,10 +55,18 @@ class checkout extends React.Component {
         }, 250);
     }
     order() {
-        const { Name, Address, Description, Phone, basket, date } = this.state
+        const { Name, Address, Description, Phone, basket, date, discountPkg } = this.state
         let obj = {
-            Name, Address, Phone, Description, basket, date
+            Name, Address, Phone, Description, basket, date, discountPkg
         }
+        console.log(basket, "Basket---", discountPkg)
+        // { discountPkg && (obj.basket.price = basket.price - basket.price / 100 * discountPkg) }
+        // if (discountPkg) {
+        //     obj.basket.price = obj.basket.price - obj.basket.price / 100 * discountPkg
+        // }
+        // {discountPkg ?obj.basket.price= obj.basket.price - obj.basket.price / 100 * discountPkg : obj.basket.price}
+        console.log(basket, "BasketDiscount", discountPkg)
+
         let verify = true
         for (var key in obj) {
             if (!obj[key]) {
@@ -73,27 +83,22 @@ class checkout extends React.Component {
             }
         }
         {
-            verify && this.props.createOrder(obj)
+            verify && this.props.createOrder(obj, discountPkg)
         }
     }
 
     render() {
+
         const { fields, loading, screenHeight, basket, err, errMessage, discountPkg, coupon } = this.state
         const { appLoader, thankYou, discountFrmDb } = this.props
-        console.log(discountFrmDb, "coupon")
-        console.log(discountFrmDb[0]["coupon expiry date"], "coupon",
-            new Date(discountFrmDb[0]["coupon expiry date"]).getTime() - new Date().getTime()
-        )
+        console.log("Basketrender---", discountPkg)
         return (
             <ImageBackground source={require("../../assets/gradient.jpg")}
-
                 style={{ width: '100%', height: '100%' }}>
                 {(thankYou) ? (
                     <ThankYou modalState={thankYou} navigation={this.props.navigation} />
                 ) : (null)}
-
                 <View style={{ flex: 1, }}>
-
                     {/* //drawer close view// */}
                     {(this.state.drawer === true) && (
                         <TouchableOpacity
@@ -102,7 +107,6 @@ class checkout extends React.Component {
                             style={{ position: "absolute", height: screenHeight, width: "20%", right: 0, zIndex: 1 }}>
                         </TouchableOpacity>
                     )}
-                    {/* //drawer close view// */}
                     {/* draewaer  */}
                     {(this.state.drawer === true) && (
                         <Drawer
@@ -111,10 +115,8 @@ class checkout extends React.Component {
                             animateParent={this.animateParent.bind(this)}
                         />
                     )}
-                    {/* draewaer  */}
                     {/* header */}
                     <Header func={() => this.setState({ drawer: true })} />
-                    {/* header */}
                     {/* body */}
                     <View style={{ flex: 1, backgroundColor: "white" }}>
                         <ScrollView>
@@ -130,17 +132,21 @@ class checkout extends React.Component {
 
                                 elevation: 3,
                             }}>
-
-                                {/* <View style={{ alignItems: "center" }}>
-                                <AntDesign name="shoppingcart" size={60} style={{ color: "black" }} />
-                            </View> */}
                                 <View style={{ flexDirection: "row", paddingVertical: 5, paddingHorizontal: 22, borderBottomColor: "black", borderBottomWidth: 0.3 }}>
-                                    <AntDesign name="shoppingcart" size={60} style={{ flex: 5, color: "black" }} />
-                                    <Text style={{ flex: 5, fontSize: 16, color: "black", fontWeight: "bold", alignSelf: "center" }}>{basket.title} </Text>
+                                    <View style={{ flex: 5,alignItems:"center",justifyContent:"center" }}>
+                                        <AntDesign name="shoppingcart" size={40} style={{  color: "black" }} />
+                                    </View>
+                                    <View style={{ flex: 5,alignItems:"center",justifyContent:"center" }}>
+                                        <Text style={{ fontSize: 16, color: "black", fontWeight: "bold", alignSelf: "center" }}>{basket.title} </Text>
+                                    </View>
                                 </View>
                                 <View style={{ marginTop: 5, flexDirection: "row", paddingHorizontal: 22 }}>
-                                    <Text style={{ flex: 5, fontSize: 16, color: "black" }}>Total </Text>
-                                    <Text style={{ flex: 5, fontSize: 16, color: "black", fontWeight: "bold" }}>Rs {discountPkg ? basket.price - basket.price / 100 * discountPkg : basket.price} </Text>
+                                    <View style={{ flex: 5,alignItems:"center",justifyContent:"center" }}>
+                                        <Text style={{  fontSize: 16, color: "black" }}>Total </Text>
+                                    </View>
+                                    <View style={{ flex: 5, }}>
+                                        <Text style={{  fontSize: 16, color: "black", fontWeight: "bold" }}>Rs {discountPkg ? basket.price - basket.price / 100 * discountPkg : basket.price} </Text>
+                                    </View>
                                 </View>
                             </View>
                             <View style={{ alignItems: "center", marginTop: 15 }}>
@@ -148,23 +154,13 @@ class checkout extends React.Component {
                                     style={{ width: "90%", borderBottomColor: "black", borderBottomWidth: 0.3, borderRadius: 5, paddingHorizontal: 15 }}
                                 >
                                     <TextInput
-                                        // placeholderTextColor='#fff'
-                                        // value={this.state[value[1]]}
                                         placeholder={"Name"}
                                         keyboardAppearance='default'
                                         autoCapitalize='none' returnKeyType='next'
                                         style={{}} autoCorrect={false}
                                         onChangeText={Name => { this.setState({ Name }) }}
-
-                                    // onChangeText={companyName => {
-                                    //     this.setState({ [value[1]]: companyName }, () => {
-                                    //         console.log("con", this.state.companyName, this.state.email, this.state.password, this.state.cnfpassword)
-                                    //     })
-                                    // }}
                                     />
                                 </View>
-
-
                                 <View
                                     style={{ marginTop: 10, width: "90%", borderBottomColor: "black", borderBottomWidth: 0.3, borderRadius: 5, paddingHorizontal: 15 }}
                                 >
@@ -177,11 +173,6 @@ class checkout extends React.Component {
                                         style={{}} autoCorrect={false}
                                         onChangeText={Address => { this.setState({ Address }) }}
 
-                                    // onChangeText={companyName => {
-                                    //     this.setState({ [value[1]]: companyName }, () => {
-                                    //         console.log("con", this.state.companyName, this.state.email, this.state.password, this.state.cnfpassword)
-                                    //     })
-                                    // }}
                                     />
                                 </View>
                                 <View
@@ -209,11 +200,6 @@ class checkout extends React.Component {
                                         style={{}} autoCorrect={false}
                                         onChangeText={Description => { this.setState({ Description }) }}
 
-                                    // onChangeText={companyName => {
-                                    //     this.setState({ [value[1]]: companyName }, () => {
-                                    //         console.log("con", this.state.companyName, this.state.email, this.state.password, this.state.cnfpassword)
-                                    //     })
-                                    // }}
                                     />
                                 </View>
                                 <View
@@ -240,7 +226,6 @@ class checkout extends React.Component {
                                                 borderColor: "black", borderWidth: 0,
                                                 marginLeft: 36
                                             }
-                                            // ... You can check the source to find the other keys.
                                         }}
                                         onDateChange={(date) => { this.setState({ date: date }) }}
                                     />
@@ -264,12 +249,6 @@ class checkout extends React.Component {
                                                     new Date(discountFrmDb[0]["coupon expiry date"]).getTime() - new Date().getTime() > 1) ? discountFrmDb[0]["discount ammount in %"] : "",
                                             })
                                         }}
-
-                                    // onChangeText={companyName => {
-                                    //     this.setState({ [value[1]]: companyName }, () => {
-                                    //         console.log("con", this.state.companyName, this.state.email, this.state.password, this.state.cnfpassword)
-                                    //     })
-                                    // }}
                                     />
                                 </View>
                                 {
@@ -280,12 +259,9 @@ class checkout extends React.Component {
                                         (discountFrmDb[0]["coupon code"] === coupon && coupon !== ""
                                             && (new Date(discountFrmDb[0]["coupon expiry date"]).getTime() - new Date().getTime() > 1)
                                         ) ?
-
                                             <Text style={{ color: "green", marginTop: 10 }}>
                                                 Activated<AntDesign name="check" size={20} style={{ flex: 5, color: "green" }} />
                                             </Text>
-
-
                                             :
                                             (discountFrmDb[0]["coupon code"] === coupon && coupon !== "")
                                                 && (new Date(discountFrmDb[0]["coupon expiry date"]).getTime() - new Date().getTime() < 0) ?
@@ -355,17 +331,6 @@ const styles = StyleSheet.create({
     },
 })
 
-// function mapStateToProp(state) {
-//     return ({
-//         test: state.root.test,
-
-//     })
-// }
-
-
-
-
-
 function mapStateToProp(state) {
     return ({
 
@@ -377,8 +342,8 @@ function mapStateToProp(state) {
 }
 function mapDispatchToProp(dispatch) {
     return ({
-        createOrder: (obj) => {
-            dispatch(createOrder(obj));
+        createOrder: (obj, discountPkg) => {
+            dispatch(createOrder(obj, discountPkg));
         },
 
     })

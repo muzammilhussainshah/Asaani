@@ -101,7 +101,7 @@ aaaaaaa
                             onPress={() => {
                                 // this.offer()
                               thankYou(false)
-                                navigation.push("home")
+                                navigation.navigate("home")
                             }}
                         >
                             <Text style={{ color: "white", fontWeight: "bold", textAlign: "center" }}> Ok </Text>
