@@ -33,14 +33,14 @@ class SplashScreen extends React.Component {
         return (
             <View style={{ flex: 1, backgroundColor: "#fff", justifyContent: "center", alignItems: "center" }}>
                 <Image
-                    style={{ width: "50%", height: "40%", }}
+                    style={{ width: "50%", height: "30%",position:"absolute",zIndex:1 }}
                     resizeMode="contain"
                     source={require('../../../src/assets/logocopy.png')}
                 />
-                <View style={{}}>
+                <View style={{marginTop: "100%",}}>
                     <ActivityIndicator size="large" color="#0C4F7A" />
                 </View>
-                <View style={{ marginTop: "5%", width: "100%", }}>
+                <View style={{ marginTop: "15%", width: "100%", }}>
                     <Text style={{
                         color: "#0C4F7A", textAlign: "center", fontWeight: "bold", width: "100%",
                         fontFamily: 'Verdana-Bold',

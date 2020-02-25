@@ -56,6 +56,8 @@ export function getData(navigation) {
                         // profession = data
                         console.log(data, "datain action")
                         dispatch({ type: ActionTypes.PROFESSION, payload: data })
+            navigation.navigate("home")
+
                     }).catch((err) => {
                         console.log(err, "ERROR_ON_SEND_EMAIL_")
                     })
@@ -70,7 +72,6 @@ export function getData(navigation) {
             });
             console.log(discount, "discount");
             dispatch({ type: ActionTypes.DISCOUNTFRMDB, payload: discount })
-            navigation.navigate("home")
         });
 
 
@@ -106,7 +107,7 @@ export function createOrder(obj,discountPkg) {
         var options = {
             method: 'POST',
             // url: `https://thawing-tor-85190.herokuapp.com/sendEmail/`,
-            url: `http://192.168.10.12:5000/sendEmail`,
+            url: `http://192.168.10.7:5000/sendEmail`,
             headers:
             {
                 'cache-control': 'no-cache',

@@ -55,9 +55,9 @@ class checkout extends React.Component {
         }, 250);
     }
     order() {
-        const { Name, Address, Description, Phone, basket, date, discountPkg } = this.state
+        const { Name, Address, Description, Phone, basket, date, discountPkg,coupon } = this.state
         let obj = {
-            Name, Address, Phone, Description, basket, date, discountPkg
+            Name, Address, Phone, Description, basket, date, discountPkg,coupon
         }
         console.log(basket, "Basket---", discountPkg)
         // { discountPkg && (obj.basket.price = basket.price - basket.price / 100 * discountPkg) }
@@ -69,7 +69,7 @@ class checkout extends React.Component {
 
         let verify = true
         for (var key in obj) {
-            if (!obj[key]) {
+            if (!obj[key]&&key!=="discountPkg") {
                 this.setState({
                     err: true, errMessage: key
                 })
@@ -91,7 +91,9 @@ class checkout extends React.Component {
 
         const { fields, loading, screenHeight, basket, err, errMessage, discountPkg, coupon } = this.state
         const { appLoader, thankYou, discountFrmDb } = this.props
-        console.log("Basketrender---", discountPkg)
+        console.log("Basketrender---", discountFrmDb[0]["coupon expiry date"], new Date(discountFrmDb[0]["coupon expiry date"]).getTime())
+        // discountFrmDb[0]["coupon code"] === coupon && coupon !== ""
+        //                                     && (new Date(discountFrmDb[0]["coupon expiry date"]).getTime() - new Date().getTime() > 1)
         return (
             <ImageBackground source={require("../../assets/gradient.jpg")}
                 style={{ width: '100%', height: '100%' }}>
@@ -142,7 +144,7 @@ class checkout extends React.Component {
                                             fontFamily: 'Verdana-Bold',
                                             color: "black", fontWeight: "bold", alignSelf: "center"
                                         }}>{basket.title} </Text>
-                                     
+
                                     </View>
                                 </View>
                                 <View style={{ marginTop: 5, flexDirection: "row", paddingHorizontal: 22 }}>
@@ -187,6 +189,7 @@ class checkout extends React.Component {
                                         // placeholderTextColor='#fff'
                                         // value={this.state[value[1]]}
                                         placeholder={"Phone"}
+                                        keyboardType={"numeric"}
                                         keyboardAppearance='default'
                                         autoCapitalize='none' returnKeyType='next'
                                         style={{}} autoCorrect={false}
@@ -257,11 +260,39 @@ class checkout extends React.Component {
                                     />
                                 </View>
                                 {
+                                    (discountFrmDb[0]["coupon code"] === coupon) && (coupon !== "")
+                                        && (new Date(discountFrmDb[0]["coupon expiry date"]).getTime() - new Date().getTime() > 1)
+                                        ?
+                                        <Text style={{ color: "green", marginTop: 10 }}>
+                                            Activated<AntDesign name="check" size={20} style={{ flex: 5, color: "green" }} />
+                                        </Text>
+
+                                        : null
+
+                                    //                                     (discountFrmDb[0]["coupon code"] !== coupon && coupon !== "") ?
+                                    //         <Text style={{ color: "red", marginTop: 10 }}>
+                                    //     Invalid coupon<AntDesign name="close" size={20} style={{ flex: 5, color: "red" }} />
+                                    // </Text> :
+                                    // ((discountFrmDb[0]["coupon code"] === coupon) && (coupon !== "")
+                                    //     && (new Date(discountFrmDb[0]["coupon expiry date"]).getTime() - new Date().getTime() > 1)
+                                    // ) ?
+                                    //             <Text style={{ color: "green", marginTop: 10 }}>
+                                    //     Activated<AntDesign name="check" size={20} style={{ flex: 5, color: "green" }} />
+                                    // </Text>
+                                    // :
+                                    // (discountFrmDb[0]["coupon code"] === coupon && coupon !== "")
+                                    //                 && (new Date(discountFrmDb[0]["coupon expiry date"]).getTime() - new Date().getTime() < 0) ?
+                                    //                 <Text style={{ color: "red", marginTop: 10 }}>
+                                    //     your coupon is expired<AntDesign name="close" size={20} style={{ flex: 5, color: "red" }} />
+                                    // </Text> :
+                                    // null
+                                }
+                                {/* {
                                     (discountFrmDb[0]["coupon code"] !== coupon && coupon !== "") ?
                                         <Text style={{ color: "red", marginTop: 10 }}>
                                             Invalid coupon<AntDesign name="close" size={20} style={{ flex: 5, color: "red" }} />
                                         </Text> :
-                                        (discountFrmDb[0]["coupon code"] === coupon && coupon !== ""
+                                        ((discountFrmDb[0]["coupon code"] === coupon) && (coupon !== "")
                                             && (new Date(discountFrmDb[0]["coupon expiry date"]).getTime() - new Date().getTime() > 1)
                                         ) ?
                                             <Text style={{ color: "green", marginTop: 10 }}>
@@ -274,7 +305,7 @@ class checkout extends React.Component {
                                                     your coupon is expired<AntDesign name="close" size={20} style={{ flex: 5, color: "red" }} />
                                                 </Text> :
                                                 null
-                                }
+                                } */}
                             </View>
                             <View style={{ alignItems: "center", marginTop: "5%" }}>
                                 {appLoader ?
