@@ -5,9 +5,12 @@ import { connect } from 'react-redux';
 import Drawer from '../../components/drawer'
 import Header from '../../components/header';
 import Charactors from '../../components/charactors';
+import AsyncStorage from '@react-native-community/async-storage';
 import professionArray from '../../components/professionArray';
 // import { dynamicPrices } from '../../store/action/action';
 import dynamicPrices from '../../components/dynamicPrices';
+// import {getasync} from '../../store/action/action';
+
 const charactorBtn = [
     <Image resizeMode="contain" style={{ width: "100%", }} source={require("../../assets/c0.png")} />,
     <Image resizeMode="contain" style={{ width: "100%", }} source={require("../../assets/c1.png")} />,
@@ -21,12 +24,30 @@ const charactorBtn = [
 class home extends React.Component {
     constructor(props) {
         super(props)
-        this.state = { drawer: false, slideStyle: "slideInLeft", screenHeight: "", catogery: false, charactor: "0", }
+        this.state = { drawer: false, slideStyle: "slideInLeft", screenHeight: "", catogery: false, charactor: "0", UserName: "" }
     };
+    getData = async () => {
+        console.log("work")
+        try {
+            const UserName = await AsyncStorage.getItem('UserName')
+            const UserAddress = await AsyncStorage.getItem('UserAddress')
+            const UserPhone = await AsyncStorage.getItem('UserPhone')
+            if (UserName && UserAddress && UserPhone) {
+                console.log(UserName,"UserName")
+                // value previously stored
+                this.setState({
+                    UserName
+                })
+            }
+        } catch (e) {
+            // error reading value
+        }
+    }
     componentWillMount() {
+        this.getData()
         // const { profession } = this.state
         // alert("work")
-        // const { profession, } = this.props
+        // const { getasync, } = this.props
         var { height, width } = Dimensions.get('window');
         // console.log(profession,  "profession,serFrmDb")
         // dynamicPrices(profession, serFrmDb)
@@ -36,6 +57,8 @@ class home extends React.Component {
         //     }).catch((err) => {
         //         console.log(err, "ERROR_ON_SEND_EMAIL_")
         //     })
+        // getasync()
+
         this.setState({
             screenHeight: height,
         })
@@ -50,9 +73,9 @@ class home extends React.Component {
         }, 250);
     }
     render() {
-        const { fields, loading, screenHeight, charactor, } = this.state
-        const { profession} = this.props
-        console.log(profession,"professionprofessionprofession")
+        const { fields, loading, screenHeight, charactor, UserName } = this.state
+        const { profession } = this.props
+        console.log(profession, "professionprofessionprofession")
         return (
             <ImageBackground source={require("../../assets/gradient.jpg")}
                 style={{ width: '100%', height: '100%' }}>
@@ -80,6 +103,10 @@ class home extends React.Component {
                     {/* body */}
                     <View style={{ flex: 9, }}>
                         <View style={{ flex: 8, justifyContent: "center", alignItems: "center" }}>
+                            {
+                                UserName ?
+                                    <Text style={{ color: "#fff", }}>Welcome {UserName}</Text> : null
+                            }
                             <Charactors
                                 func={(index) => { this.setState({ charactor: index }) }}
                             />
@@ -149,8 +176,8 @@ function mapStateToProps(states) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        // dynamicPrices: (profession, serFrmDb) => {
-        //     dispatch(dynamicPrices(profession, serFrmDb));
+        // getasync: () => {
+        //     dispatch(getasync());
         // },
     }
 }

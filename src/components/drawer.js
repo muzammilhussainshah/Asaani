@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Text, View } from 'native-base';
-import { Image, TouchableOpacity, PanResponder, StyleSheet, Linking, Platform, } from 'react-native';
+// import {} from 'native-base';
+import { Image, TouchableOpacity, PanResponder, StyleSheet, Linking, Platform, Text, View  } from 'react-native';
 import { login, notifications, logOut } from '../store/action/action';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';

@@ -6,7 +6,8 @@ import ThankYou from '../../components/ThankYou'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Header from '../../components/header';
 import DatePicker from 'react-native-datepicker'
-import { createOrder } from "../../store/action/action"
+import { createOrder, storeData } from "../../store/action/action"
+import AsyncStorage from '@react-native-community/async-storage';
 
 class checkout extends React.Component {
     constructor(props) {
@@ -20,11 +21,16 @@ class checkout extends React.Component {
             date: "",
             coupon: "",
             modalVisible: true,
-            discountPkg: ""
+            discountPkg: "",
+            Name: "", Address: "", Phone: "",
         }
     };
 
     componentWillMount() {
+
+
+        this.getData()
+
         let basket = this.props.navigation.getParam("data")
         console.log(basket, "checkout page")
         var { height, width } = Dimensions.get('window');
@@ -54,10 +60,44 @@ class checkout extends React.Component {
             })
         }, 250);
     }
+
+
+    getData = async () => {
+        console.log("storeData work")
+        try {
+            const UserName = await AsyncStorage.getItem('UserName')
+            const UserAddress = await AsyncStorage.getItem('UserAddress')
+            const UserPhone = await AsyncStorage.getItem('UserPhone')
+            if (UserName && UserAddress && UserPhone) {
+                // value previously stored
+                this.setState({
+                    Name: UserName, Address: UserAddress, Phone: UserPhone,
+                })
+                console.log(UserPhone, UserAddress, UserName, "gettttttttttt")
+            }
+        } catch (e) {
+            // error reading value
+        }
+    }
+    storeData = async (obj) => {
+        console.log("storeData work", obj)
+        try {
+            await AsyncStorage.setItem('UserName', obj.Name)
+            await AsyncStorage.setItem('UserAddress', obj.Address)
+            await AsyncStorage.setItem('UserPhone', obj.Phone)
+            console.log("try")
+        } catch (e) {
+            console.log(e, "async error")
+            // saving error
+        }
+    }
     order() {
-        const { Name, Address, Description, Phone, basket, date, discountPkg,coupon } = this.state
+
+
+
+        const { Name, Address, Description, Phone, basket, date, discountPkg, coupon } = this.state
         let obj = {
-            Name, Address, Phone, Description, basket, date, discountPkg,coupon
+            Name, Address, Phone, Description, basket, date, discountPkg, coupon
         }
         console.log(basket, "Basket---", discountPkg)
         // { discountPkg && (obj.basket.price = basket.price - basket.price / 100 * discountPkg) }
@@ -67,9 +107,10 @@ class checkout extends React.Component {
         // {discountPkg ?obj.basket.price= obj.basket.price - obj.basket.price / 100 * discountPkg : obj.basket.price}
         console.log(basket, "BasketDiscount", discountPkg)
 
+        this.storeData({ Name, Address, Phone })
         let verify = true
         for (var key in obj) {
-            if (!obj[key]&&key!=="discountPkg") {
+            if (!obj[key] && key !== "discountPkg" && key !== "coupon") {
                 this.setState({
                     err: true, errMessage: key
                 })
@@ -89,7 +130,7 @@ class checkout extends React.Component {
 
     render() {
 
-        const { fields, loading, screenHeight, basket, err, errMessage, discountPkg, coupon } = this.state
+        const { fields, loading, screenHeight, basket, err, errMessage, discountPkg, coupon, Name, Address, Phone, } = this.state
         const { appLoader, thankYou, discountFrmDb } = this.props
         console.log("Basketrender---", discountFrmDb[0]["coupon expiry date"], new Date(discountFrmDb[0]["coupon expiry date"]).getTime())
         // discountFrmDb[0]["coupon code"] === coupon && coupon !== ""
@@ -161,7 +202,7 @@ class checkout extends React.Component {
                                     style={{ width: "90%", borderBottomColor: "black", borderBottomWidth: 0.3, borderRadius: 5, paddingHorizontal: 15 }}
                                 >
                                     <TextInput
-                                        placeholder={"Name"}
+                                        defaultValue={Name} placeholder={"Name"}
                                         keyboardAppearance='default'
                                         autoCapitalize='none' returnKeyType='next'
                                         style={{}} autoCorrect={false}
@@ -172,6 +213,7 @@ class checkout extends React.Component {
                                     style={{ marginTop: 10, width: "90%", borderBottomColor: "black", borderBottomWidth: 0.3, borderRadius: 5, paddingHorizontal: 15 }}
                                 >
                                     <TextInput
+                                        defaultValue={Address}
                                         // placeholderTextColor='#fff'
                                         // value={this.state[value[1]]}
                                         placeholder={"Address"}
@@ -186,6 +228,7 @@ class checkout extends React.Component {
                                     style={{ marginTop: 10, width: "90%", borderBottomColor: "black", borderBottomWidth: 0.3, borderRadius: 5, paddingHorizontal: 15 }}
                                 >
                                     <TextInput
+                                        defaultValue={Phone}
                                         // placeholderTextColor='#fff'
                                         // value={this.state[value[1]]}
                                         placeholder={"Phone"}
@@ -380,6 +423,9 @@ function mapDispatchToProp(dispatch) {
     return ({
         createOrder: (obj, discountPkg) => {
             dispatch(createOrder(obj, discountPkg));
+        },
+        storeData: (obj, ) => {
+            dispatch(storeData(obj));
         },
 
     })

@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Carousel from 'react-native-looped-carousel';
 import * as Animatable from 'react-native-animatable';
+import Click from '../components/music';
 
 
 let { height, width } = Dimensions.get('window');
@@ -17,6 +18,20 @@ export class Charactors extends Component {
         this.state = {
             size: { width: "100%", height: "100%", },
         };
+    }
+    click = () => {
+
+        Click.setVolume(1);
+        Click.play((success) => {
+            if (success) {
+                console.log('successfully finished playing');
+            } else {
+                console.log('playback failed due to audio decoding errors');
+                // reset the player to its uninitialized state (android only)
+                // this is the only option to recover after an error occured and use the player again
+                Click.reset();
+            }
+        })
     }
     render() {
         const { func } = this.props
@@ -40,13 +55,13 @@ export class Charactors extends Component {
                 rightArrowText={'>'}
                 rightArrowStyle={{
                     fontSize: 50, margin: 20,
-                     color: '#F5CD54',
+                    color: '#F5CD54',
                     // textShadowOffset: { width: 2, height: 2 },
                     // textShadowRadius: 1,
                     // textShadowColor: '#000',
                 }}
                 arrows
-                onPageBeingChanged={(p) => func(p)}
+                onPageBeingChanged={(p) => this.click()}
             >
                 <TouchableOpacity style={styles.contentContainer}
                     // onPress={() => alert("work")}
