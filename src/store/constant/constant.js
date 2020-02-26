@@ -5,7 +5,6 @@ const ActionTypes = {
     SERVICEFRMDB: 'SERVICEFRMDB',
     DISCOUNTFRMDB: 'DISCOUNTFRMDB',
     PROFESSION: 'PROFESSION',
-    // USER_NUMBER: 'USER_NUMBER'
 }
 
 export default ActionTypes;

@@ -1,10 +1,7 @@
 import {
     createStackNavigator,
-    createDrawerNavigator,
     createAppContainer,
 } from 'react-navigation';
-// import Home from '../screens/home/Home/home'
-// import Login from '../screens/Login/index';
 import SplashScreen from '../screens/SplashScreen';
 import home from '../screens/home';
 import checkout from '../screens/checkout';
@@ -15,10 +12,6 @@ import about from '../screens/about';
 import Notifications from '../screens/Notifications';
 import faqs from '../screens/faqs';
 import contactUs from '../screens/contactUs';
-// import SignUp from '../screens/home/SignUp';
-
-
-
 const StackNavigator = createStackNavigator({
     SplashScreen: { screen: SplashScreen },
     home: { screen: home },
@@ -30,8 +23,6 @@ const StackNavigator = createStackNavigator({
     Service: { screen: Service },
     AvailService: { screen: AvailService },
     SubService: { screen: SubService },
-    // Home: { screen: Home },
-    // SignUp: { screen: SignUp },
 }, {
         headerMode: 'none',
         navigationOptions: {
@@ -39,8 +30,5 @@ const StackNavigator = createStackNavigator({
             drawerLockMode: 'locked-closed'
         },
     });
-
-
 const Navigation = createAppContainer(StackNavigator)
-
 export default Navigation;
