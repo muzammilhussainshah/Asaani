@@ -21,7 +21,6 @@ class AvailServiceRow extends React.Component {
     render() {
         const { fields, loading } = this.state
         const { func, heading, title, data, navigation, route } = this.props
-        console.log(data, "Availble sercieRow")
         return (
             <TouchableOpacity onPress={() => navigation.push("checkout", { data })}
                 style={{

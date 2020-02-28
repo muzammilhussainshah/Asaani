@@ -16,7 +16,6 @@ class Service extends React.Component {
     };
     componentWillMount() {
         let profession = this.props.navigation.getParam("profession")
-        console.log(profession,"service page")
         var { height, width } = Dimensions.get('window');
         this.setState({
             screenHeight: height,
@@ -24,7 +23,6 @@ class Service extends React.Component {
         })
     }
     animateParent(fals) {
-        console.log(fals, "9999999999999999")
         setTimeout(() => {
             this.setState({
                 drawer: false

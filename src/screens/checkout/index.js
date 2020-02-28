@@ -27,7 +27,6 @@ class checkout extends React.Component {
     componentWillMount() {
         this.getData()
         let basket = this.props.navigation.getParam("data")
-        console.log(basket, "checkout page")
         var { height, width } = Dimensions.get('window');
         this.setState({
             screenHeight: height,
@@ -48,7 +47,6 @@ class checkout extends React.Component {
         })
     }
     animateParent(fals) {
-        console.log(fals, "9999999999999999")
         setTimeout(() => {
             this.setState({
                 drawer: false
@@ -56,7 +54,6 @@ class checkout extends React.Component {
         }, 250);
     }
     getData = async () => {
-        console.log("storeData work")
         try {
             const UserName = await AsyncStorage.getItem('UserName')
             const UserAddress = await AsyncStorage.getItem('UserAddress')
@@ -65,7 +62,6 @@ class checkout extends React.Component {
                 this.setState({
                     Name: UserName, Address: UserAddress, Phone: UserPhone,
                 })
-                console.log(UserPhone, UserAddress, UserName, "gettttttttttt")
             }
         } catch (e) {
         }

@@ -5,6 +5,8 @@ import Drawer from '../../components/drawer'
 import Header from '../../components/header';
 import Charactors from '../../components/charactors';
 import AsyncStorage from '@react-native-community/async-storage';
+import Click from '../../components/music';
+
 const charactorBtn = [
     <Image resizeMode="contain" style={{ width: "100%", }} source={require("../../assets/c0.png")} />,
     <Image resizeMode="contain" style={{ width: "100%", }} source={require("../../assets/c1.png")} />,
@@ -25,7 +27,6 @@ class home extends React.Component {
             const UserAddress = await AsyncStorage.getItem('UserAddress')
             const UserPhone = await AsyncStorage.getItem('UserPhone')
             if (UserName && UserAddress && UserPhone) {
-                console.log(UserName,"UserName")
                 this.setState({
                     UserName
                 })
@@ -48,10 +49,21 @@ class home extends React.Component {
             this.setState({ drawer: false })
         }, 250);
     }
+    click = () => {
+
+        Click.setVolume(0.1);
+        Click.play((success) => {
+            if (success) {
+            } else {
+                // reset the player to its uninitialized state (android only)
+                // this is the only option to recover after an error occured and use the player again
+                Click.reset();
+            }
+        })
+    }
     render() {
         const { screenHeight, charactor, UserName } = this.state
         const { profession } = this.props
-        console.log(profession, "professionprofessionprofession")
         return (
             <ImageBackground source={require("../../assets/gradient.jpg")}
                 style={{ width: '100%', height: '100%' }}>
@@ -79,12 +91,12 @@ class home extends React.Component {
                     {/* body */}
                     <View style={{ flex: 9, }}>
                         <View style={{ flex: 8, justifyContent: "center", alignItems: "center" }}>
-                            {
+                            {/* {
                                 UserName ?
                                     <Text style={{ color: "#fff", }}>Welcome {UserName}</Text> : null
-                            }
+                            } */}
                             <Charactors
-                                func={(index) => { this.setState({ charactor: index }) }}
+                                func={(index) => { this.setState({ charactor: index },()=>this.click()) }}
                             />
                         </View>
                         <View style={{ flex: 2, justifyContent: "center", alignItems: "center" }}>

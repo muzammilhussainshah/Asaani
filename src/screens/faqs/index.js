@@ -22,7 +22,6 @@ class faqs extends React.Component {
         })
     }
     animateParent(fals) {
-        console.log(fals, "9999999999999999")
         setTimeout(() => {
             this.setState({
                 drawer: false

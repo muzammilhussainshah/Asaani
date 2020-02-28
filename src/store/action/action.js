@@ -23,25 +23,18 @@ export function getData(navigation) {
         db.collection("services").get()
             .then((querySnapshot) => {
                 let servicesFromDb = []
-                console.log(querySnapshot, "querySnapshot");
                 querySnapshot.forEach((doc) => {
                     servicesFromDb.push(doc.data())
-                    console.log(`${doc.id} => ${doc.data()}`);
                 });
-                console.log(servicesFromDb, "test");
                 dispatch({ type: ActionTypes.SERVICEFRMDB, payload: servicesFromDb })
                 dynamicPrices(professionArray, servicesFromDb)
                     .then((data) => {
-                        console.log(data, "datain action")
                         dispatch({ type: ActionTypes.PROFESSION, payload: data })
                         db.collection("discount").get().then((querySnapshot) => {
                             let discount = []
-                            console.log(querySnapshot, "querySnapshot");
                             querySnapshot.forEach((doc) => {
                                 discount.push(doc.data())
-                                console.log(`${doc.id} => ${doc.data()}`);
                             });
-                            console.log(discount, "discount");
                             dispatch({ type: ActionTypes.DISCOUNTFRMDB, payload: discount })
                         });
                         navigation.navigate("home")
@@ -63,7 +56,6 @@ export function thankYou(bolean) {
 export function createOrder(obj, discountPkg) {
     return dispatch => {
         let cloneObj = obj
-        console.log(obj, discountPkg, "obj,discountPkg")
         dispatch(appLoader(true))
         var options = {
             method: 'POST',
@@ -82,7 +74,6 @@ export function createOrder(obj, discountPkg) {
                 dispatch(appLoader(false))
             }).catch((err) => {
                 dispatch(appLoader(false))
-                console.log(err, "ERROR_ON_SEND_EMAIL_")
             })
     }
 }

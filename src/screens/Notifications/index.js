@@ -23,7 +23,6 @@ class Notifications extends React.Component {
         })
     }
     animateParent(fals) {
-        console.log(fals, "9999999999999999")
         setTimeout(() => {
             this.setState({
                 drawer: false
@@ -33,7 +32,6 @@ class Notifications extends React.Component {
     render() {
         const { screenHeight } = this.state
         const { discountFrmDb, } = this.props
-        console.log(discountFrmDb, "discountFrmDb", discountFrmDb)
         return (
             <ImageBackground source={require("../../assets/gradient.jpg")}
                 style={{ width: '100%', height: '100%' }}>

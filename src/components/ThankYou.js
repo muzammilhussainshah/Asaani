@@ -21,7 +21,6 @@ class ThankYou extends React.Component {
     render() {
         const { fields, loading } = this.state
         const { heading, title, data, navigation,modalState,thankYou} = this.props
-        console.log(data, "Availble sercieRow")
         return (
             <Modal
                 style={{
@@ -30,14 +29,9 @@ class ThankYou extends React.Component {
                 transparent={true}
                 visible={modalState}
                 onRequestClose={() => {
-                    // Alert.alert('Modal has been closed.');
                 }}>
-
-
-
                 <Animatable.View
                     animation="pulse"
-
                     style={{
                         position: "absolute", zIndex: 1, backgroundColor: "white", width: "80%", height: 165,
                         marginHorizontal: "9.5%", marginVertical: "20%",

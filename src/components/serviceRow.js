@@ -15,13 +15,10 @@ class ServiceRow extends React.Component {
         this.state = {
         }
     };
-    componentWillUnmount() {
-        // BackHandler.removeEventListener('hardwareBackPress', BackHandler.exitApp());
-    }
+   
     render() {
         const { fields, loading } = this.state
         const { func, heading, title, data, navigation, route } = this.props
-        // console.log(data, title, "datata")
         return (
             <TouchableOpacity onPress={() => navigation.push(route ? route : "SubService", { profession:  data })}
                 style={{
@@ -30,7 +27,6 @@ class ServiceRow extends React.Component {
                 <View style={{ flex: 1.5, alignItems: "center" }} >
                     <Image
                         style={{ width: "100%", height: 200, }}
-                        // style={{height:200}}
                         resizeMode="contain"
                         source={require('../assets/logocopy.png')} />
                 </View>
