@@ -20,7 +20,8 @@ class ThankYou extends React.Component {
 
     render() {
         const { fields, loading } = this.state
-        const { heading, title, data, navigation,modalState,thankYou} = this.props
+        const { heading, asynk, data, navigation,modalState,thankYou} = this.props
+        console.log(asynk, "Availble sercieRow")
         return (
             <Modal
                 style={{
@@ -29,9 +30,14 @@ class ThankYou extends React.Component {
                 transparent={true}
                 visible={modalState}
                 onRequestClose={() => {
+                    // Alert.alert('Modal has been closed.');
                 }}>
+
+
+
                 <Animatable.View
                     animation="pulse"
+
                     style={{
                         position: "absolute", zIndex: 1, backgroundColor: "white", width: "80%", height: 165,
                         marginHorizontal: "9.5%", marginVertical: "20%",
@@ -95,7 +101,7 @@ aaaaaaa
                             onPress={() => {
                                 // this.offer()
                               thankYou(false)
-                                navigation.navigate("home")
+                                navigation.navigate("home",{Name:asynk})
                             }}
                         >
                             <Text style={{ color: "white", fontWeight: "bold",fontFamily: 'Verdana-Bold', textAlign: "center" }}> Ok </Text>

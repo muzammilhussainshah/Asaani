@@ -14,16 +14,19 @@ export class Charactors extends Component {
     constructor(props) {
         super(props)
         let { width, height } = Dimensions.get('window')
+        console.log(width, height, "66666665")
         this.state = {
             size: { width: "100%", height: "100%", },
         };
     }
     click = () => {
 
-        Click.setVolume(1);
+        Click.setVolume(0.1);
         Click.play((success) => {
             if (success) {
+                console.log('successfully finished playing');
             } else {
+                console.log('playback failed due to audio decoding errors');
                 // reset the player to its uninitialized state (android only)
                 // this is the only option to recover after an error occured and use the player again
                 Click.reset();
@@ -58,8 +61,7 @@ export class Charactors extends Component {
                     // textShadowColor: '#000',
                 }}
                 arrows
-                // onPageBeingChanged={(p) => this.click()}
-                onPageBeingChanged={(p) => func(p)}
+                onPageBeingChanged={(index) => func(index)}
             >
                 <TouchableOpacity style={styles.contentContainer}
                     // onPress={() => alert("work")}

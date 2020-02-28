@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import { View, StyleSheet, Text, Dimensions, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Drawer from '../../components/drawer'
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import SlideDownCatogery from '../../components/SlideDownCatogery';
 import Header from '../../components/header';
+import Charactors from '../../components/charactors';
 import { ScrollView } from 'react-native-gesture-handler';
+let { height, width } = Dimensions.get('window');
 class Notifications extends React.Component {
     constructor(props) {
         super(props)
@@ -14,15 +18,20 @@ class Notifications extends React.Component {
             slideStyle: "slideInLeft",
             screenHeight: "",
             catogery: false,
+
         }
     };
     componentWillMount() {
-        var { height } = Dimensions.get('window');
+        var { height, width } = Dimensions.get('window');
         this.setState({
             screenHeight: height,
         })
     }
+    componentWillUnmount() {
+        // BackHandler.removeEventListener('hardwareBackPress', BackHandler.exitApp());
+    }
     animateParent(fals) {
+        console.log(fals, "9999999999999999")
         setTimeout(() => {
             this.setState({
                 drawer: false
@@ -32,10 +41,17 @@ class Notifications extends React.Component {
     render() {
         const { screenHeight } = this.state
         const { discountFrmDb, } = this.props
+        console.log(discountFrmDb, "discountFrmDb", discountFrmDb)
         return (
             <ImageBackground source={require("../../assets/gradient.jpg")}
+
                 style={{ width: '100%', height: '100%' }}>
                 <View style={{ flex: 1, }}>
+                    {/* slidedown catogery  */}
+                    {/* {(this.state.catogery === true) && (
+                        <SlideDownCatogery/>
+                    )} */}
+                    {/* slidedown catogery  */}
                     {/* //drawer close view// */}
                     {(this.state.drawer === true) && (
                         <TouchableOpacity
@@ -84,16 +100,21 @@ class Notifications extends React.Component {
                                     </View>
                                 </View>
                             ) : null
+
                             }
                         </ScrollView>
                     </View>
                     {/* body */}
                 </View>
             </ImageBackground>
+
         );
     }
 }
+
 const styles = StyleSheet.create({
+    container: {
+    },
 })
 
 function mapStateToProps(states) {
@@ -101,6 +122,7 @@ function mapStateToProps(states) {
         discountFrmDb: states.root.discountFrmDb,
     })
 }
+
 function mapDispatchToProps(dispatch) {
     return {
         actions: bindActionCreators({
@@ -108,4 +130,5 @@ function mapDispatchToProps(dispatch) {
         }, dispatch)
     }
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(Notifications);

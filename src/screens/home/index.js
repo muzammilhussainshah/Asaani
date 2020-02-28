@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import { View, StyleSheet, Text, Dimensions, TouchableOpacity, Image, ImageBackground, BackHandler } from 'react-native';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Drawer from '../../components/drawer'
 import Header from '../../components/header';
 import Charactors from '../../components/charactors';
 import AsyncStorage from '@react-native-community/async-storage';
+import professionArray from '../../components/professionArray';
+// import { dynamicPrices } from '../../store/action/action';
+import dynamicPrices from '../../components/dynamicPrices';
+// import {getasync} from '../../store/action/action';
 import Click from '../../components/music';
+import { NavigationEvents } from 'react-navigation';
 
 const charactorBtn = [
     <Image resizeMode="contain" style={{ width: "100%", }} source={require("../../assets/c0.png")} />,
@@ -16,32 +22,53 @@ const charactorBtn = [
     <Image resizeMode="contain" style={{ width: "100%", }} source={require("../../assets/c5.png")} />,
     <Image resizeMode="contain" style={{ width: "100%", }} source={require("../../assets/c6.png")} />,
 ]
+// let profession = professionArray
 class home extends React.Component {
     constructor(props) {
         super(props)
         this.state = { drawer: false, slideStyle: "slideInLeft", screenHeight: "", catogery: false, charactor: "0", UserName: "" }
     };
     getData = async () => {
+        console.log("work")
         try {
             const UserName = await AsyncStorage.getItem('UserName')
             const UserAddress = await AsyncStorage.getItem('UserAddress')
             const UserPhone = await AsyncStorage.getItem('UserPhone')
             if (UserName && UserAddress && UserPhone) {
+                console.log(UserName, "UserName")
+                // value previously stored
                 this.setState({
                     UserName
                 })
             }
         } catch (e) {
+            // error reading value
         }
     }
     componentWillMount() {
+        // alert("aaaaaaaaaaa")
+
         this.getData()
-        var { height,} = Dimensions.get('window');
+        // const { profession } = this.state
+        // alert("work")
+        // const { getasync, } = this.props
+        var { height, width } = Dimensions.get('window');
+        // console.log(profession,  "profession,serFrmDb")
+        // dynamicPrices(profession, serFrmDb)
+        //     .then((data) => {
+        //         // profession = data
+        //         console.log(data, "data")
+        //     }).catch((err) => {
+        //         console.log(err, "ERROR_ON_SEND_EMAIL_")
+        //     })
+        // getasync()
+
         this.setState({
             screenHeight: height,
         })
     }
     componentWillUnmount() {
+        // profession = professionArray
         BackHandler.removeEventListener('hardwareBackPress', BackHandler.exitApp());
     }
     animateParent(fals) {
@@ -50,24 +77,38 @@ class home extends React.Component {
         }, 250);
     }
     click = () => {
-
-        Click.setVolume(0.1);
+        Click.setVolume(1);
         Click.play((success) => {
             if (success) {
+                console.log('successfully finished playing');
             } else {
+                console.log('playback failed due to audio decoding errors');
                 // reset the player to its uninitialized state (android only)
                 // this is the only option to recover after an error occured and use the player again
                 Click.reset();
             }
         })
     }
+
     render() {
-        const { screenHeight, charactor, UserName } = this.state
+        const { fields, loading, screenHeight, charactor, UserName } = this.state
         const { profession } = this.props
+        console.log(profession, "professionprofessionprofession")
+
         return (
             <ImageBackground source={require("../../assets/gradient.jpg")}
                 style={{ width: '100%', height: '100%' }}>
                 <View style={{ flex: 1, }}>
+                    <NavigationEvents onDidFocus={() => {
+                        let UserName = this.props.navigation.getParam("Name")
+                        if(UserName){
+                            this.setState({
+                                UserName
+                            })
+                        }
+                       console.log(Name,"**************")
+
+                    }} />
                     {/* //drawer close view// */}
                     {(this.state.drawer === true) && (
                         <TouchableOpacity
@@ -91,12 +132,12 @@ class home extends React.Component {
                     {/* body */}
                     <View style={{ flex: 9, }}>
                         <View style={{ flex: 8, justifyContent: "center", alignItems: "center" }}>
-                            {/* {
+                            {
                                 UserName ?
                                     <Text style={{ color: "#fff", }}>Welcome {UserName}</Text> : null
-                            } */}
+                            }
                             <Charactors
-                                func={(index) => { this.setState({ charactor: index },()=>this.click()) }}
+                                func={(index) => { this.setState({ charactor: index }, () => this.click()) }}
                             />
                         </View>
                         <View style={{ flex: 2, justifyContent: "center", alignItems: "center" }}>
@@ -117,6 +158,7 @@ class home extends React.Component {
                                 }}>
                                 {/* charactor btn */}
                                 {charactorBtn[charactor]}
+
                             </View>
                             <TouchableOpacity
                                 onPress={() => this.props.navigation.navigate("Service", { profession: profession[charactor] })}
@@ -148,15 +190,25 @@ class home extends React.Component {
 }
 
 const styles = StyleSheet.create({
+    container: {
+    },
 })
+
 function mapStateToProps(states) {
     return ({
+        // USERDATA: states.root.USERDATA,
         serFrmDb: states.root.serFrmDb,
         profession: states.root.profession,
+
     })
 }
+
 function mapDispatchToProps(dispatch) {
     return {
+        // getasync: () => {
+        //     dispatch(getasync());
+        // },
     }
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(home);

@@ -1,4 +1,5 @@
 export default (professionArr,serFrmDb) => {
+    console.log(professionArr,serFrmDb,"dynamic")
         return new Promise(function (resolve, reject) {
             let profession = professionArr
             //ac Invertor Installation 
@@ -167,6 +168,7 @@ export default (professionArr,serFrmDb) => {
             profession[6].Bathroom[8].price = serFrmDb[5]["Removal of WC & Commode Installation"]
             profession[6].Bathroom[9].price = serFrmDb[5]["Shower Set Change with new"]
             profession[6].Bathroom[10].price = serFrmDb[5]["Toilet Seat Fixing"]
+            console.log(profession,"professiondynamic")
             resolve(profession)
         })
 }

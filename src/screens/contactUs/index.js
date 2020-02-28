@@ -1,10 +1,14 @@
-import React from 'react';
-import { View, StyleSheet, Text, Dimensions, TouchableOpacity, ImageBackground } from 'react-native';
+import React, { useReducer } from 'react';
+import { View, StyleSheet, Text, Dimensions, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Drawer from '../../components/drawer'
+import Icon from 'react-native-vector-icons/Entypo';
+import SlideDownCatogery from '../../components/SlideDownCatogery';
 import Header from '../../components/header';
+import Charactors from '../../components/charactors';
 import { ScrollView } from 'react-native-gesture-handler';
+let { height, width } = Dimensions.get('window');
 class ContactUs extends React.Component {
     constructor(props) {
         super(props)
@@ -13,15 +17,20 @@ class ContactUs extends React.Component {
             slideStyle: "slideInLeft",
             screenHeight: "",
             catogery: false,
+
         }
     };
     componentWillMount() {
-        var { height, } = Dimensions.get('window');
+        var { height, width } = Dimensions.get('window');
         this.setState({
             screenHeight: height,
         })
     }
+    componentWillUnmount() {
+        // BackHandler.removeEventListener('hardwareBackPress', BackHandler.exitApp());
+    }
     animateParent(fals) {
+        console.log(fals, "9999999999999999")
         setTimeout(() => {
             this.setState({
                 drawer: false
@@ -29,11 +38,17 @@ class ContactUs extends React.Component {
         }, 250);
     }
     render() {
-        const {  screenHeight } = this.state
+        const { fields, loading, screenHeight } = this.state
         return (
             <ImageBackground source={require("../../assets/gradient.jpg")}
+
                 style={{ width: '100%', height: '100%' }}>
                 <View style={{ flex: 1, }}>
+                    {/* slidedown catogery  */}
+                    {/* {(this.state.catogery === true) && (
+                        <SlideDownCatogery/>
+                    )} */}
+                    {/* slidedown catogery  */}
                     {/* //drawer close view// */}
                     {(this.state.drawer === true) && (
                         <TouchableOpacity
@@ -74,20 +89,27 @@ class ContactUs extends React.Component {
                                 style={{ color: "#fff",fontFamily: 'Verdana-Bold', }}>
                                 info@asaani.com.pk
                             </Text>
+
                         </ScrollView>
                     </View>
                     {/* body */}
                 </View>
             </ImageBackground>
+
         );
     }
 }
+
 const styles = StyleSheet.create({
+    container: {
+    },
 })
+
 function mapStateToProps(states) {
     return ({
     })
 }
+
 function mapDispatchToProps(dispatch) {
     return {
         actions: bindActionCreators({
@@ -95,4 +117,5 @@ function mapDispatchToProps(dispatch) {
         }, dispatch)
     }
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(ContactUs);

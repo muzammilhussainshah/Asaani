@@ -30,12 +30,15 @@ class Drawer extends Component {
                 return !(gestureState.dx === 0 && gestureState.dy === 0)
             },
             onPanResponderGrant: (evt, gestureState) => {
+                console.log("grant", gestureState.dx)
             },
             onPanResponderMove: (evt, gestureState) => {
             },
             onPanResponderTerminationRequest: (evt, gestureState) => true,
             onPanResponderRelease: (evt, gestureState) => {
+                console.log("release", gestureState.dx)
                 if (gestureState.dx < -40) {
+                    console.log("slide close")
                     this.setState({
                         animationStyle: "fadeOutLeftBig"
                     })
@@ -50,6 +53,7 @@ class Drawer extends Component {
         });
     }
     componentWillMount() {
+        console.log(this.props.animationStyle, "***************")
         this.setState({
             animationStyle: this.props.animationStyle,
         })
@@ -67,6 +71,7 @@ class Drawer extends Component {
         Linking.openURL(phoneNumber);
     };
     render() {
+        console.log(this.state.animationStyle, "*********ssssssss******")
         return (
             <Animatable.View
                 {...this._panResponder.panHandlers}

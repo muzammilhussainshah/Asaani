@@ -1,10 +1,13 @@
-import React from 'react';
-import { View, StyleSheet,  Dimensions, TouchableOpacity,  ImageBackground, ScrollView, } from 'react-native';
+import React, { useReducer } from 'react';
+import { View, StyleSheet, Text, Dimensions, TouchableOpacity, TextInput, ImageBackground, ScrollView, Image } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Drawer from '../../components/drawer'
+import Icon from 'react-native-vector-icons/Entypo';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import Header from '../../components/header';
 import ServiceRow from '../../components/serviceRow';
+let { height, width } = Dimensions.get('window');
 class SubService extends React.Component {
     constructor(props) {
         super(props)
@@ -22,7 +25,11 @@ class SubService extends React.Component {
             profession,
         })
     }
+    componentWillUnmount() {
+        // BackHandler.removeEventListener('hardwareBackPress', BackHandler.exitApp());
+    }
     animateParent(fals) {
+        console.log(fals, "9999999999999999")
         setTimeout(() => {
             this.setState({
                 drawer: false
@@ -31,9 +38,11 @@ class SubService extends React.Component {
     }
     render() {
         const { profession, screenHeight } = this.state
+        console.log(profession,"sub service")
         return (
             <ImageBackground source={require("../../assets/gradient.jpg")}
                 style={{ width: '100%', height: '100%' }}>
+
                 <View style={{ flex: 1, }}>
                     {/* //drawer close view// */}
                     {(this.state.drawer === true) && (
@@ -63,6 +72,7 @@ class SubService extends React.Component {
                                     )
                                 })
                             }
+                            {/* <ServiceRow /> */}
                         </ScrollView>
                     </View>
                 </View>
@@ -70,9 +80,15 @@ class SubService extends React.Component {
         );
     }
 }
+
 const styles = StyleSheet.create({
+    container: {
+    },
 })
+
 function mapStateToProps(states) {
+    return ({
+    })
 }
 
 function mapDispatchToProps(dispatch) {
@@ -82,4 +98,5 @@ function mapDispatchToProps(dispatch) {
         }, dispatch)
     }
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(SubService);

@@ -1,10 +1,13 @@
-import React from 'react';
-import { View, StyleSheet,  Dimensions, TouchableOpacity,  ImageBackground, ScrollView, } from 'react-native';
+import React, { useReducer } from 'react';
+import { View, StyleSheet, Text, Dimensions, TouchableOpacity, TextInput, ImageBackground, ScrollView, Image } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Drawer from '../../components/drawer'
+import Icon from 'react-native-vector-icons/Entypo';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import Header from '../../components/header';
 import ServiceRow from '../../components/serviceRow';
+let { height, width } = Dimensions.get('window');
 class Service extends React.Component {
     constructor(props) {
         super(props)
@@ -16,13 +19,18 @@ class Service extends React.Component {
     };
     componentWillMount() {
         let profession = this.props.navigation.getParam("profession")
+        console.log(profession,"service page")
         var { height, width } = Dimensions.get('window');
         this.setState({
             screenHeight: height,
             profession,
         })
     }
+    componentWillUnmount() {
+        // BackHandler.removeEventListener('hardwareBackPress', BackHandler.exitApp());
+    }
     animateParent(fals) {
+        console.log(fals, "9999999999999999")
         setTimeout(() => {
             this.setState({
                 drawer: false
@@ -60,6 +68,7 @@ class Service extends React.Component {
                             {
                                 Object.keys(profession).map((key, index) => {
                                     return (
+                                        
                                         key!=="route"&&<ServiceRow data={profession[key]} route={profession.route} title={key} navigation={this.props.navigation}/>
                                     )
                                 })
@@ -74,6 +83,8 @@ class Service extends React.Component {
 }
 
 const styles = StyleSheet.create({
+    container: {
+    },
 })
 
 function mapStateToProps(states) {
