@@ -16,7 +16,7 @@ class faqs extends React.Component {
             drawer: false,
             slideStyle: "slideInLeft",
             screenHeight: "",
-            catogery: false,
+            catogery: false, q1: false, q2: false, q3: false, q4: false, q5: false, q6: false, q7: false, q8: false, q9: false, q10: false, q11: false
 
         }
     };
@@ -38,7 +38,7 @@ class faqs extends React.Component {
         }, 250);
     }
     render() {
-        const { fields, loading, screenHeight } = this.state
+        const { q1, q2, q3, q4, q5, q6, q7,q8,q9,q10,q11, screenHeight } = this.state
         return (
             <ImageBackground source={require("../../assets/gradient.jpg")}
 
@@ -70,124 +70,201 @@ class faqs extends React.Component {
                     {/* header */}
                     <Header func={() => this.setState({ drawer: true })}
                     //  heading="FAQs"
-                      />
+                    />
                     {/* header */}
                     {/* body */}
-                    <View style={{ flex: 9, padding: 8 }}>
+                    <View style={{ flex: 9, backgroundColor: "#F2F2F2" }}>
                         <ScrollView>
-                            <View style={{ backgroundColor: 'rgba(52, 52, 52, 0.2)', borderRadius: 5, padding: 5,alignSelf: 'flex-start' }}>
-                                <Text
-                                    style={{ color: "#fff",fontFamily: 'Verdana-Bold', }}>
-                                    1. WHY ASANI??
+                            <View style={{ borderBottomColor: "white", borderBottomWidth: 4, backgroundColor: '#0C4F7A', padding: 5, height: 65, alignItems: "center", flex: 1, flexDirection: "row" }}>
+                                <View style={{ flex: 8 }}>
+                                    <Text
+                                        style={{ color: "#E3DC13", fontWeight: "bold", fontFamily: 'Verdana-Bold', }}>
+                                      WHY ASANI??
+                                  </Text>
+                                </View>
+                                <TouchableOpacity style={{ flex: 2, alignItems: "center" }} onPress={() => this.setState({ q1: !q1 })}>
+                                    <Text style={{ color: "#fff", fontSize: 26, fontFamily: 'Verdana-Bold', }}>{!q1 ? "+" : "-"}</Text>
+                                </TouchableOpacity>
+                            </View>
+                            {q1 &&
+                                <View style={{ backgroundColor: 'white', borderRadius: 5, padding: 15, alignSelf: 'flex-end', maxWidth: 250 }}>
+                                    <Text
+                                        style={{ fontFamily: 'Verdana-Bold', }}>
+                                        Our workers are highly skilled, reliable and properly screened prior to hiring. Our prices are very competitive in prevailing market.
                             </Text>
-                            </View>
-                            <View style={{ backgroundColor: 'rgba(52, 52, 52, 0.2)', borderRadius: 5,marginTop:5, padding: 5, alignSelf: 'flex-end',maxWidth:250 }}>
-                                <Text
-                                    style={{ color: "#fff",fontFamily: 'Verdana-Bold', }}>
-                                  Our workers are highly skilled, reliable and properly screened prior to hiring. Our prices are very competitive in prevailing market.
-                            </Text>
-                            </View>
-                            <View style={{ backgroundColor: 'rgba(52, 52, 52, 0.2)',marginTop:5, borderRadius: 5, padding: 5,alignSelf: 'flex-start' }}>
-                                <Text
-                                    style={{ color: "#fff",fontFamily: 'Verdana-Bold', }}>
-                                 2. HOW I ORDER?
-                            </Text>
-                            </View>
-                            <View style={{ backgroundColor: 'rgba(52, 52, 52, 0.2)', borderRadius: 5,marginTop:5, padding: 5, alignSelf: 'flex-end',maxWidth:250 }}>
-                                <Text
-                                    style={{ color: "#fff",fontFamily: 'Verdana-Bold', }}>
-                                 Either you call on our given number 0311-7799626 or fill our form which is available on the App </Text>
-                            </View>
-                            <View style={{ backgroundColor: 'rgba(52, 52, 52, 0.2)',marginTop:5, borderRadius: 5, padding: 5,alignSelf: 'flex-start',maxWidth:250 }}>
-                                <Text
-                                    style={{ color: "#fff",fontFamily: 'Verdana-Bold', }}>
-                                 3. WHEN YOUR TECHNICIAN/PERSON COME TO COMPLETE ORDER AT HOME?
-                            </Text>
-                            </View>
-                            <View style={{ backgroundColor: 'rgba(52, 52, 52, 0.2)', borderRadius: 5,marginTop:5, padding: 5, alignSelf: 'flex-end',maxWidth:250 }}>
-                                <Text
-                                    style={{ color: "#fff",fontFamily: 'Verdana-Bold', }}>
-                                 After receiving your order we manage our technician to complete your task .Also we send sms and confirmation call to set time with you.
-                                 </Text>
-                            </View>
+                                </View>
+                            }
 
-                            <View style={{ backgroundColor: 'rgba(52, 52, 52, 0.2)',marginTop:5, borderRadius: 5, padding: 5,alignSelf: 'flex-start',maxWidth:250 }}>
-                                <Text
-                                    style={{ color: "#fff",fontFamily: 'Verdana-Bold', }}>
-                                 4. IS YOUR EMPLOYEE COME ON SAME DAY?
-                            </Text>
+                            <View style={{ borderBottomColor: "white", borderBottomWidth: 4, backgroundColor: '#0C4F7A', padding: 5, height: 65, alignItems: "center", flex: 1, flexDirection: "row" }}>
+                                <View style={{ flex: 8 }}>
+                                    <Text
+                                        style={{ color: "#E3DC13", fontWeight: "bold", fontFamily: 'Verdana-Bold', }}>
+                                        HOW I ORDER?
+                                  </Text>
+                                </View>
+                                <TouchableOpacity style={{ flex: 2, alignItems: "center" }} onPress={() => this.setState({ q2: !q2 })}>
+                                    <Text style={{ color: "#fff", fontSize: 26, fontFamily: 'Verdana-Bold', }}>{!q2 ? "+" : "-"}</Text>
+                                </TouchableOpacity>
                             </View>
-                            <View style={{ backgroundColor: 'rgba(52, 52, 52, 0.2)', borderRadius: 5,marginTop:5, padding: 5, alignSelf: 'flex-end',maxWidth:250 }}>
-                                <Text
-                                    style={{ color: "#fff",fontFamily: 'Verdana-Bold', }}>
-                                 Usually we try to send person on same day but some time it might go to next day.
-                                 </Text>
+                            {q2 &&
+                                <View style={{ backgroundColor: 'white', borderRadius: 5, padding: 15, alignSelf: 'flex-end', maxWidth: 250 }}>
+                                    <Text
+                                        style={{ fontFamily: 'Verdana-Bold', }}>
+                                        Our workers are highly skilled, reliable and properly screened prior to hiring. Our prices are very competitive in prevailing market.
+                                    </Text>
+                                </View>
+                            }
+
+
+                            <View style={{ borderBottomColor: "white", borderBottomWidth: 4, backgroundColor: '#0C4F7A', padding: 5, height: 65, alignItems: "center", flex: 1, flexDirection: "row" }}>
+                                <View style={{ flex: 8 }}>
+                                    <Text
+                                        style={{ color: "#E3DC13", fontWeight: "bold", fontFamily: 'Verdana-Bold', }}>
+                                      WHEN YOUR TECHNICIAN/PERSON COME TO COMPLETE ORDER AT HOME?
+                                  </Text>
+                                </View>
+                                <TouchableOpacity style={{ flex: 2, alignItems: "center" }} onPress={() => this.setState({ q3: !q3 })}>
+                                    <Text style={{ color: "#fff", fontSize: 26, fontFamily: 'Verdana-Bold', }}>{!q3 ? "+" : "-"}</Text>
+                                </TouchableOpacity>
                             </View>
+                            {q3 &&
+                                <View style={{ backgroundColor: 'white', borderRadius: 5, padding: 15, alignSelf: 'flex-end', maxWidth: 250 }}>
+                                    <Text
+                                        style={{ fontFamily: 'Verdana-Bold', }}>
+                                    After receiving your order we manage our technician to complete your task .Also we send sms and confirmation call to set time with you.
+                                       
+                                       </Text>
+                                </View>
+                            }
+
+                            <View style={{ borderBottomColor: "white", borderBottomWidth: 4, backgroundColor: '#0C4F7A', padding: 5, height: 65, alignItems: "center", flex: 1, flexDirection: "row" }}>
+                                <View style={{ flex: 8 }}>
+                                    <Text
+                                        style={{ color: "#E3DC13", fontWeight: "bold", fontFamily: 'Verdana-Bold', }}>
+                                      IS YOUR EMPLOYEE COME ON SAME DAY?
+                                  </Text>
+                                </View>
+                                <TouchableOpacity style={{ flex: 2, alignItems: "center" }} onPress={() => this.setState({ q4: !q4 })}>
+                                    <Text style={{ color: "#fff", fontSize: 26, fontFamily: 'Verdana-Bold', }}>{!q4 ? "+" : "-"}</Text>
+                                </TouchableOpacity>
+                            </View>
+                            {q4 &&
+                                <View style={{ backgroundColor: 'white', borderRadius: 5, padding: 15, alignSelf: 'flex-end', maxWidth: 250 }}>
+                                    <Text
+                                        style={{ fontFamily: 'Verdana-Bold', }}>
+                                                                     Usually we try to send person on same day but some time it might go to next day.
+ 
+                                       </Text>
+                                </View>
+                            }
+
+                            <View style={{ borderBottomColor: "white", borderBottomWidth: 4, backgroundColor: '#0C4F7A', padding: 5, height: 65, alignItems: "center", flex: 1, flexDirection: "row" }}>
+                                <View style={{ flex: 8 }}>
+                                    <Text
+                                        style={{ color: "#E3DC13", fontWeight: "bold", fontFamily: 'Verdana-Bold', }}>
+                                      HOW I PAY TO YOU?
+                                  </Text>
+                                </View>
+                                <TouchableOpacity style={{ flex: 2, alignItems: "center" }} onPress={() => this.setState({ q5: !q5 })}>
+                                    <Text style={{ color: "#fff", fontSize: 26, fontFamily: 'Verdana-Bold', }}>{!q5 ? "+" : "-"}</Text>
+                                </TouchableOpacity>
+                            </View>
+                            {q5 &&
+                                <View style={{ backgroundColor: 'white', borderRadius: 5, padding: 15, alignSelf: 'flex-end', maxWidth: 250 }}>
+                                    <Text
+                                        style={{ fontFamily: 'Verdana-Bold', }}>
+                                    After completion of work you give charges to our person which is immediately confirmed via SMS
+                                                                      
+                                       </Text>
+                                </View>
+                            }
+
+                            <View style={{ borderBottomColor: "white", borderBottomWidth: 4, backgroundColor: '#0C4F7A', padding: 5, height: 65, alignItems: "center", flex: 1, flexDirection: "row" }}>
+                                <View style={{ flex: 8 }}>
+                                    <Text
+                                        style={{ color: "#E3DC13", fontWeight: "bold", fontFamily: 'Verdana-Bold', }}>
+                                      IS YOUR EMPLOYEE RELIABLE?
+                                  </Text>
+                                </View>
+                                <TouchableOpacity style={{ flex: 2, alignItems: "center" }} onPress={() => this.setState({ q6: !q6 })}>
+                                    <Text style={{ color: "#fff", fontSize: 26, fontFamily: 'Verdana-Bold', }}>{!q6 ? "+" : "-"}</Text>
+                                </TouchableOpacity>
+                            </View>
+                            {q6 &&
+                                <View style={{ backgroundColor: 'white', borderRadius: 5, padding: 15, alignSelf: 'flex-end', maxWidth: 250 }}>
+                                    <Text
+                                        style={{ fontFamily: 'Verdana-Bold', }}>
+                                                                        Yes, all our persons are verified and screened from NADRA prior to hiring. We always send his NIC number with name before dispatching to your place.
+                                       </Text>
+                                </View>
+                            }
                             
-                            <View style={{ backgroundColor: 'rgba(52, 52, 52, 0.2)',marginTop:5, borderRadius: 5, padding: 5,alignSelf: 'flex-start',maxWidth:250 }}>
-                                <Text
-                                    style={{ color: "#fff",fontFamily: 'Verdana-Bold', }}>
-                                 5. HOW I PAY TO YOU?
-                            </Text>
-                            </View>
-                            <View style={{ backgroundColor: 'rgba(52, 52, 52, 0.2)', borderRadius: 5,marginTop:5, padding: 5, alignSelf: 'flex-end',maxWidth:250 }}>
-                                <Text
-                                    style={{ color: "#fff",fontFamily: 'Verdana-Bold', }}>
-                                 After completion of work you give charges to our person which is immediately confirmed via SMS
-                                 </Text>
-                            </View>
 
-                            <View style={{ backgroundColor: 'rgba(52, 52, 52, 0.2)',marginTop:5, borderRadius: 5, padding: 5,alignSelf: 'flex-start',maxWidth:250 }}>
-                                <Text
-                                    style={{ color: "#fff",fontFamily: 'Verdana-Bold', }}>
-                                 6. IS YOUR EMPLOYEE RELIABLE?
-                            </Text>
-                            </View>
-                            <View style={{ backgroundColor: 'rgba(52, 52, 52, 0.2)', borderRadius: 5,marginTop:5, padding: 5, alignSelf: 'flex-end',maxWidth:250 }}>
-                                <Text
-                                    style={{ color: "#fff",fontFamily: 'Verdana-Bold', }}>
-                                 Yes, all our persons are verified and screened from NADRA prior to hiring. We always send his NIC number with name before dispatching to your place.
-                                 </Text>
-                            </View>
+                         
 
-                            <View style={{ backgroundColor: 'rgba(52, 52, 52, 0.2)',marginTop:5, borderRadius: 5, padding: 5,alignSelf: 'flex-start',maxWidth:250 }}>
-                                <Text
-                                    style={{ color: "#fff",fontFamily: 'Verdana-Bold', }}>
-                                 7. ARE YOUR EMPLOYEE PROFFESIONALY SKILLED ?
-                            </Text>
+                            <View style={{ borderBottomColor: "white", borderBottomWidth: 4, backgroundColor: '#0C4F7A', padding: 5, height: 65, alignItems: "center", flex: 1, flexDirection: "row" }}>
+                                <View style={{ flex: 8 }}>
+                                    <Text
+                                        style={{ color: "#E3DC13", fontWeight: "bold", fontFamily: 'Verdana-Bold', }}>
+                                      ARE YOUR EMPLOYEE PROFFESIONALY SKILLED ?
+                                  </Text>
+                                </View>
+                                <TouchableOpacity style={{ flex: 2, alignItems: "center" }} onPress={() => this.setState({ q7: !q7 })}>
+                                    <Text style={{ color: "#fff", fontSize: 26, fontFamily: 'Verdana-Bold', }}>{!q7 ? "+" : "-"}</Text>
+                                </TouchableOpacity>
                             </View>
-                            <View style={{ backgroundColor: 'rgba(52, 52, 52, 0.2)', borderRadius: 5,marginTop:5, padding: 5, alignSelf: 'flex-end',maxWidth:250 }}>
-                                <Text
-                                    style={{ color: "#fff",fontFamily: 'Verdana-Bold', }}>
-                                 Yes, all are professionally skilled and have sufficient experience.
-                                 </Text>
+                            {q7 &&
+                                <View style={{ backgroundColor: 'white', borderRadius: 5, padding: 15, alignSelf: 'flex-end', maxWidth: 250 }}>
+                                    <Text
+                                        style={{ fontFamily: 'Verdana-Bold', }}>
+                                    Yes, all are professionally skilled and have sufficient experience.
+                                                                     
+                                                                     </Text>
+                                </View>
+                            }
+                            
+                            
+                            <View style={{ borderBottomColor: "white", borderBottomWidth: 4, backgroundColor: '#0C4F7A', padding: 5, height: 65, alignItems: "center", flex: 1, flexDirection: "row" }}>
+                                <View style={{ flex: 8 }}>
+                                    <Text
+                                        style={{ color: "#E3DC13", fontWeight: "bold", fontFamily: 'Verdana-Bold', }}>
+                                      HOW I COMPLAIN?
+                                  </Text>
+                                </View>
+                                <TouchableOpacity style={{ flex: 2, alignItems: "center" }} onPress={() => this.setState({ q8: !q8 })}>
+                                    <Text style={{ color: "#fff", fontSize: 26, fontFamily: 'Verdana-Bold', }}>{!q8 ? "+" : "-"}</Text>
+                                </TouchableOpacity>
                             </View>
+                            {q8 &&
+                                <View style={{ backgroundColor: 'white', borderRadius: 5, padding: 15, alignSelf: 'flex-end', maxWidth: 250 }}>
+                                    <Text
+                                        style={{ fontFamily: 'Verdana-Bold', }}>
+                                                                        ASAANI appreciates feedbacks and complains, you may call on given numbers to lodge complain(s) which is/are professionally addressed and resolved.
+                                                                     </Text>
+                                </View>
+                            }
 
-                            <View style={{ backgroundColor: 'rgba(52, 52, 52, 0.2)',marginTop:5, borderRadius: 5, padding: 5,alignSelf: 'flex-start',maxWidth:250 }}>
-                                <Text
-                                    style={{ color: "#fff",fontFamily: 'Verdana-Bold', }}>
-                                 8. HOW I COMPLAIN?
-                            </Text>
+                            
+<View style={{ borderBottomColor: "white", borderBottomWidth: 4, backgroundColor: '#0C4F7A', padding: 5, height: 65, alignItems: "center", flex: 1, flexDirection: "row" }}>
+                                <View style={{ flex: 8 }}>
+                                    <Text
+                                        style={{ color: "#E3DC13", fontWeight: "bold", fontFamily: 'Verdana-Bold', }}>
+                                      HOW SECURE IS MY DATA?
+                                  </Text>
+                                </View>
+                                <TouchableOpacity style={{ flex: 2, alignItems: "center" }} onPress={() => this.setState({ q9: !q9 })}>
+                                    <Text style={{ color: "#fff", fontSize: 26, fontFamily: 'Verdana-Bold', }}>{!q9 ? "+" : "-"}</Text>
+                                </TouchableOpacity>
                             </View>
-                            <View style={{ backgroundColor: 'rgba(52, 52, 52, 0.2)', borderRadius: 5,marginTop:5, padding: 5, alignSelf: 'flex-end',maxWidth:250 }}>
-                                <Text
-                                    style={{ color: "#fff",fontFamily: 'Verdana-Bold', }}>
-                                ASAANI appreciates feedbacks and complains, you may call on given numbers to lodge complain(s) which is/are professionally addressed and resolved.
-                                 </Text>
-                            </View>
-
-                            <View style={{ backgroundColor: 'rgba(52, 52, 52, 0.2)',marginTop:5, borderRadius: 5, padding: 5,alignSelf: 'flex-start',maxWidth:250 }}>
-                                <Text
-                                    style={{ color: "#fff",fontFamily: 'Verdana-Bold', }}>
-                                 9. HOW SECURE IS MY DATA?
-                            </Text>
-                            </View>
-                            <View style={{ backgroundColor: 'rgba(52, 52, 52, 0.2)', borderRadius: 5,marginTop:5, padding: 5, alignSelf: 'flex-end',maxWidth:250 }}>
-                                <Text
-                                    style={{ color: "#fff",fontFamily: 'Verdana-Bold', }}>
-                                 Yes, all are professionally skilled and have sufficient experience.
-                                 </Text>
-                            </View>
+                            {q9 &&
+                                <View style={{ backgroundColor: 'white', borderRadius: 5, padding: 15, alignSelf: 'flex-end', maxWidth: 250 }}>
+                                    <Text
+                                        style={{ fontFamily: 'Verdana-Bold', }}>
+                                                                                                         Security is a very high priority at asaani, for both our data and yours. We regularly increase our security standards to ensure that we meet the security requirements.
+    </Text>
+                                </View>
+                            }
+                          
                         </ScrollView>
                     </View>
                     {/* body */}
