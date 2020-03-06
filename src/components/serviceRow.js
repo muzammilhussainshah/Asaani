@@ -20,10 +20,10 @@ class ServiceRow extends React.Component {
     }
     render() {
         const { fields, loading } = this.state
-        const { func, heading, title, data, navigation, route } = this.props
+        const { func, heading, title, data, navigation, route, mainPro, childPro } = this.props
         // console.log(data, title, "datata")
         return (
-            <TouchableOpacity onPress={() => navigation.push(route ? route : "SubService", { profession:  data })}
+            <TouchableOpacity onPress={() => navigation.push(route ? route : "SubService", { profession: data, mainPro, childPro: childPro ? childPro : title, subChildPro: route ? title :"", })}
                 style={{
                     flexDirection: "row", flex: 1, height: 80, alignItems: "center", borderBottomColor: "black", borderBottomWidth: 0.3,
                 }}>
@@ -35,7 +35,7 @@ class ServiceRow extends React.Component {
                         source={require('../assets/logocopy.png')} />
                 </View>
                 <View style={{ flex: 7, }}>
-                    <Text style={{ marginLeft: 5,fontFamily: 'Verdana-Bold', fontWeight: "bold", fontSize: 16 }}> {title} </Text>
+                    <Text style={{ marginLeft: 5, fontFamily: 'Verdana-Bold', fontWeight: "bold", fontSize: 16 }}> {title} </Text>
                 </View>
                 <View style={{ flex: 1.5, alignItems: "center" }}>
                     <Ionicons name="ios-arrow-forward" size={35} style={{ color: "#235071" }} />

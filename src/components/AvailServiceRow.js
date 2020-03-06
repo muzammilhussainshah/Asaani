@@ -3,7 +3,7 @@ import { View, StyleSheet, TouchableOpacity, Text, Image, BackHandler, Dimension
 import { StackActions, NavigationActions } from 'react-navigation';
 import { bindActionCreators } from 'redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-// import { signInWithGoogle,  } from '../../../store/action/action'
+import { _AddToCart, _RemoveToCart} from '../store/action/action'
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/Entypo';
 
@@ -13,17 +13,19 @@ class AvailServiceRow extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            removeItem: []
         }
     };
     componentWillUnmount() {
         // BackHandler.removeEventListener('hardwareBackPress', BackHandler.exitApp());
     }
     render() {
-        const { fields, loading } = this.state
-        const { func, heading, title, data, navigation, route } = this.props
-        console.log(data, "Availble sercieRow")
+        const { removeItem } = this.state
+        const { func, heading, title, data, addOrRemove, Index, subChildPro, childPro, mainPro, _AddToCart,_RemoveToCart, addToCartArray } = this.props
+        let obj = { subChildPro, childPro, mainPro }
+        console.log(data, "cccccccccccccccccccc", subChildPro, childPro, mainPro)
         return (
-            <TouchableOpacity onPress={() => navigation.push("checkout", { data })}
+            <View
                 style={{
                     flexDirection: "row", flex: 1, height: 80, alignItems: "center", borderBottomColor: "black", borderBottomWidth: 0.3,
                 }}>
@@ -34,18 +36,40 @@ class AvailServiceRow extends React.Component {
                         resizeMode="contain"
                         source={require('../assets/logocopy.png')} />
                 </View>
-                <View style={{ flex: 7,  }}>
+                <View style={{ flex: 6.5, }}>
                     <View>
-                        <Text style={{ marginLeft: 5, fontWeight: "bold", fontSize: 16,fontFamily: 'Verdana-Bold', }}> {data.title} </Text>
+                        <Text style={{ marginLeft: 5, fontWeight: "bold", fontSize: 16, fontFamily: 'Verdana-Bold', }}> {data.title} </Text>
                     </View>
                     <View>
-                        <Text style={{ marginLeft: 5,fontFamily: 'Verdana-Bold', fontSize: 16 }}> Rs{data.price} </Text>
+                        <Text style={{ marginLeft: 5, fontFamily: 'Verdana-Bold', fontSize: 16 }}> Rs{data.price} </Text>
                     </View>
                 </View>
-                <View style={{ flex: 1.5, alignItems: "center" }}>
-                    <Ionicons name="ios-arrow-forward" size={35} style={{ color: "#235071" }} />
-                </View>
-            </TouchableOpacity>
+                {/* {removeItem.map(i,v)} */}
+                {addOrRemove === "Add" ?
+                    <TouchableOpacity
+                        onPress={() => {
+                            _AddToCart(addToCartArray, data, subChildPro, childPro, mainPro)
+                            func(Index)
+                        }}
+                        style={{ flex: 2, alignItems: "center" }}>
+                        {/* <Ionicons name="ios-arrow-forward" size={35} style={{ color: "#235071" }} /> */}
+                        <Text style={{ marginLeft: 5, fontFamily: 'Verdana-Bold', fontSize: 16, fontWeight: "bold", color: "#0C4F7A" }}> {addOrRemove} </Text>
+                    </TouchableOpacity>
+                    :
+                    <TouchableOpacity
+                        onPress={() => {
+                            _RemoveToCart(addToCartArray, data, subChildPro, childPro, mainPro)
+                            func(Index)
+                        }}
+                        style={{ flex: 2, alignItems: "center", }}>
+                        {/* <Ionicons name="ios-arrow-forward" size={35} style={{ color: "#235071" }} /> */}
+                        <Text style={{ marginLeft: 5, fontFamily: 'Verdana-Bold', fontSize: 16, fontWeight: "bold", color: "#0C4F7A" }}> {addOrRemove} </Text>
+                    </TouchableOpacity>
+                }
+
+
+
+            </View>
         );
     }
 }
@@ -57,14 +81,18 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(states) {
     return ({
+        addToCartArray: states.root.addToCart
     })
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators({
-            // signInWithGoogle, login
-        }, dispatch)
+        _AddToCart: (addToCartArray, data, subChildPro, childPro, mainPro, ) => {
+            dispatch(_AddToCart(addToCartArray, data, subChildPro, childPro, mainPro));
+        },
+        _RemoveToCart: (addToCartArray, data, subChildPro, childPro, mainPro, ) => {
+            dispatch(_RemoveToCart(addToCartArray, data, subChildPro, childPro, mainPro));
+        },
     }
 }
 

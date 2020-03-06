@@ -94,19 +94,19 @@ class home extends React.Component {
         const { fields, loading, screenHeight, charactor, UserName } = this.state
         const { profession } = this.props
         console.log(profession, "professionprofessionprofession")
-
+        var mainPro = ["ac technitian", "Carpenter", "Electrition", "Fumigation", "Laundry", "Painter", "Plumber"]
         return (
             <ImageBackground source={require("../../assets/gradient.jpg")}
                 style={{ width: '100%', height: '100%' }}>
                 <View style={{ flex: 1, }}>
                     <NavigationEvents onDidFocus={() => {
                         let UserName = this.props.navigation.getParam("Name")
-                        if(UserName){
+                        if (UserName) {
                             this.setState({
                                 UserName
                             })
                         }
-                       console.log(Name,"**************")
+                        console.log(Name, "**************")
 
                     }} />
                     {/* //drawer close view// */}
@@ -161,7 +161,7 @@ class home extends React.Component {
 
                             </View>
                             <TouchableOpacity
-                                onPress={() => this.props.navigation.navigate("Service", { profession: profession[charactor] })}
+                                onPress={() => this.props.navigation.navigate("Service", { profession: profession[charactor], mainPro: mainPro[charactor] })}
                                 style={{
                                     marginTop: 5,
                                     shadowColor: "#000",

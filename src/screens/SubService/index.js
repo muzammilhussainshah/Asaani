@@ -19,17 +19,20 @@ class SubService extends React.Component {
     };
     componentWillMount() {
         let profession = this.props.navigation.getParam("profession")
+        let mainPro = this.props.navigation.getParam("mainPro")
+        let childPro = this.props.navigation.getParam("childPro")
+        console.log(mainPro, "9999999999999999",childPro)
+        
         var { height, width } = Dimensions.get('window');
         this.setState({
             screenHeight: height,
-            profession,
+            profession,mainPro,childPro
         })
     }
     componentWillUnmount() {
         // BackHandler.removeEventListener('hardwareBackPress', BackHandler.exitApp());
     }
     animateParent(fals) {
-        console.log(fals, "9999999999999999")
         setTimeout(() => {
             this.setState({
                 drawer: false
@@ -37,7 +40,7 @@ class SubService extends React.Component {
         }, 250);
     }
     render() {
-        const { profession, screenHeight } = this.state
+        const { profession, screenHeight,childPro,mainPro } = this.state
         console.log(profession,"sub service")
         return (
             <ImageBackground source={require("../../assets/gradient.jpg")}
@@ -68,7 +71,7 @@ class SubService extends React.Component {
                             {
                                 Object.keys(profession).map((key, index) => {
                                     return (
-                                        <ServiceRow data={profession[key]} title={key} route="AvailService" navigation={this.props.navigation}/>
+                                        <ServiceRow data={profession[key]} mainPro={mainPro} childPro={childPro} title={key} route="AvailService" navigation={this.props.navigation}/>
                                     )
                                 })
                             }

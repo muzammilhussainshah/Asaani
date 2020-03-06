@@ -39,6 +39,43 @@ export function login(user) {
         })
     }
 }
+export function _AddToCart(addToCartArray, data, subChildPro, childPro, mainPro, ) {
+    return dispatch => {
+
+        data.mainPro = mainPro
+        data.childPro = childPro
+        if (subChildPro !== childPro) {
+            data.subChildPro = subChildPro
+        }
+        addToCartArray.push(data)
+
+        console.log(data, "+++++++++++++++++++", addToCartArray)
+        dispatch({ type: ActionTypes.ADDTOCART, payload: addToCartArray })
+
+    }
+}
+export function _RemoveToCart(addToCartArray, data, subChildPro, childPro, mainPro, ) {
+    return dispatch => {
+        console.log(addToCartArray, data, subChildPro, childPro, mainPro, "teeeeeeeemove")
+
+        const cartToRemove = addToCartArray && addToCartArray.filter(word => word.title === data.title);
+        console.log(cartToRemove, "cartToRemove")
+        if (addToCartArray.length > 0 && cartToRemove.length > 0) {
+            for (var i = 0; i < addToCartArray.length; i++) {
+                if (addToCartArray[i].title === cartToRemove[0].title &&
+                    addToCartArray[i].mainPro === cartToRemove[0].mainPro) {
+                    addToCartArray.splice(i, 1)
+                }
+
+            }
+        }
+
+        console.log(addToCartArray, "cartToRemoveafterloop")
+
+        dispatch({ type: ActionTypes.ADDTOCART, payload: addToCartArray })
+
+    }
+}
 
 
 
@@ -70,6 +107,7 @@ export function login(user) {
 //           }
 //       }
 //     }
+
 export function getData(navigation) {
     return dispatch => {
         db.collection("services").get()
@@ -182,8 +220,8 @@ export function createOrder(obj, discountPkg) {
 
         var options = {
             method: 'POST',
-            url: `https://thawing-tor-85190.herokuapp.com/sendEmail/`,
-            // url: `http://192.168.10.7:5000/sendEmail`,
+            // url: `https://thawing-tor-85190.herokuapp.com/sendEmail/`,
+            url: `http://192.168.40.30:5000/sendEmail`,
             headers:
             {
                 'cache-control': 'no-cache',

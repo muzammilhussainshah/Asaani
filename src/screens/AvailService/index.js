@@ -14,16 +14,19 @@ class AvailSercice extends React.Component {
         this.state = {
             drawer: false,
             slideStyle: "slideInLeft",
-            screenHeight: "", profession: ""
+            screenHeight: "", profession: "", remIndex: []
         }
     };
     componentWillMount() {
         let profession = this.props.navigation.getParam("profession")
-        // console.log(profession,"8888")
+        let mainPro = this.props.navigation.getParam("mainPro")
+        let childPro = this.props.navigation.getParam("childPro")
+        let subChildPro = this.props.navigation.getParam("subChildPro")
+        console.log(subChildPro, childPro, mainPro, "mainPromainPromainPromainPro")
         var { height, width } = Dimensions.get('window');
         this.setState({
             screenHeight: height,
-            profession,
+            profession, subChildPro, childPro, mainPro,
         })
     }
     componentWillUnmount() {
@@ -37,9 +40,16 @@ class AvailSercice extends React.Component {
             })
         }, 250);
     }
+
+
+
+    
+
+
     render() {
-        const { profession, screenHeight ,} = this.state
-        console.log(profession,"availble servie")
+        const { profession, screenHeight, subChildPro, childPro, mainPro, remIndex } = this.state
+        const { addToCart } = this.props
+        console.log(profession, "availble servie")
         return (
             <ImageBackground source={require("../../assets/gradient.jpg")}
                 style={{ width: '100%', height: '100%' }}>
@@ -66,10 +76,22 @@ class AvailSercice extends React.Component {
                     {/* body */}
                     <View style={{ flex: 1, backgroundColor: "#fff", padding: 10 }}>
                         <ScrollView>
-                        {
-                                profession.map((v,i) => {
+                            {
+                                profession.map((v, i) => {
+                                    console.log(addToCart,"addToCart")
+                                    const result = addToCart&&addToCart.filter(Cart => Cart.title === v.title);
+                                    console.log(result,"result")
+                                    
                                     return (
-                                        <AvailServiceRow  data={v} navigation={this.props.navigation}/>
+                                        <AvailServiceRow Index={i} 
+                                        func={(i) => {
+                                            // let remIndexClone = remIndex
+                                            // remIndexClone.push(i)
+                                            this.setState({ flag: true })
+
+                                        }} 
+                                        
+                                        data={v} addOrRemove={result.length>0?"Remove":"Add"} navigation={this.props.navigation} subChildPro={subChildPro} childPro={childPro} mainPro={mainPro} />
                                     )
                                 })
                             }
@@ -88,6 +110,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(states) {
     return ({
+        addToCart: states.root.addToCart
     })
 }
 

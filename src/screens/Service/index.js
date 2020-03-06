@@ -19,11 +19,12 @@ class Service extends React.Component {
     };
     componentWillMount() {
         let profession = this.props.navigation.getParam("profession")
-        console.log(profession,"service page")
+        let mainPro = this.props.navigation.getParam("mainPro")
+        console.log(profession,"service page",mainPro)
         var { height, width } = Dimensions.get('window');
         this.setState({
             screenHeight: height,
-            profession,
+            profession,mainPro
         })
     }
     componentWillUnmount() {
@@ -38,7 +39,7 @@ class Service extends React.Component {
         }, 250);
     }
     render() {
-        const { profession, screenHeight } = this.state
+        const { profession, screenHeight,mainPro } = this.state
         return (
             <ImageBackground source={require("../../assets/gradient.jpg")}
                 style={{ width: '100%', height: '100%' }}>
@@ -69,7 +70,7 @@ class Service extends React.Component {
                                 Object.keys(profession).map((key, index) => {
                                     return (
                                         
-                                        key!=="route"&&<ServiceRow data={profession[key]} route={profession.route} title={key} navigation={this.props.navigation}/>
+                                        key!=="route"&&<ServiceRow data={profession[key]} mainPro={mainPro}  route={profession.route} title={key} navigation={this.props.navigation}/>
                                     )
                                 })
                             }
