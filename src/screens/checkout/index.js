@@ -1,13 +1,15 @@
 import React, { useReducer } from 'react';
-import { View, StyleSheet, Text, Dimensions, TouchableOpacity, TextInput, ImageBackground, ScrollView, Image, Modal, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, Text, Dimensions, TouchableOpacity, TextInput, ImageBackground, ScrollView, Image, FlatList, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 import Drawer from '../../components/drawer'
 import ThankYou from '../../components/ThankYou'
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Octicons from 'react-native-vector-icons/Octicons';
 import Header from '../../components/header';
 import DatePicker from 'react-native-datepicker'
-import { createOrder, storeData } from "../../store/action/action"
+import { createOrder, storeData,_RemoveToCart } from "../../store/action/action"
 import AsyncStorage from '@react-native-community/async-storage';
+import * as Animatable from 'react-native-animatable';
 
 class checkout extends React.Component {
     constructor(props) {
@@ -37,6 +39,7 @@ class checkout extends React.Component {
         this.setState({
             screenHeight: height,
             basket,
+            // basket:this.props.addToCart,
         })
     }
     componentWillUnmount() {
@@ -60,7 +63,6 @@ class checkout extends React.Component {
             })
         }, 250);
     }
-
 
     getData = async () => {
         console.log("storeData work")
@@ -92,9 +94,6 @@ class checkout extends React.Component {
         }
     }
     order() {
-
-
-
         const { Name, Address, Description, Phone, basket, date, discountPkg, coupon } = this.state
         let obj = {
             Name, Address, Phone, Description, basket, date, discountPkg, coupon
@@ -110,7 +109,7 @@ class checkout extends React.Component {
         this.storeData({ Name, Address, Phone })
         let verify = true
         for (var key in obj) {
-            if (!obj[key] && key !== "discountPkg" && key !== "coupon") {
+            if (!obj[key] && key !== "discountPkg" && key !== "coupon"&&obj.basket.length>0) {
                 this.setState({
                     err: true, errMessage: key
                 })
@@ -122,16 +121,40 @@ class checkout extends React.Component {
                 verify = false
                 break
             }
+           
+        }
+        if(!obj.basket.length){
+            this.setState({
+                err: true, errMessage: "Item"
+            })
+            setTimeout(() => {
+                this.setState({
+                    err: false, errMessage: ""
+                })
+            }, 5000);
+            verify = false
         }
         {
             verify && this.props.createOrder(obj, discountPkg)
         }
     }
+    quantity(i, operation) {
+        let basketClone = this.state.basket
+        if (operation === "add" && basketClone[i].quantity > 0) {
+            basketClone[i].quantity = basketClone[i].quantity + 1
+        }
+        else if (basketClone[i].quantity > 1) {
+            basketClone[i].quantity = basketClone[i].quantity - 1
+        }
+        this.setState({
+            basket: basketClone
+        })
 
+    }
     render() {
-
+        let sum = null
         const { fields, loading, screenHeight, basket, err, errMessage, discountPkg, coupon, Name, Address, Phone, } = this.state
-        const { appLoader, thankYou, discountFrmDb } = this.props
+        const { appLoader, thankYou, discountFrmDb,_RemoveToCart } = this.props
         console.log("Basketrender---", discountFrmDb[0]["coupon expiry date"], new Date(discountFrmDb[0]["coupon expiry date"]).getTime())
         // discountFrmDb[0]["coupon code"] === coupon && coupon !== ""
         //                                     && (new Date(discountFrmDb[0]["coupon expiry date"]).getTime() - new Date().getTime() > 1)
@@ -163,28 +186,141 @@ class checkout extends React.Component {
                     {/* body */}
                     <View style={{ flex: 1, backgroundColor: "white" }}>
                         <ScrollView>
-                            <View style={{
-                                backgroundColor: "rgba(0, 0, 0, 0.1)",
-                                shadowColor: "#000",
-                                shadowOffset: {
-                                    width: 0,
-                                    height: 1,
-                                },
-                                shadowOpacity: 0.20,
-                                shadowRadius: 1.41,
 
+                            <FlatList
+                                // contentConatinerStyle={styles.container}
+                                data={basket}
+                                keyExtractor={item => `${item}`}
+                                renderItem={({ item, index }) =>
+                                    // console.log(item,index,basket.length,"963852741") 
+
+
+
+
+                                    <Animatable.View
+                                    animation={"slideInDown"}
+                                    duration={1000}
+                                    style={{
+                                        backgroundColor: "rgba(0, 0, 0, 0.1)",
+                                        // shadowColor: "#000",
+                                        // shadowOffset: {
+                                        //     width: 0,
+                                        //     height: 1,
+                                        // },
+                                        // shadowOpacity: 0.20,
+                                        // shadowRadius: 1.41,
+                                        // borderBottomColor:"red",
+                                        // borderBottomWidth:2,
+                                        // borderBottomEndRadius:20,
+                                        // borderBottomStartRadius:20,
+                                        // elevation: 3,
+                                    }}>
+                                        <View style={{ flexDirection: "row", paddingVertical: 5, paddingHorizontal: 5, borderBottomColor: "black", borderBottomWidth: 0.3 }}>
+                                            <View style={{ flex: 5, justifyContent: "center" }}>
+
+                                                <Text style={{
+                                                    fontSize: 11,
+                                                    fontFamily: 'Verdana-Bold',
+                                                    color: "black", fontWeight: "bold",
+                                                }}>{item.title} </Text>
+                                            </View>
+                                            <View style={{ flex: 5, flexDirection: "row" }}>
+                                                <Text style={{
+                                                    fontSize: 11,
+
+                                                    fontFamily: 'Verdana-Bold',
+                                                    color: "black", alignSelf: "center"
+                                                }}>Qty:{item.quantity} </Text>
+                                                <View style={{  marginLeft: 5, alignItems: "center", height: 45, justifyContent: "space-between" }}>
+                                                    <TouchableOpacity onPress={() => this.quantity(index, "add")}>
+
+                                                        <Octicons name="diff-added" size={20} style={{ color: "black" }} />
+                                                    </TouchableOpacity>
+                                                    <TouchableOpacity onPress={() => this.quantity(index, "substract")}>
+                                                        <AntDesign name="minussquareo" size={20} style={{ color: "black" }} />
+                                                    </TouchableOpacity>
+                                                </View>
+                                                {/* <View style={{justifyContent:"center"}}> */}
+
+                                                <Text style={{
+                                                    fontSize: 11, marginLeft: 5,
+                                                    fontFamily: 'Verdana-Bold',
+                                                    color: "black", alignSelf: "center"
+                                                }}>
+                                                    Rs{item.price*item.quantity}
+                                                    </Text>
+                                                <TouchableOpacity
+                                                    onPress={() => {
+                                                        _RemoveToCart(basket, item, item.subChildPro, item.childPro, item.mainPro)
+                                                      this.setState({flag:true})
+                                                    }}
+                                                    style={{ marginLeft: 5, alignSelf: "center" }}>
+                                                    <AntDesign name="delete" size={20} style={{ color: "black" }} />
+                                                </TouchableOpacity>
+                                                {/* </View> */}
+
+                                            </View>
+                                        </View>
+                                        {index === basket.length - 1 && <View style={{ marginTop: 5, flexDirection: "row", paddingHorizontal: 22 }}>
+                                            <View style={{ flex: 5, alignItems: "center", justifyContent: "center" }}>
+                                                <Text style={{ fontSize: 16, color: "black" }}>Total </Text>
+                                            </View>
+                                            <View style={{ flex: 5, }}>
+                                                {/* <Text style={{ fontSize: 16, color: "black", fontWeight: "bold" }}>Rs {discountPkg ? item.price - item.price / 100 * discountPkg : item.price} </Text> */}
+                                                <Text style={{ fontSize: 16, color: "black", fontWeight: "bold" }}>Rs
+                                                {
+                                                        basket.map((v, i) => {
+                                                            sum = Number(sum) + Number(v.price)*Number(v.quantity)
+                                                        })}{discountPkg ? sum - sum / 100 * discountPkg : sum}
+                                                </Text>
+                                            </View>
+                                        </View>
+                                        }
+                                    </Animatable.View>
+
+
+
+                                }
+                            />
+                            {/* <View style={{
+                                backgroundColor: "rgba(0, 0, 0, 0.1)",
+                                // shadowColor: "#000",
+                                // shadowOffset: {
+                                //     width: 0,
+                                //     height: 1,
+                                // },
+                                // shadowOpacity: 0.20,
+                                // shadowRadius: 1.41,
+                                // borderBottomColor:"red",
+                                // borderBottomWidth:2,
+                                borderBottomEndRadius:20,
+                                borderBottomStartRadius:20,
                                 elevation: 3,
                             }}>
                                 <View style={{ flexDirection: "row", paddingVertical: 5, paddingHorizontal: 22, borderBottomColor: "black", borderBottomWidth: 0.3 }}>
                                     <View style={{ flex: 5, alignItems: "center", justifyContent: "center" }}>
-                                        <AntDesign name="shoppingcart" size={40} style={{ color: "black" }} />
-                                    </View>
-                                    <View style={{ flex: 5, alignItems: "center", justifyContent: "center" }}>
+                                     
                                         <Text style={{
                                             fontSize: 16,
                                             fontFamily: 'Verdana-Bold',
                                             color: "black", fontWeight: "bold", alignSelf: "center"
                                         }}>{basket.title} </Text>
+                                    </View>
+                                    <View style={{ flex: 5, alignItems: "center", justifyContent: "center",flexDirection:"row" }}>
+                                        <Text style={{
+                                            fontSize: 16,
+                                            fontFamily: 'Verdana-Bold',
+                                            color: "black", alignSelf: "center"
+                                        }}>Qty:1 </Text>
+                                        <View style={{alignItems:"center",height:45,justifyContent:"space-between"}}>
+                                            <TouchableOpacity>
+
+                                        <Octicons name="diff-added" size={20} style={{ color: "black" }} />
+                                            </TouchableOpacity>
+                                            <TouchableOpacity>
+                                            <AntDesign name="minussquareo" size={20} style={{ color: "black" }} />
+                                            </TouchableOpacity>
+                                        </View>
 
                                     </View>
                                 </View>
@@ -196,7 +332,7 @@ class checkout extends React.Component {
                                         <Text style={{ fontSize: 16, color: "black", fontWeight: "bold" }}>Rs {discountPkg ? basket.price - basket.price / 100 * discountPkg : basket.price} </Text>
                                     </View>
                                 </View>
-                            </View>
+                            </View> */}
                             <View style={{ alignItems: "center", marginTop: 15 }}>
                                 <View
                                     style={{ width: "90%", borderBottomColor: "black", borderBottomWidth: 0.3, borderRadius: 5, paddingHorizontal: 15 }}
@@ -342,7 +478,10 @@ class checkout extends React.Component {
                                                 null
                                 } */}
                             </View>
-                            <View style={{ alignItems: "center", marginTop: "5%" }}>
+                            <View style={{ alignItems: "center", marginTop: "1%" }}>
+                            {
+                                    err && <Text style={{ color: "red", }}>{errMessage} is required</Text>
+                                }
                                 {appLoader ?
                                     <View
                                         //  onPress={() => this.order()}
@@ -368,6 +507,8 @@ class checkout extends React.Component {
                                         onPress={() => this.order()}
                                         style={{
                                             marginTop: 5,
+                                            marginBottom: 5,
+
                                             shadowColor: "#000",
                                             shadowOffset: {
                                                 width: 0,
@@ -378,15 +519,14 @@ class checkout extends React.Component {
                                             // borderRadius: 5,
                                             elevation: 3,
                                             backgroundColor: "#F5CD54", justifyContent: "center",
-                                            alignItems: "center", width: "100%", height: 50
+                                            alignItems: "center", width: "98%", height: 50
                                         }}
                                     >
                                         <Text style={{ color: "white", }}>Confirm order</Text>
                                     </TouchableOpacity>
                                 }
-                                {
-                                    err && <Text style={{ color: "red", marginTop: 10 }}>{errMessage} is required</Text>
-                                }
+                                
+                                
                             </View>
                         </ScrollView>
                     </View>
@@ -408,6 +548,7 @@ function mapStateToProp(state) {
         thankYou: state.root.thankYou,
         appLoader: state.root.appLoader,
         discountFrmDb: state.root.discountFrmDb,
+        addToCart: state.root.addToCart
 
     })
 }
@@ -415,6 +556,9 @@ function mapDispatchToProp(dispatch) {
     return ({
         createOrder: (obj, discountPkg) => {
             dispatch(createOrder(obj, discountPkg));
+        },
+        _RemoveToCart: (addToCartArray, data, subChildPro, childPro, mainPro, ) => {
+            dispatch(_RemoveToCart(addToCartArray, data, subChildPro, childPro, mainPro));
         },
         storeData: (obj, ) => {
             dispatch(storeData(obj));

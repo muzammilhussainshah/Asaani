@@ -16,7 +16,7 @@ class faqs extends React.Component {
             drawer: false,
             slideStyle: "slideInLeft",
             screenHeight: "",
-            catogery: true, q1: true, q2: true, q3: true, q4: true, q5: true, q6: true, q7: true, q8: true, q9: true, q10: true, q11: true
+            catogery: false, q1: false, q2: false, q3: false, q4: false, q5: false, q6: false, q7: false, q8: false, q9: false, q10: false, q11: false
 
         }
     };

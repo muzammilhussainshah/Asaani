@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Drawer from 'react-native-drawer'
 import Icon from 'react-native-vector-icons/Entypo';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 // GoogleSignin.configure({
 //     webClientId: '433343540518-e710u0d5bef1sp5r0oloavaniqnumcm4.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
@@ -24,18 +25,28 @@ class Header extends React.Component {
     }
     render() {
         const { fields, loading } = this.state
-        const { func,heading } = this.props
+        const { func, heading, addToCart,navigation } = this.props
         return (
             <View style={{
-                height:50, justifyContent: "flex-start", flexDirection: "row",
-                alignItems: "center", borderBottomColor: "#0C4F7A",borderBottomWidth:0.5,
+                height: 50, justifyContent: "space-between", flexDirection: "row",
+                alignItems: "center", borderBottomColor: "#0C4F7A", borderBottomWidth: 0.5,
             }}>
                 <TouchableOpacity
                     onPress={() => { func() }}
                     style={{ justifyContent: "center", marginHorizontal: "3%" }}>
                     <Icon name="menu" size={30} style={{ color: "#fff" }} />
                 </TouchableOpacity>
-                <Text style={{ marginLeft: "5%", fontWeight: "bold",fontFamily: 'Verdana-Bold', color: "#fff" }}>{heading}</Text>
+                <Text style={{ marginLeft: "5%", fontWeight: "bold", fontFamily: 'Verdana-Bold', color: "#fff" }}>{heading}</Text>
+                {addToCart.length>0 &&
+                    <TouchableOpacity
+                    onPress={() => navigation.navigate("checkout", { data: addToCart })}
+                        style={{ marginHorizontal: "3%", }}>
+                        <AntDesign name="shoppingcart" size={30} style={{ color: "#fff" }} />
+
+                    </TouchableOpacity>
+                }
+
+
             </View>
         );
     }
@@ -86,8 +97,10 @@ const styles = StyleSheet.create({
 })
 
 
-function mapStateToProps(states) {
+function mapStateToProps(state) {
     return ({
+        addToCart: state.root.addToCart
+
     })
 }
 

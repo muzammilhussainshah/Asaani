@@ -142,7 +142,7 @@ class Drawer extends Component {
                     {/* Notifications */}
                     {/* About */}
                     <TouchableOpacity
-                        onPress={() => this.props.navigation.navigate("abouta")}
+                        onPress={() => this.props.navigation.navigate("about")}
                         style={{ flex: 0.13, flexDirection: "row" }}>
                         <View style={{ flex: 1, flexDirection: "column", justifyContent: "center", alignItems: "center", }}>
                             <MaterialCommunityIcons name="account-details" size={20} style={{ color: "#02275c", fontSize: 30 }} />

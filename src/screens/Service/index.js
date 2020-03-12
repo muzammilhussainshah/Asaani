@@ -76,6 +76,7 @@ class Service extends React.Component {
                             }
                             {/* <ServiceRow /> */}
                         </ScrollView>
+                     
                     </View>
                 </View>
             </ImageBackground>

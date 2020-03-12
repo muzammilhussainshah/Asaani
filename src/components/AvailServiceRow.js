@@ -19,6 +19,7 @@ class AvailServiceRow extends React.Component {
     componentWillUnmount() {
         // BackHandler.removeEventListener('hardwareBackPress', BackHandler.exitApp());
     }
+   
     render() {
         const { removeItem } = this.state
         const { func, heading, title, data, addOrRemove, Index, subChildPro, childPro, mainPro, _AddToCart,_RemoveToCart, addToCartArray } = this.props
@@ -29,6 +30,7 @@ class AvailServiceRow extends React.Component {
                 style={{
                     flexDirection: "row", flex: 1, height: 80, alignItems: "center", borderBottomColor: "black", borderBottomWidth: 0.3,
                 }}>
+                    
                 <View style={{ flex: 1.5, alignItems: "center" }} >
                     <Image
                         style={{ width: "100%", height: 200, }}

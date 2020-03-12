@@ -43,6 +43,7 @@ export function _AddToCart(addToCartArray, data, subChildPro, childPro, mainPro,
     return dispatch => {
 
         data.mainPro = mainPro
+        data.quantity = 1
         data.childPro = childPro
         if (subChildPro !== childPro) {
             data.subChildPro = subChildPro
@@ -139,8 +140,6 @@ export function getData(navigation) {
                         });
 
 
-                        // dispatch(getasync())
-
 
 
 
@@ -209,39 +208,73 @@ export function thankYou(bolean) {
 
 export function createOrder(obj, discountPkg) {
     return dispatch => {
+
+
+
+        dispatch(appLoader(true))
+
         let cloneObj = obj
         // if(discountPkg){
         //     cloneObj.basket.price=cloneObj.basket.price-cloneObj.basket.price/100*discountPkg
         // }
+        let sum = 0
 
-
-        console.log(obj, discountPkg, "obj,discountPkg")
-        dispatch(appLoader(true))
-
-        var options = {
-            method: 'POST',
-            // url: `https://thawing-tor-85190.herokuapp.com/sendEmail/`,
-            url: `http://192.168.40.30:5000/sendEmail`,
-            headers:
-            {
-                'cache-control': 'no-cache',
-                "Allow-Cross-Origin": '*',
-            },
-            data: cloneObj
-        };
-        axios(options)
-            .then((data) => {
-                console.log(data, "SEND_EMAIL_SUCCESSFULLY")
-
-
-                // dispatch(storeData(cloneObj))
-                dispatch(thankYou(true))
-                dispatch(appLoader(false))
-
-            }).catch((err) => {
-                dispatch(appLoader(false))
-                console.log(err, "ERROR_ON_SEND_EMAIL_")
+        {
+            cloneObj.basket.map((v, i) => {
+                sum = Number(sum) + Number(v.price) * Number(v.quantity)
             })
+        }
+        if (discountPkg) {
+            sum = sum - (sum / 100 * discountPkg)
+        }
+        cloneObj.sum = sum
+        // getting order no
+        var docRef = db.collection("OrderNo").doc("num");
+        docRef.get().then(function (doc) {
+            // Document was found in the cache. If no cached document exists,
+            // an error will be returned to the 'catch' block below.
+            console.log("Cached document data:", doc.data());
+            cloneObj.OrderNo = doc.data().num
+
+            console.log(obj, discountPkg, "obj,discountPkg")
+            docRef.set({
+                num: doc.data().num + 1
+            })
+
+
+            var options = {
+                method: 'POST',
+                url: `https://thawing-tor-85190.herokuapp.com/sendEmail/`,
+                // url: `http://192.168.40.84:5000/sendEmail`,
+                headers:
+                {
+                    'cache-control': 'no-cache',
+                    "Allow-Cross-Origin": '*',
+                },
+                data: cloneObj
+            };
+            axios(options)
+                .then((data) => {
+                    console.log(data, "SEND_EMAIL_SUCCESSFULLY")
+
+
+                    // dispatch(storeData(cloneObj))
+                    dispatch(thankYou(true))
+                    dispatch(appLoader(false))
+                    dispatch({ type: ActionTypes.ADDTOCART, payload: [] })
+
+
+                }).catch((err) => {
+                    dispatch(appLoader(false))
+                    console.log(err, "ERROR_ON_SEND_EMAIL_")
+                })
+
+        }).catch(function (error) {
+            console.log("Error getting cached document:", error);
+        });
+
+
+
     }
 }
 
