@@ -41,7 +41,11 @@ class Header extends React.Component {
                     <TouchableOpacity
                     onPress={() => navigation.navigate("checkout", { data: addToCart })}
                         style={{ marginHorizontal: "3%", }}>
-                        <AntDesign name="shoppingcart" size={30} style={{ color: "#fff" }} />
+                            {/* <View style={{width:30,height:30}}> */}
+
+                        {/* <AntDesign name="shoppingcart" size={30} style={{ color: "#fff" }} /> */}
+                        <Image source={require('../assets/Cart-Icon.png')} resizeMode="contain" style={{width:40,height:40}} />
+                            {/* </View> */}
 
                     </TouchableOpacity>
                 }

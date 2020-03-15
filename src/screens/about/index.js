@@ -68,7 +68,7 @@ class About extends React.Component {
                     )}
                     {/* draewaer  */}
                     {/* header */}
-                    <Header func={() => this.setState({ drawer: true })} 
+                    <Header func={() => this.setState({ drawer: true }) } navigation={this.props.navigation}
                     // heading="About"
                      />
                     {/* header */}

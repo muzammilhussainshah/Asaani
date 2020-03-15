@@ -106,6 +106,9 @@ class home extends React.Component {
                                 UserName
                             })
                         }
+                        else{
+                            this.setState({flag:true})
+                        }
                         console.log(Name, "**************")
 
                     }} />
@@ -126,16 +129,17 @@ class home extends React.Component {
                         />
                     )}
                     {/* header */}
-                    <Header func={() => this.setState({ drawer: true })}
+                    {
+                                UserName ?
+                                    <Text style={{ color: "#fff",left:"40%",top:"3%",position:"absolute" }}>Welcome {UserName}</Text> : null
+                            }
+                    <Header func={() => this.setState({ drawer: true })} navigation={this.props.navigation}
                     // heading="Home"
                     />
                     {/* body */}
                     <View style={{ flex: 9, }}>
                         <View style={{ flex: 8, justifyContent: "center", alignItems: "center" }}>
-                            {
-                                UserName ?
-                                    <Text style={{ color: "#fff", }}>Welcome {UserName}</Text> : null
-                            }
+                           
                             <Charactors
                                 func={(index) => { this.setState({ charactor: index }, () => this.click()) }}
                             />

@@ -84,7 +84,7 @@ aaaaaaa
                     <View style={{ height: 40, flexDirection: "row", justifyContent: "center", marginTop: 15 }}>
                         <View style={styles.input}>
                           <Text style={{textAlign:"center",fontFamily: 'Verdana-Bold',color:"grey"}}>
-                          Thank You for the order, representative will call you back shortly 
+                          Thank You for the Order, Our representative will call you back shortly
                           </Text>
                         </View>
                         {/* <TouchableOpacity style={{ width: "20%", justifyContent: "center", alignItems: "center", }}

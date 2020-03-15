@@ -62,7 +62,7 @@ class Service extends React.Component {
                         />
                     )}
                     {/* header */}
-                    <Header func={() => this.setState({ drawer: true })} />
+                    <Header func={() => this.setState({ drawer: true })} navigation={this.props.navigation}/>
                     {/* body */}
                     <View style={{ flex: 1, backgroundColor: "#fff", padding: 10 }}>
                         <ScrollView>

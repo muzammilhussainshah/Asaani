@@ -68,7 +68,7 @@ class ContactUs extends React.Component {
                     )}
                     {/* draewaer  */}
                     {/* header */}
-                    <Header func={() => this.setState({ drawer: true })} heading="FAQs" />
+                    <Header func={() => this.setState({ drawer: true })} heading="FAQs" navigation={this.props.navigation} />
                     {/* header */}
                     {/* body */}
                     <View style={{ flex: 9, padding: 8 }}>
