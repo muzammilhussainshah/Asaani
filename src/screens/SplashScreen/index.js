@@ -31,7 +31,7 @@ class SplashScreen extends React.Component {
                             color: "#fff", textAlign: "center", fontWeight: "bold", width: "100%",
                             fontFamily: 'Verdana-Bold',
                         }}>
-                            {'Online service to everyone'}
+                            {'Asaani Har Ghar Ke Liye'}
                         </Text>
                     </View>
                 </View>

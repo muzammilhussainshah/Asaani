@@ -71,7 +71,7 @@ class Notifications extends React.Component {
                     )}
                     {/* draewaer  */}
                     {/* header */}
-                    <Header func={() => this.setState({ drawer: true })}navigation={this.props.navigation}
+                    <Header func={() => this.setState({ drawer: true })} navigation={this.props.navigation}
                     // heading="About"
                     />
                     {/* header */}
@@ -79,26 +79,33 @@ class Notifications extends React.Component {
                     <View style={{ flex: 9, padding: 8, }}>
                         <ScrollView >
                             {discountFrmDb && discountFrmDb[0] && discountFrmDb[0]["coupon code"] ? (
-                                <View
-                                    style={{
-                                        flexDirection: "row", flex: 1, height: 80, alignItems: "center", borderBottomColor: "black", borderBottomWidth: 0.3,
-                                        backgroundColor: "#fff"
-                                    }}>
-                                    <View style={{ flex: 1.5, alignItems: "center" }} >
-                                        <Image
-                                            style={{ width: "100%", height: 200, }}
-                                            // style={{height:200}}
-                                            resizeMode="contain"
-                                            source={require('../../assets/logocopy.png')} />
-                                    </View>
-                                    <View style={{ flex: 7, }}>
-                                        <Text style={{ marginLeft: 5, fontSize: 14, fontFamily: 'Verdana-Bold', }}> {"Discount Coupon is " + discountFrmDb[0]["coupon code"]} </Text>
-                                        <Text style={{ marginLeft: 5, fontSize: 9, fontFamily: 'Verdana-Bold', }}> {"Valid till " + discountFrmDb[0]["coupon expiry date"]} </Text>
-                                    </View>
-                                    <View style={{ flex: 1.5, alignItems: "center" }}>
-                                        <FontAwesome5 name="discourse" size={25} style={{ color: "#235071" }} />
-                                    </View>
-                                </View>
+                                discountFrmDb.map((v, i) => {
+                                    return (
+                                        <View
+                                            style={{
+                                                flexDirection: "row", flex: 1, height: 80, alignItems: "center", borderBottomColor: "black", borderBottomWidth: 0.3,
+                                                backgroundColor: "#fff"
+                                            }}>
+                                            <View style={{ flex: 1.5, alignItems: "center" }} >
+                                                <Image
+                                                    style={{ width: "100%", height: 200, }}
+                                                    // style={{height:200}}
+                                                    resizeMode="contain"
+                                                    source={require('../../assets/logocopy.png')} />
+                                            </View>
+                                            <View style={{ flex: 7, }}>
+                                                <Text style={{ marginLeft: 5, fontSize: 14, fontFamily: 'Verdana-Bold', }}> {"Discount Coupon is " + discountFrmDb[i]["coupon code"]} </Text>
+                                                <Text style={{ marginLeft: 5, fontSize: 9, fontFamily: 'Verdana-Bold', }}> {"Valid till " + discountFrmDb[i]["coupon expiry date"]} </Text>
+                                            </View>
+                                            <View style={{ flex: 1.5, alignItems: "center" }}>
+                                                <FontAwesome5 name="discourse" size={25} style={{ color: "#235071" }} />
+                                            </View>
+                                        </View>
+                                    )
+
+
+                                })
+
                             ) : null
 
                             }

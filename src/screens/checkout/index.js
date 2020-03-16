@@ -25,8 +25,8 @@ class checkout extends React.Component {
             coupon: "",
             modalVisible: true,
             discountPkg: "",
-            collaps:false,
-            Name: "", Address: "", Phone: "",
+            collaps: false,
+            Name: "", Address: "", Phone: "",Email:""
         }
     };
 
@@ -96,9 +96,9 @@ class checkout extends React.Component {
         }
     }
     order() {
-        const { Name, Address, Description, Phone, basket, date, discountPkg, coupon } = this.state
+        const { Name, Address, Description, Phone, basket, date, discountPkg, coupon,Email } = this.state
         let obj = {
-            Name, Address, Phone, Description, basket, date, discountPkg, coupon
+            Name, Address, Phone, Description, basket, date, discountPkg, coupon,Email
         }
         console.log(basket, "Basket---", discountPkg)
         // { discountPkg && (obj.basket.price = basket.price - basket.price / 100 * discountPkg) }
@@ -111,7 +111,7 @@ class checkout extends React.Component {
         this.storeData({ Name, Address, Phone })
         let verify = true
         for (var key in obj) {
-            if (!obj[key] && key !== "discountPkg" && key !== "Description" && key !== "coupon" && obj.basket.length > 0) {
+            if (!obj[key] && key !== "discountPkg" && key !== "Description"&& key !== "Email"  && key !== "coupon" && obj.basket.length > 0) {
                 this.setState({
                     err: true, errMessage: key
                 })
@@ -153,6 +153,20 @@ class checkout extends React.Component {
         })
 
     }
+
+    cop(arrayOfObj, coupon) {
+        // alert("work")
+        for(var i=0;i<arrayOfObj.length;i++){
+            // console.log()
+            if(coupon===arrayOfObj[i]["coupon code"]){
+                return true 
+                break
+
+            }
+        }
+
+    }
+
     render() {
         let sum = null
         const { fields, collaps, screenHeight, basket, err, errMessage, discountPkg, coupon, Name, Address, Phone, } = this.state
@@ -184,11 +198,11 @@ class checkout extends React.Component {
                         />
                     )}
                     {/* header */}
-                    <Header func={() => this.setState({ drawer: true })} navigation={this.props.navigation}/>
+                    <Header func={() => this.setState({ drawer: true })} navigation={this.props.navigation} />
                     {/* body */}
                     <View style={{ flex: 1, backgroundColor: "white" }}>
                         <ScrollView>
-                            
+
                             <FlatList
                                 // contentConatinerStyle={styles.container}
                                 data={basket}
@@ -217,7 +231,7 @@ class checkout extends React.Component {
 
 
 
-                                       {collaps&& <View style={{ flexDirection: "row", paddingVertical: 5, paddingHorizontal: 5, borderBottomColor: "black", borderBottomWidth: 0.3 }}>
+                                        {collaps && <View style={{ flexDirection: "row", paddingVertical: 5, paddingHorizontal: 5, borderBottomColor: "black", borderBottomWidth: 0.3 }}>
                                             <View style={{ flex: 5, justifyContent: "center" }}>
 
                                                 <Text style={{
@@ -263,20 +277,20 @@ class checkout extends React.Component {
 
                                             </View>
                                         </View>
-                                }
+                                        }
                                         {index === basket.length - 1 &&
-                                            <TouchableOpacity 
-                                            onPress={()=>this.setState({collaps:!collaps})}
-                                            style={{padding:5, marginTop: 5, flexDirection: "row", borderBottomColor: "#0C4F7A", borderBottomWidth: 0.5 }}>
+                                            <TouchableOpacity
+                                                onPress={() => this.setState({ collaps: !collaps })}
+                                                style={{ padding: 5, marginTop: 5, flexDirection: "row", borderBottomColor: "#0C4F7A", borderBottomWidth: 0.5 }}>
                                                 <View style={{ flex: 5, paddingHorizontal: 5, alignItems: "center", flexDirection: "row" }}>
                                                     <Text style={{ fontSize: 15, }}>cart </Text>
-                                                    <View style={{ backgroundColor: "#0C4F7A", width: 20, height: 20,borderRadius:10,justifyContent:"center",alignItems:"center" }}>
-                                        <Text style={{ color:"#fff"}}>{basket.length}</Text>
+                                                    <View style={{ backgroundColor: "#0C4F7A", width: 20, height: 20, borderRadius: 10, justifyContent: "center", alignItems: "center" }}>
+                                                        <Text style={{ color: "#fff" }}>{basket.length}</Text>
                                                     </View>
-                                                    <AntDesign name={collaps?"up":"down"} size={16} style={{color:"#0C4F7A",fontWeight:"bold"}} />
+                                                    <AntDesign name={collaps ? "up" : "down"} size={16} style={{ color: "#0C4F7A", fontWeight: "bold" }} />
                                                     {/* <Text style={{ fontSize: 15, color: "black" }}>Total </Text> */}
                                                 </View>
-                                                <View style={{ flex: 5, justifyContent: "center",  flexDirection: "row" }}>
+                                                <View style={{ flex: 5, justifyContent: "center", flexDirection: "row" }}>
                                                     {/* <Text style={{ fontSize: 11, color: "black", fontWeight: "bold" }}>Rs {discountPkg ? item.price - item.price / 100 * discountPkg : item.price} </Text> */}
                                                     <Text style={{ fontSize: 15, color: "black", }}>Rs.
                                                 {
@@ -392,6 +406,20 @@ class checkout extends React.Component {
                                     <TextInput
                                         // placeholderTextColor='#fff'
                                         // value={this.state[value[1]]}
+                                        placeholder={"Email"}
+                                        keyboardAppearance='default'
+                                        autoCapitalize='none' returnKeyType='next'
+                                        style={{}} autoCorrect={false}
+                                        onChangeText={Email => { this.setState({ Email }) }}
+
+                                    />
+                                </View>
+                                <View
+                                    style={{ marginTop: 10, width: "90%", borderBottomColor: "black", borderBottomWidth: 0.3, borderRadius: 5, paddingHorizontal: 15 }}
+                                >
+                                    <TextInput
+                                        // placeholderTextColor='#fff'
+                                        // value={this.state[value[1]]}
                                         placeholder={"Notes"}
                                         keyboardAppearance='default'
                                         autoCapitalize='none' returnKeyType='next'
@@ -449,8 +477,46 @@ class checkout extends React.Component {
                                         }}
                                     />
                                 </View>
+                                {/* {
+                                    // discountFrmDb[0]["coupon code"] === coupon) 
+                                    
+                                    discountFrmDb.map((v, i) => {
+                                        if (v["coupon code"] === coupon
+                                            && (coupon !== "")
+                                            && (new Date(v["coupon expiry date"]).getTime() - new Date().getTime() > 1)
+                                        ) {
+                                            return (
+                                                <Text style={{ color: "green", marginTop: 10 }}>
+                                                    Activated<AntDesign name="check" size={20} style={{ flex: 5, color: "green" }} />
+                                                </Text>
+                                            )
+
+                                        }
+                                        else if (
+                                            v["coupon code"] === coupon
+                                            && (coupon !== "")
+                                            && (new Date(discountFrmDb[0]["coupon expiry date"]).getTime() - new Date().getTime() < 1)
+                                        ) {
+                                          return(
+                                            <Text style={{ color: "red", marginTop: 10 }}>
+                                            your coupon is expired<AntDesign name="close" size={20} style={{ flex: 5, color: "red" }} />
+                                        </Text>
+                                          )
+
+                                        }
+                                        else if (coupon !== "") {
+                                          return(
+                                            <Text style={{ color: "red", marginTop: 10 }}>
+                                            your coupon is expired<AntDesign name="close" size={20} style={{ flex: 5, color: "red" }} />
+                                        </Text>
+                                          )
+                                        }
+                                    })
+                                } */}
+                                    {/* {console.log(this.cop(discountFrmDb, coupon),"this.cop(discountFrmDb, coupon)")} */}
                                 {
-                                    (discountFrmDb[0]["coupon code"] === coupon) && (coupon !== "")
+                                        // discountFrmDb[0]["coupon code"] === coupon) 
+                                        this.cop(discountFrmDb, coupon)===true&& (coupon !== "")
                                         && (new Date(discountFrmDb[0]["coupon expiry date"]).getTime() - new Date().getTime() > 1)
                                         ?
                                         <Text style={{ color: "green", marginTop: 10 }}>

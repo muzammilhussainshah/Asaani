@@ -244,8 +244,8 @@ export function createOrder(obj, discountPkg) {
 
             var options = {
                 method: 'POST',
-                url: `https://thawing-tor-85190.herokuapp.com/sendEmail/`,
-                // url: `http://192.168.40.84:5000/sendEmail`,
+                // url: `https://thawing-tor-85190.herokuapp.com/sendEmail/`,
+                url: `http://192.168.40.31:5000/sendEmail`,
                 headers:
                 {
                     'cache-control': 'no-cache',
