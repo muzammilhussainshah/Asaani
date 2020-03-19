@@ -151,6 +151,7 @@ export function getData(navigation) {
 
                     }).catch((err) => {
                         console.log(err, "ERROR_ON_SEND_EMAIL_")
+                        alert("Please Check Your Internet Connection")
                     })
             });
 
@@ -244,8 +245,8 @@ export function createOrder(obj, discountPkg) {
 
             var options = {
                 method: 'POST',
-                // url: `https://thawing-tor-85190.herokuapp.com/sendEmail/`,
-                url: `http://192.168.40.31:5000/sendEmail`,
+                url: `https://thawing-tor-85190.herokuapp.com/sendEmail/`,
+                // url: `http://192.168.40.31:5000/sendEmail`,
                 headers:
                 {
                     'cache-control': 'no-cache',

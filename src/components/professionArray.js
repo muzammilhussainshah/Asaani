@@ -1,6 +1,7 @@
 export default  [
     // ac technitian
     {
+        shopStatus: true,
         Invertor: {
             Maintenance: [
                 { title: "AC Compressor Change", price: "12000" },
@@ -52,6 +53,7 @@ export default  [
     // Carpenter
     {
         route: "AvailService",
+        shopStatus: true,
         Bed:
             [
                 { title: "Bed Dismantle", price: "500" },
@@ -97,6 +99,8 @@ export default  [
     // Electrition
     {
         route: "AvailService",
+        shopStatus: true,
+
         Fans:
             [
                 { title: "Fan Installation", price: "400" },
@@ -146,6 +150,7 @@ export default  [
     // Fumigation
     {
         route: "AvailService",
+        shopStatus: true,
         Fumigation:
             [
                 { title: "Bed Bugs Treatment-khatmal", price: "270" },
@@ -156,6 +161,7 @@ export default  [
     // Laundry
     {
         route: "AvailService",
+        shopStatus: true,
         Pent:
             [
                 { title: "Small size washing", price: "30" },
@@ -184,6 +190,7 @@ export default  [
     // Painter
     {
         route: "AvailService",
+        shopStatus: true,
         Painter:
             [
                 { title: "Distemper /ft", price: "15" },
@@ -199,6 +206,7 @@ export default  [
     // Plumber
     {
         route: "AvailService",
+        shopStatus: true,
         Geyser:
             [
                 { title: "Electric Geyser Installation without piping", price: "1500" },

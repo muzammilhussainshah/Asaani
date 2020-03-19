@@ -20,11 +20,11 @@ class Service extends React.Component {
     componentWillMount() {
         let profession = this.props.navigation.getParam("profession")
         let mainPro = this.props.navigation.getParam("mainPro")
-        console.log(profession,"service page",mainPro)
+        console.log(profession, "service page", mainPro)
         var { height, width } = Dimensions.get('window');
         this.setState({
             screenHeight: height,
-            profession,mainPro
+            profession, mainPro
         })
     }
     componentWillUnmount() {
@@ -39,7 +39,9 @@ class Service extends React.Component {
         }, 250);
     }
     render() {
-        const { profession, screenHeight,mainPro } = this.state
+        const { profession, screenHeight, mainPro } = this.state
+        const { serFrmDb } = this.props
+        console.log(serFrmDb, "professionDB")
         return (
             <ImageBackground source={require("../../assets/gradient.jpg")}
                 style={{ width: '100%', height: '100%' }}>
@@ -62,21 +64,37 @@ class Service extends React.Component {
                         />
                     )}
                     {/* header */}
-                    <Header func={() => this.setState({ drawer: true })} navigation={this.props.navigation}/>
+                    <Header func={() => this.setState({ drawer: true })} navigation={this.props.navigation} />
                     {/* body */}
                     <View style={{ flex: 1, backgroundColor: "#fff", padding: 10 }}>
-                        <ScrollView>
-                            {
-                                Object.keys(profession).map((key, index) => {
-                                    return (
-                                        
-                                        key!=="route"&&<ServiceRow data={profession[key]} mainPro={mainPro}  route={profession.route} title={key} navigation={this.props.navigation}/>
-                                    )
-                                })
-                            }
-                            {/* <ServiceRow /> */}
-                        </ScrollView>
-                     
+                        {/* {serFrmDb[0]["shop status"] ? */}
+                        {/* {console.log(profession.shopStatus,"profession.shopStatusprofession.shopStatus")} */}
+                        {
+                            profession.shopStatus ?
+                                <ScrollView>
+
+                                    {Object.keys(profession).map((key, index) => {
+                                        console.log(profession, "--------------", key)
+                                        return (
+                                            key !== "route" && key !== "shopStatus" && key !== "notes" && <ServiceRow data={profession[key]} mainPro={mainPro} route={profession.route} title={key} navigation={this.props.navigation} />
+                                        )
+                                    })}
+                                    {profession.notes &&
+                                        <View style={{ marginTop: 15 }}>
+                                            <Text style={{ fontSize: 18, color: "grey" }}>
+                                                {profession.notes}
+                                            </Text>
+                                        </View>
+                                    }
+                                </ScrollView>
+                                :
+                                <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                                    <Text style={{ fontSize: 18, textAlign: "center", color: "grey" }}>
+                                        This service currenty unavailbe comming soon
+                                    	</Text>
+                                </View>
+                        }
+
                     </View>
                 </View>
             </ImageBackground>
@@ -91,6 +109,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(states) {
     return ({
+        serFrmDb: states.root.serFrmDb,
     })
 }
 

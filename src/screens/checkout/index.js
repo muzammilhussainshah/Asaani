@@ -23,10 +23,11 @@ class checkout extends React.Component {
             errMessage: "",
             date: "",
             coupon: "",
+            couponActive:"",
             modalVisible: true,
             discountPkg: "",
             collaps: false,
-            Name: "", Address: "", Phone: "",Email:""
+            Name: "", Address: "", Phone: "", Email: ""
         }
     };
 
@@ -96,22 +97,20 @@ class checkout extends React.Component {
         }
     }
     order() {
-        const { Name, Address, Description, Phone, basket, date, discountPkg, coupon,Email } = this.state
+        const { Name, Address, Description, Phone, basket, date, discountPkg, coupon, Email } = this.state
         let obj = {
-            Name, Address, Phone, Description, basket, date, discountPkg, coupon,Email
+            Name, Address, Phone,Email, Description, basket, date, discountPkg, coupon, 
         }
-        console.log(basket, "Basket---", discountPkg)
         // { discountPkg && (obj.basket.price = basket.price - basket.price / 100 * discountPkg) }
         // if (discountPkg) {
         //     obj.basket.price = obj.basket.price - obj.basket.price / 100 * discountPkg
         // }
         // {discountPkg ?obj.basket.price= obj.basket.price - obj.basket.price / 100 * discountPkg : obj.basket.price}
-        console.log(basket, "BasketDiscount", discountPkg)
 
         this.storeData({ Name, Address, Phone })
         let verify = true
         for (var key in obj) {
-            if (!obj[key] && key !== "discountPkg" && key !== "Description"&& key !== "Email"  && key !== "coupon" && obj.basket.length > 0) {
+            if (!obj[key] && key !== "discountPkg" && key !== "Description" && key !== "coupon" && obj.basket.length > 0) {
                 this.setState({
                     err: true, errMessage: key
                 })
@@ -155,16 +154,36 @@ class checkout extends React.Component {
     }
 
     cop(arrayOfObj, coupon) {
-        // alert("work")
-        for(var i=0;i<arrayOfObj.length;i++){
+        let flag = false
+        for (var i = 0; i < arrayOfObj.length; i++) {
             // console.log()
-            if(coupon===arrayOfObj[i]["coupon code"]){
-                return true 
-                break
+            if (coupon === arrayOfObj[i]["coupon code"]) {
 
+                if (((new Date(arrayOfObj[i]["coupon expiry date"]).getTime() - new Date().getTime()) > 1)) {
+                    flag = true
+                    // return arrayOfObj[i]["discount ammount in %"]
+                    this.setState({
+                        couponActive:"Activated",
+                        discountPkg:arrayOfObj[i]["discount ammount in %"],
+                    })
+                }
+                else {
+                    flag = true
+                    this.setState({
+                        couponActive:"Your coupon is expired",
+                        discountPkg:"",
+                    })
+                }
             }
         }
+        if (coupon !== "" && !flag) {
 
+            this.setState({
+                couponActive:"Invalid coupon",
+                discountPkg:"",
+
+            })
+        }
     }
 
     render() {
@@ -231,9 +250,9 @@ class checkout extends React.Component {
 
 
 
-                                        {collaps && <View style={{ flexDirection: "row", paddingVertical: 5, paddingHorizontal: 5, borderBottomColor: "black", borderBottomWidth: 0.3 }}>
+                                        {collaps &&
+                                         <View style={{ flexDirection: "row", paddingVertical: 5, paddingHorizontal: 5, borderBottomColor: "black", borderBottomWidth: 0.3 }}>
                                             <View style={{ flex: 5, justifyContent: "center" }}>
-
                                                 <Text style={{
                                                     fontSize: 11,
                                                     fontFamily: 'Verdana-Bold',
@@ -270,7 +289,7 @@ class checkout extends React.Component {
                                                         _RemoveToCart(basket, item, item.subChildPro, item.childPro, item.mainPro)
                                                         this.setState({ flag: true })
                                                     }}
-                                                    style={{ marginLeft: 5, alignSelf: "center" }}>
+                                                    style={{alignSelf: "center",position:"absolute",right:5 }}>
                                                     <AntDesign name="delete" size={20} style={{ color: "black" }} />
                                                 </TouchableOpacity>
                                                 {/* </View> */}
@@ -468,11 +487,18 @@ class checkout extends React.Component {
                                         style={{}} autoCorrect={false}
                                         onChangeText={coupon => {
 
+                                            
+
+
+                                                
+                                           
 
                                             this.setState({
                                                 coupon,
-                                                discountPkg: (discountFrmDb[0]["coupon code"] === coupon && coupon !== "" &&
-                                                    new Date(discountFrmDb[0]["coupon expiry date"]).getTime() - new Date().getTime() > 1) ? discountFrmDb[0]["discount ammount in %"] : "",
+                                               
+                                            },()=>{
+                                                this.cop(discountFrmDb, coupon)
+
                                             })
                                         }}
                                     />
@@ -513,8 +539,21 @@ class checkout extends React.Component {
                                         }
                                     })
                                 } */}
-                                    {/* {console.log(this.cop(discountFrmDb, coupon),"this.cop(discountFrmDb, coupon)")} */}
+                                {/* {console.log(this.cop(discountFrmDb, coupon),"this.cop(discountFrmDb, coupon)")} */}
                                 {
+                                    // discountFrmDb[0]["coupon code"] === coupon) 
+
+                                    coupon ?
+                                    <Text style={{ color: this.state.couponActive==="Activated" ? "green" : "red", marginTop: 10 }}>
+                                        {this.state.couponActive}
+                                        {/* {console.log(this.cop(discountFrmDb, coupon), "-***************")} */}
+
+                                        <AntDesign name={this.state.couponActive === "Activated" ? "check" : "close"} size={20} style={{ flex: 5, color:this.state.couponActive === "Activated" ? "green" : "red" }} />
+
+                                    </Text>:null
+
+                                }
+                                {/* {
                                         // discountFrmDb[0]["coupon code"] === coupon) 
                                         this.cop(discountFrmDb, coupon)===true&& (coupon !== "")
                                         && (new Date(discountFrmDb[0]["coupon expiry date"]).getTime() - new Date().getTime() > 1)
@@ -534,7 +573,7 @@ class checkout extends React.Component {
                                                 </Text>
                                                 :
                                                 null
-                                }
+                                } */}
                                 {/* {
                                     (discountFrmDb[0]["coupon code"] !== coupon && coupon !== "") ?
                                         <Text style={{ color: "red", marginTop: 10 }}>

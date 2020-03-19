@@ -3,6 +3,9 @@ export default (professionArr,serFrmDb) => {
         return new Promise(function (resolve, reject) {
             let profession = professionArr
             //ac Invertor Installation 
+            profession[0].shopStatus = serFrmDb[6]["shop status"]
+            profession[0].notes = "Note: All the above mentioned rates are estimations and approximations; rates will be subject to change according to work circumstances."
+
             profession[0].Invertor.Maintenance[0].price = serFrmDb[6]["AC Compressor Change"]
             profession[0].Invertor.Maintenance[1].price = serFrmDb[6]["AC Countinuous Trip"]
             profession[0].Invertor.Maintenance[2].price = serFrmDb[6]["AC Icing"]
@@ -39,6 +42,7 @@ export default (professionArr,serFrmDb) => {
             profession[0]["Non-Invertor"].Installation[1].price = serFrmDb[6]["AC Dismantle (non)"]
             profession[0]["Non-Invertor"].Installation[2].price = serFrmDb[6]["Installation (Higher than the 2nd floor) (non)"]
             //Carpenter bed
+            profession[1].shopStatus = serFrmDb[0]["shop status"]
             profession[1].Bed[0].price = serFrmDb[0]["Bed Dismantle"]
             profession[1].Bed[1].price = serFrmDb[0]["Bed Repair"]
             //Carpenter Cabinet
@@ -71,6 +75,8 @@ export default (professionArr,serFrmDb) => {
             profession[1].Window[1].price = serFrmDb[0]["Window Installation Sliding"]
             profession[1].Window[2].price = serFrmDb[0]["Wooden Window Installation"]
             //Electrition Fans
+            profession[2].shopStatus = serFrmDb[1]["shop status"]
+
             profession[2].Fans[0].price = serFrmDb[1]["Fan Installation"]
             profession[2].Fans[1].price = serFrmDb[1]["Fan installation including hook installation"]
             profession[2].Fans[2].price = serFrmDb[1]["Faulty Fan Dimmer"]
@@ -109,10 +115,14 @@ export default (professionArr,serFrmDb) => {
             profession[2]["Sockets, Wiring and Fuse Boards"][11].price = serFrmDb[1]["Switch box sheet with connection"]
             profession[2]["Sockets, Wiring and Fuse Boards"][12].price = serFrmDb[1]["Three Phase Breaker Replacement"]
             // Fumigation Fumigation
+            profession[3].shopStatus = serFrmDb[2]["shop status"]
+
             profession[3].Fumigation[0].price = serFrmDb[2]["Bed Bugs Treatment-khatmal"]
             profession[3].Fumigation[1].price = serFrmDb[2]["General Fumigation for cockroaches & insects"]
             profession[3].Fumigation[2].price = serFrmDb[2]["Termite Treatement - deemak"]
             // Laundry Pent
+            profession[4].shopStatus = serFrmDb[3]["shop status"]
+
             profession[4].Pent[0].price = serFrmDb[3]["Small size washing"]
             profession[4].Pent[1].price = serFrmDb[3]["Medium size washing"]
             profession[4].Pent[2].price = serFrmDb[3]["Large size washing"]
@@ -129,6 +139,10 @@ export default (professionArr,serFrmDb) => {
             profession[4].Pajama[1].price = serFrmDb[3]["Medium size washing Pajama"]
             profession[4].Pajama[2].price = serFrmDb[3]["Large size washing Pajama"]
             // Painter Painter
+            profession[5].shopStatus = serFrmDb[4]["shop status"]
+            profession[5].notes = "Note: Our representatives will first approach you with paint catalogue containing options where you can select and customize accordingly."
+
+
             profession[5].Painter[0].price = serFrmDb[4]["Distemper /ft"]
             profession[5].Painter[1].price = serFrmDb[4]["Oil Base Matt 25/ft"]
             profession[5].Painter[2].price = serFrmDb[4]["Texture Paint sq.ft"]
@@ -136,6 +150,8 @@ export default (professionArr,serFrmDb) => {
             profession[5].Painter[4].price = serFrmDb[4]["Velvet Paint-ICI Nippin sq.ft"]
             profession[5].Painter[5].price = serFrmDb[4]["Water Base Matt sq.ft"]
             // Plumber Geyser
+            profession[6].shopStatus = serFrmDb[5]["shop status"]
+
             profession[6].Geyser[0].price = serFrmDb[5]["Electric Geyser Installation without piping"]
             profession[6].Geyser[1].price = serFrmDb[5]["Geyser Burner Replacement"]
             profession[6].Geyser[2].price = serFrmDb[5]["Geyser Installation"]
