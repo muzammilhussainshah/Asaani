@@ -21,7 +21,7 @@ class checkout extends React.Component {
             screenHeight: "",
             err: false,
             errMessage: "",
-            date: "",
+            date: new Date(),
             coupon: "",
             couponActive:"",
             modalVisible: true,
