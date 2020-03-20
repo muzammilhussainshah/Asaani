@@ -43,7 +43,7 @@ class AvailServiceRow extends React.Component {
                         <Text style={{ marginLeft: 5, fontWeight: "bold", fontSize: 16, fontFamily: 'Verdana-Bold', }}> {data.title} </Text>
                     </View>
                     <View>
-                        <Text style={{ marginLeft: 5, fontFamily: 'Verdana-Bold', fontSize: 16 }}> Rs{data.price} </Text>
+                        <Text style={{ marginLeft: 5, fontFamily: 'Verdana-Bold', fontSize: 16 }}>{data.text} Rs{data.price} </Text>
                     </View>
                 </View>
                 {/* {removeItem.map(i,v)} */}
