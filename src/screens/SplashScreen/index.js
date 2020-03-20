@@ -23,17 +23,18 @@ class SplashScreen extends React.Component {
                         resizeMode="contain"
                         source={require('../../../src/assets/logocopy.png')}
                     /> */}
-                    <View style={{ marginTop: "100%", }}>
-                        <ActivityIndicator size="large" color="#fff" />
-                    </View>
-                    <View style={{ marginTop: "15%", width: "100%", }}>
+                     <View style={{ marginTop: "50%", width: "100%", }}>
                         <Text style={{
-                            color: "#fff", textAlign: "center", fontWeight: "bold", width: "100%",
+                            color: "#fff", textAlign: "center", fontWeight: "bold", width: "100%",fontSize:20,
                             fontFamily: 'Verdana-Bold',
                         }}>
                             {'Asaani Har Ghar Ke Liye'}
                         </Text>
                     </View>
+                    <View style={{ marginTop: "15%", }}>
+                        <ActivityIndicator size="large" color="#fff" />
+                    </View>
+                   
                 </View>
             </ImageBackground>
 

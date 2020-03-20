@@ -69,7 +69,7 @@ class home extends React.Component {
     }
     componentWillUnmount() {
         // profession = professionArray
-        BackHandler.removeEventListener('hardwareBackPress', BackHandler.exitApp());
+        // BackHandler.removeEventListener('hardwareBackPress', BackHandler.exitApp());
     }
     animateParent(fals) {
         setTimeout(() => {
