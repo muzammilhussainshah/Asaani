@@ -4,6 +4,7 @@ const INITIAL_STATE = {
     USERDATA: "aaa",
     thankYou: false,
     appLoader: false,
+    internetIssue: false,
     serFrmDb: [],
     discountFrmDb: [],
     profession: [],
@@ -13,6 +14,11 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
     console.log(state.addToCart,"addToCartaddToCartaddToCart")
     switch (action.type) {
+        case ActionTypes.INTERNETISSUE:
+            return ({
+                ...state,
+                internetIssue: action.payload
+            })
         case ActionTypes.USERDATA:
             return ({
                 ...state,

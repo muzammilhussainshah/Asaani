@@ -151,7 +151,7 @@ export function getData(navigation) {
 
                     }).catch((err) => {
                         console.log(err, "ERROR_ON_SEND_EMAIL_")
-                        alert("Please Check Your Internet Connection")
+                        // alert("Please Check Your Internet Connection")
                     })
             });
 
@@ -160,6 +160,13 @@ export function getData(navigation) {
 
 
 
+
+    }
+}
+
+export function internetIusse(bolean) {
+    return dispatch => {
+        dispatch({ type: ActionTypes.INTERNETISSUE, payload: bolean })
 
     }
 }

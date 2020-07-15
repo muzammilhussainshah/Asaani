@@ -21,6 +21,7 @@ class checkout extends React.Component {
             screenHeight: "",
             err: false,
             errMessage: "",
+            emailValid:false,
             date: new Date(),
             coupon: "",
             couponActive:"",
@@ -97,7 +98,7 @@ class checkout extends React.Component {
         }
     }
     order() {
-        const { Name, Address, Description, Phone, basket, date, discountPkg, coupon, Email } = this.state
+        const { Name, Address, Description, Phone, basket, date, discountPkg, coupon, Email,emailValid } = this.state
         let obj = {
             Name, Address, Phone,Email, Description, basket, date, discountPkg, coupon, 
         }
@@ -127,6 +128,17 @@ class checkout extends React.Component {
         if (!obj.basket.length) {
             this.setState({
                 err: true, errMessage: "Item"
+            })
+            setTimeout(() => {
+                this.setState({
+                    err: false, errMessage: ""
+                })
+            }, 5000);
+            verify = false
+        }
+        if (!emailValid&&!this.state.err) {
+            this.setState({
+                err: true, errMessage: "Valid email"
             })
             setTimeout(() => {
                 this.setState({
@@ -383,6 +395,8 @@ class checkout extends React.Component {
                                 >
                                     <TextInput
                                         defaultValue={Name} placeholder={"Name"}
+                                        onSubmitEditing={() => { this.secondTextInput.focus(); }}
+                                        blurOnSubmit={false}
                                         keyboardAppearance='default'
                                         autoCapitalize='none' returnKeyType='next'
                                         style={{}} autoCorrect={false}
@@ -394,6 +408,10 @@ class checkout extends React.Component {
                                 >
                                     <TextInput
                                         defaultValue={Address}
+                                        ref={(input) => { this.secondTextInput = input; }}
+
+                                        onSubmitEditing={() => { this.thirdTextInput.focus(); }}
+                                        blurOnSubmit={false}
                                         // placeholderTextColor='#fff'
                                         // value={this.state[value[1]]}
                                         placeholder={"Address"}
@@ -409,6 +427,10 @@ class checkout extends React.Component {
                                 >
                                     <TextInput
                                         defaultValue={Phone}
+                                        ref={(input) => { this.thirdTextInput = input; }}
+
+                                        onSubmitEditing={() => { this.fourthTextInput.focus(); }}
+                                        blurOnSubmit={false}
                                         // placeholderTextColor='#fff'
                                         // value={this.state[value[1]]}
                                         placeholder={"Phone"}
@@ -423,13 +445,34 @@ class checkout extends React.Component {
                                     style={{ marginTop: 10, width: "90%", borderBottomColor: "black", borderBottomWidth: 0.3, borderRadius: 5, paddingHorizontal: 15 }}
                                 >
                                     <TextInput
+                                        ref={(input) => { this.fourthTextInput = input; }}
+                                        onSubmitEditing={() => { this.fifthTextInput.focus(); }}
+                                        blurOnSubmit={false}
                                         // placeholderTextColor='#fff'
                                         // value={this.state[value[1]]}
                                         placeholder={"Email"}
                                         keyboardAppearance='default'
                                         autoCapitalize='none' returnKeyType='next'
                                         style={{}} autoCorrect={false}
-                                        onChangeText={Email => { this.setState({ Email }) }}
+                                        onChangeText={Email => { 
+                                            
+                                                console.log(Email);
+                                                let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+                                                if (reg.test(Email) === false) {
+                                                  console.log("Email is Not Correct");
+                                                  this.setState({ Email,emailValid:false })
+                                                  return false;
+                                                }
+                                                else {
+                                                  this.setState({ Email,emailValid:true })
+                                                  console.log("Email is Correct");
+                                                }
+
+
+                                            
+                                            // this.setState({ Email })
+                                         }
+                                        }
 
                                     />
                                 </View>
@@ -437,6 +480,9 @@ class checkout extends React.Component {
                                     style={{ marginTop: 10, width: "90%", borderBottomColor: "black", borderBottomWidth: 0.3, borderRadius: 5, paddingHorizontal: 15 }}
                                 >
                                     <TextInput
+                                        ref={(input) => { this.fifthTextInput = input; }}
+                                        onSubmitEditing={() => { this.sixthTextInput.focus(); }}
+                                        blurOnSubmit={false}
                                         // placeholderTextColor='#fff'
                                         // value={this.state[value[1]]}
                                         placeholder={"Notes"}
@@ -479,6 +525,8 @@ class checkout extends React.Component {
                                     style={{ marginTop: 10, width: "90%", borderBottomColor: "black", borderBottomWidth: 0.3, borderRadius: 5, paddingHorizontal: 15 }}
                                 >
                                     <TextInput
+                                        ref={(input) => { this.sixthTextInput = input; }}
+
                                         // placeholderTextColor='#fff'
                                         // value={this.state[value[1]]}
                                         placeholder={"Do you have any discount coupon?"}

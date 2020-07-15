@@ -1,34 +1,26 @@
-import React, { useReducer } from 'react';
-import { View, StyleSheet, TouchableOpacity, Text, Image, BackHandler, Dimensions,Modal } from 'react-native';
-import { StackActions, NavigationActions } from 'react-navigation';
-import { bindActionCreators } from 'redux';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { thankYou  } from '../store/action/action'
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import React, { Component } from 'react';
+import { View, StyleSheet, TouchableOpacity, Text,Modal, Image, BackHandler, Dimensions, ActivityIndicator } from 'react-native';
+import { internetIusse } from '../store/action/action';
 import { connect } from 'react-redux';
-import Icon from 'react-native-vector-icons/Entypo';
 import * as Animatable from 'react-native-animatable';
-
-let { height, width } = Dimensions.get('window');
-
-class ThankYou extends React.Component {
+export class InternetCon extends Component {
     constructor(props) {
         super(props)
         this.state = {
-        }
-    };
+            modalFlag:true
+        };
+    }
 
     render() {
-        const { fields, loading } = this.state
-        const { heading, asynk, data, navigation,modalState,thankYou} = this.props
-        console.log(asynk, "Availble sercieRow")
+        const {  internetIusse } = this.props
+        const { modalFlag} = this.state
         return (
             <Modal
                 style={{
                 }}
                 animationType="slide"
                 transparent={true}
-                visible={modalState}
+                visible={modalFlag}
                 onRequestClose={() => {
                     // Alert.alert('Modal has been closed.');
                 }}>
@@ -44,6 +36,7 @@ class ThankYou extends React.Component {
                         flexDirection: "column",
                         borderWidth: 1,
                         marginVertical: "60%",
+                        // borderRadius: 12,
                         borderBottomLeftRadius: 12,
                         borderBottomRightRadius: 12,
                         borderColor: '#ddd',
@@ -53,23 +46,15 @@ class ThankYou extends React.Component {
                         shadowOpacity: 0.8,
                         shadowRadius: 14,
                         elevation: 115,
-                        // marginLeft: 5,
-                        // marginRight: 5,
-                        // marginTop: 10,
+
                     }}>
-                    {/* <View style={{  flexDirection: "column",}}>
-<Text>
-aaaaaaa
-aaaaaaa
-aaaaaaa
-</Text>
-</View> */}
+
                     <View style={{ height: 40, flexDirection: "row", justifyContent: "center", alignItems: "center", backgroundColor: "#FFCB05" }}>
                         <View
-                            style={{ flexDirection: "row",color:"white" }}
+                            style={{ flexDirection: "row", color: "white" }}
                         >
-                            <Text style={{ color:"white",fontFamily: 'Verdana-Bold', }}>
-                                Confirmation !
+                            <Text style={{ color: "white", fontFamily: 'Verdana-Bold', }}>
+                                Connection error !
 </Text>
                             {/* <TouchableOpacity
                                 style={{ right: -75 }}
@@ -84,16 +69,12 @@ aaaaaaa
                     </View>
                     <View style={{ height: 40, flexDirection: "row", justifyContent: "center", marginTop: 15 }}>
                         <View style={styles.input}>
-                          <Text style={{textAlign:"center",fontFamily: 'Verdana-Bold',color:"grey"}}>
-                          {/* Thank You for the Order, Our representative will call you back shortly */}
-                          Thank you for choosing Asaani, our representative will call you soon.
+                            <Text style={{ textAlign: "center", fontFamily: 'Verdana-Bold', color: "grey" }}>
+                                {/* Thank You for the Order, Our representative will call you back shortly */}
+                          Please Check Your Internet Connection
                           </Text>
                         </View>
-                        {/* <TouchableOpacity style={{ width: "20%", justifyContent: "center", alignItems: "center", }}
-// onPress={this.comments.bind(this, index, key.addId)}
->
-<Icon name='send' style={{ fontSize: 30, color: "#004D94" }} />
-</TouchableOpacity> */}
+
                     </View>
                     <View style={{ justifyContent: "center", alignItems: "center", marginTop: 30 }}>
                         <TouchableOpacity style={{
@@ -102,11 +83,12 @@ aaaaaaa
                         }}
                             onPress={() => {
                                 // this.offer()
-                              thankYou(false)
-                                navigation.navigate("home",{Name:asynk})
+                                this.setState({modalFlag:false})
+                                internetIusse(false)
+                                // navigation.navigate("home)
                             }}
                         >
-                            <Text style={{ color: "white", fontWeight: "bold",fontFamily: 'Verdana-Bold', textAlign: "center" }}> Ok </Text>
+                            <Text style={{ color: "white", fontWeight: "bold", fontFamily: 'Verdana-Bold', textAlign: "center" }}> Ok </Text>
                         </TouchableOpacity>
                     </View>
                 </Animatable.View>
@@ -117,7 +99,7 @@ aaaaaaa
 
 const styles = StyleSheet.create({
 
-})
+});
 
 
 function mapStateToProps(states) {
@@ -127,10 +109,10 @@ function mapStateToProps(states) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        thankYou: (bool) => {
-            dispatch(thankYou(bool));
+        internetIusse: (bol) => {
+            dispatch(internetIusse(bol));
         },
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ThankYou);
+export default connect(mapStateToProps, mapDispatchToProps)(InternetCon);

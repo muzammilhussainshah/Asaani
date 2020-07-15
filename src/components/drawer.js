@@ -63,9 +63,9 @@ class Drawer extends Component {
         let phoneNumber = '';
 
         if (Platform.OS === 'android') {
-            phoneNumber = 'tel:${+923422887839}';
+            phoneNumber = 'tel:${+923117799626}';
         } else {
-            phoneNumber = 'telprompt:${+923422887839}';
+            phoneNumber = 'telprompt:${+923117799626}';
         }
 
         Linking.openURL(phoneNumber);
